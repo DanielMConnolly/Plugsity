@@ -17,6 +17,6 @@ jobs:
         aws-region: us-east-2
         instance-ids: ${{ secrets.INSTANCE_ID  }}
         comment: Deploy the master branch
-        working-directory: /home/ec2-user/Plugsity
+        working-directory: /home/ec2-user
         command: /bin/sh ./deploy.sh
       
