@@ -23,8 +23,8 @@ const [reponse, setResponse] = useState(null);
 
   return (
     <div className="App">
-     
-          <h2>Hello</h2>
+     <div className="title">  Welcome to Plugsity</div>
+       
      
     </div>
   );
