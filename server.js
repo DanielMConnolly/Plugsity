@@ -9,12 +9,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
-app.get('/api/hello', (req, res)=> {
-    res.send({express: 'Hello From Express'});
-});
+// Setting up a route for our API
+app.get('/api/', (req, res) => {
+    return res.status(200).json({
+        status: "success"
+    })
+})
 
-app.post('api/world', (req, res)=> {
-    res.send(`I received your post request. This is what you sent me: ${req.body.post}`, );
-});
+// Redirect back to index.html if urls do not match
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"))
+})
+
 
 app.listen(port, ()=> console.log(`listening on port ${port}`)); 
