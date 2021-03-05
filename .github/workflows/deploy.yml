@@ -1,0 +1,67 @@
+name: Deploy using AWS SSM Send-Command 
+
+on:
+push:
+branches: [master]
+
+jobs:
+start:
+runs-on: ubuntu-latest 
+
+steps:
+			  - uses: actions/checkout@v2
+
+			  - name: AWS SSM Send Command
+			  uses: peterkimzz/aws-ssm-send-command@1.0.1
+			  with:
+			  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID  }}
+			  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
+			  aws-region: us-east-2c
+			  instance-ids: ${{ secrets.INSTANCE_ID  }}
+			  comment: Deploy the master branch
+			  working-directory: /home/ubuntu/<YOUR PROJECT DIRECTORY>
+			  command: /home/ec2-user ./deploy.sh
+			  ```
+
+			  The Secrets we provided to the repo earlier comes into use in this script.
+
+			  There are 3 parts of the .yml file to configure:
+
+			  1. The aws-region should be the same region as where you have created your EC2 instance. (If you do not know, check the top left of your EC2 console to confirm the region you are in).
+			  2. working-directory should be the directory where you created the deploy.sh script.
+			  3. command should be the command you would like the SSM agent to run.
+
+			  Once this is complete, commit and push the workflow to your repo.
+
+			  ---
+
+## Setting up your Domain
+
+So far, users can access the site using the Elastic IP. However, it can be difficult to remember and share so we will configure a custom domain name.
+
+To get started, you need to first purchase a domain. This can range from $10 to $1,000+s. Amazon has a service called Route53 you can use or you can choose other providers such as [Google Domains](https://domains.google/), [GoDaddy](https://www.godaddy.com/), etc. (we used Google for AlgoAcademy which was $10/year).
+
+There are two steps you would need to configure to connect the project with a custom domain:
+
+  - Create domain records with DNS registrar
+  - Configure NGINX on the EC2 instance to recognize the domain
+
+	  ---
+
+### _Creating Domain records_
+
+Let's start with configuring our DNS with records:
+
+  - Go to the **DNS** portion of your registrar.
+  - Find where you can create custom resource records.
+
+	  Set the records like so:
+
+	  | Name | Type  | TTL | Data                    |
+	  | ---- | :---: | :-: | ----------------------: |
+	  | @    | A     | 1h  | YOUR-ELASTIC-IP-ADDRESS |
+	  | www  | CNAME | 1h  | your-awesome-site.com   |
+
+### _Configuring our Web Server_
+
+Edit the NGINX config file inside your EC2 instance:
