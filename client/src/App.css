@@ -1,9 +1,41 @@
+@font-face{
+  font-family: 'DM Sans';
+  src: local('DM Sans', url('./assets/fonts/DMSans-Regular.ttf') format('opentype'));
+}
+
+:root {
+  --main-color: #2E23FB;
+}
+
 .App{
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .title{
   font-size: 50px;
 
 }
+
+.tab-list {  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+  display: flex;
+
+  justify-content: center;
+}
+
+.tab-list-item {
+  display: inline-block;
+  cursor: pointer;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+}
+
+.tab-list-active {
+  background-color: white;
+  cursor: pointer;
+  border-bottom:  2px solid var(--main-color);
+}
+

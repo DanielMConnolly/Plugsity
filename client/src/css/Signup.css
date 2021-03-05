@@ -1,0 +1,47 @@
+.Signup{
+
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+
+
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+input{
+    margin-top: 20px;
+    font-family: 'DM Sans';
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid rgba(184,184,184, 0.5);
+
+}
+hr{
+  width: 100%;
+}
+
+.button{
+  background-color:  white;
+}
+.activatedButton{
+  background-color: var(--main-color);
+  color: white;
+}
+
+.disclaimer{
+  margin: 20px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.business-signup{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.business-signup > * {
+  margin-bottom: 20px;
+}

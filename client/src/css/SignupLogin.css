@@ -1,0 +1,20 @@
+.SignupLogin{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'DM Sans';
+    align-items: center;
+}
+img {
+    margin: 20px;
+}
+.logo{
+    width: 250px;
+}
+.blurb{
+    text-align: center;
+}
+
+.tab{
+    width: 500px;
+}
