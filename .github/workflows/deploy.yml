@@ -5,9 +5,8 @@ push:
 branches: [main]
 
 jobs:
-start:
-runs-on: ubuntu-latest 
-
-steps:
-	- name: Checkout
-  uses: actions/checkout@v2.3.4
+    name: My Job
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+		uses: actions/checkout@v2.3.4
