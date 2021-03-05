@@ -18,5 +18,5 @@ jobs:
         instance-ids: ${{ secrets.INSTANCE_ID  }}
         comment: Deploy the master branch
         working-directory: /home/ec2-user/Plugsity
-        command: /home/ec2-user ./deploy.sh
+        command: /bin/sh ./deploy.sh
       
