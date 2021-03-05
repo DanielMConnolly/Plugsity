@@ -1,7 +1,7 @@
 name: Close as a feature
 on:
-  issues:
-    types: [labeled]
+  push:
+    branches: [main]
 
 jobs:
   build:
