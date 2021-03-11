@@ -1,36 +1,49 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const path = require("path")
-var cors = require('cors')
-
-
 const app = express();
-const port = process.env.PORT || 5000;
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'client', 'build')))
+const db = mysql.createConnection({
+    host : 'plugsity-dev.cuxrersyaold.us-east-2.rds.amazonaws.com',
+    user : 'plugsityadmin',
+    password : 'cse611devs',
+    database : 'Plugsity'
+});
 
-// Setting up a route for our API
-app.get('/customers/', (req, res) => {
-    console.log('hello there');
-    return res.status(200).json({
-        status: "This will display customers profile!"
-    })
-})
+db.connect();
 
-app.post('/customers/', (req, res) => {
-    return res.status(200).json({
-        status: "This will display customers profile!"
-    })
-})
+app.get('/customers', function(req,res){
+var sql = 'SELECT * FROM UserProfile';
+db.query(sql, (err, result)=>{
+    if(err) throw err;
+    console.log(result);
+    res.send(result);
+});
+});
 
+app.post('/customers', function(req, res){
+	console.log(req.body); 
+    var data = {profile_id:req.body.profile_id, profile_photo_link:req.body.profile_photo_link, profile_name:req.body.profile_name, about_me:req.body.about_me, user_id:req.body.user_id};
+    var sql = 'INSERT INTO UserProfile SET ?';
+    db.query(sql, data, (err, result)=>{
+    if(err) throw err;
+    console.log(result);
+    res.send({
+        status: 'success',
+        no: null,
+		profile_id:req.body.profile_id, 
+        profile_photo_link:req.body.profile_photo_link, 
+        profile_name:req.body.profile_name, 
+        about_me:req.body.about_me, 
+        user_id:req.body.user_id
+	});
+});
+});
 
-// // Redirect back to index.html if urls do not match
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build", "index.html"))
-})
-
-app.listen(port, ()=> console.log(`listening on port ${port}`)); 
+app.listen(5000, ()=>{
+    console.log('Server listening on 5000')
+});
