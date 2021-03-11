@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './css/Signup.css'
+import axios from 'axios';
 export default class Signup extends Component {
   constructor(props) {
     super(props)
@@ -7,7 +8,8 @@ export default class Signup extends Component {
       email: '',
       password: '',
       confirmPassword: '',
-      firstname: ''
+      firstname: '',
+      passwordsDontMatch: false
     };
   }
   handleInputChange = (event) => {
@@ -19,7 +21,29 @@ export default class Signup extends Component {
   }
   onSubmit = (event) => {
     event.preventDefault();
-    alert('Authentication coming soon!');
+    if(this.state.confirmPassword!==this.state.password){
+      this.setState({
+        passwordsDontMatch: true
+      })
+    }
+    else{
+      axios({
+        method: 'post',
+        url: 'http://localhost:5000/auth/signup',
+        headers: {
+          "Accept": 'application/json'
+        },
+        data: {
+          email: this.state.email,
+          password: this.state.password,
+          name: this.state.name
+        }
+
+      }).catch(error=>{
+        console.log(error);
+      })
+    }
+    
   }
   render() {
     return (
@@ -57,6 +81,7 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
+        {this.state.passwordsDontMatch && <div>Passwords don't match</div>}
         <input className={Object.values(this.state).includes("")?"button":"activatedButton"} type="submit" value="Sign Up" />
       </form>
       <div className="disclaimer">By clicking the "Sign Up button, you are creating a plugsity account, and you agree to Plugsity's terms of use and privacy policy</div>

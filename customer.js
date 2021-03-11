@@ -4,33 +4,26 @@ const path = require("path")
 var cors = require('cors')
 
 
-
-
-
 const app = express();
 const port = process.env.PORT || 5000;
-const auth = require('./auth.js')
-
-
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/auth', auth);
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
 // Setting up a route for our API
-app.get('/api/', (req, res) => {
+app.get('/customers/', (req, res) => {
     console.log('hello there');
     return res.status(200).json({
-        status: "success"
+        status: "This will display customers profile!"
     })
 })
 
-app.post('/api/', (req, res) => {
+app.post('/customers/', (req, res) => {
     return res.status(200).json({
-        status: "success"
+        status: "This will display customers profile!"
     })
 })
 
@@ -39,6 +32,5 @@ app.post('/api/', (req, res) => {
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"))
 })
-
 
 app.listen(port, ()=> console.log(`listening on port ${port}`)); 
