@@ -1,6 +1,7 @@
 
 import { element } from 'prop-types';
 import PlugsityLogo from './assets/plugsity-logo.png'
+import ShinyHappy from './assets/shiny-happy.svg';
 import './css/SignupLogin.css'
 import Signup from './Signup'
 import Login from './Login'
@@ -23,6 +24,7 @@ function SignupLogin() {
                     <Login />
                 </div>
             </Tabs>
+            <div ><img src={ShinyHappy} /></div>
         </div>
     );
 }

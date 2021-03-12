@@ -9,13 +9,16 @@ export default class Signup extends Component {
       password: '',
       confirmPassword: '',
       firstname: '',
+      lastname: '',
       passwordsDontMatch: false
     };
   }
   handleInputChange = (event) => {
     const { value, name } = event.target;
+
     this.setState({
-      [name]: value
+      [name]: value,
+      emailtaken: this.state.emailtaken?name=="email":false
     });
 
   }
@@ -36,11 +39,21 @@ export default class Signup extends Component {
         data: {
           email: this.state.email,
           password: this.state.password,
-          name: this.state.name
+          firstName: this.state.firstname,
+          lastName: this.state.lastname
         }
 
-      }).catch(error=>{
-        console.log(error);
+      })
+      .then((res=>{
+      
+      if(res.status==200){
+        alert("user is signed up");
+      }
+      })).catch(error=>{
+        this.setState({
+          emailtaken: true
+        })
+        
       })
     }
     
@@ -57,6 +70,14 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
+           <input
+          type="text"
+          name="lastname"
+          placeholder="Last Name"
+          value={this.state.lastName}
+          onChange={this.handleInputChange}
+          required
+        />
         <input
           type="email"
           name="email"
@@ -65,6 +86,7 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
+        {this.state.emailtaken && <div className="error">Email already taken</div>}
         <input
           type="password"
           name="password"
@@ -81,7 +103,7 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
-        {this.state.passwordsDontMatch && <div>Passwords don't match</div>}
+        {this.state.passwordsDontMatch && <div className="error">Passwords don't match</div>}
         <input className={Object.values(this.state).includes("")?"button":"activatedButton"} type="submit" value="Sign Up" />
       </form>
       <div className="disclaimer">By clicking the "Sign Up button, you are creating a plugsity account, and you agree to Plugsity's terms of use and privacy policy</div>
