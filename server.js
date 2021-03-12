@@ -58,6 +58,41 @@ db.query(sql, (err, result)=>{
 });
 
 
+app.get('/business', function(req,res){
+    var sql = 'SELECT * FROM Users';
+    db.query(sql, (err, result)=>{
+        if(err) throw err;
+        console.log(result);
+        res.send(result);
+    });
+    });
+
+app.post('/business', function(req, res){
+	console.log(req.body); 
+    var data = {first_name:req.body.first_name, last_name:req.body.last_name, email_address:req.body.email_address, user_password:req.body.user_password};
+    var sql = 'INSERT INTO Users SET ?';
+    db.query(sql, data, (err, result)=>{
+    if(err) throw err;
+    console.log(result);
+    res.send({
+        status: 'success',
+        no: null,
+		first_name: req.body.first_name,
+		last_name: req.body.last_name,
+        email_address: req.body.email_address,
+        cell_phone: '',
+        user_password: req.body.user_password,
+        user_role: Business,
+        login_success: true,
+        attempted_at: UTC_TIMESTAMP(),
+        old_password: '',
+        new_password: '',
+        created_at: UTC_TIMESTAMP() 
+	});
+});
+});
+
+
 // // Redirect back to index.html if urls do not match
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"))
