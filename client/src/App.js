@@ -4,6 +4,8 @@ import Signup from './Signup.js'
 import Tabs from './Tabs';
 import {useState, useEffect} from 'react';
 import SignupLogin from './SignupLogin';
+import Signup_Bus from './Signup_Bus';
+import SignupLogin_Bus from './SignupLogin_Bus';
 
 function App() {
 
