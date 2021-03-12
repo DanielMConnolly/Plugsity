@@ -45,21 +45,23 @@ export default class Signup_Bus extends Component {
       })
     }
     else {
-      axios({
-        method: 'post',
-        url: '',
-        headers: {
-          "Accept": 'application/json'
-        },
-        data: {
-          email: this.state.email,
-          password: this.state.password,
-          name: this.state.name
-        }
-
-      }).catch(error=>{
-        console.log(error);
+      var url = 'http://3.138.232.158:5000/business';
+      axios.post(url, {
+        first_name: this.inputfirstname.value,
+        last_name: this.inputlastname.value,
+        email_address: this.inputemail.value,
+        user_password: this.user_password.value
       })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      this.inputfirstname.value = '';
+      this.inputlastname.value = '';
+      this.inputemail.value = '';
+      this.user_password.value = '';
     }
   }
 
