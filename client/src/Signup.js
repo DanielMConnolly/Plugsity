@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import {Link} from 'react-router-dom'
 import './css/Signup.css'
 import axios from 'axios';
 export default class Signup extends Component {
@@ -110,7 +111,9 @@ export default class Signup extends Component {
       <hr/>
       <div className="business-signup">
       <div>Sign up as a business? </div> 
+      <Link to="/business">
       <div>Get Started</div>
+      </Link>
       </div>
       </div>
     );

@@ -1,0 +1,97 @@
+.Signup_Bus {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+    margin-top: 20px;
+    font-family: 'DM Sans';
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid rgba(184,184,184, 0.5);
+    line-height: 16px;
+    font-size:14px;
+    font-weight: 400;
+
+}
+
+input.f_seller_name {
+   width: 140px;
+   height: 38px;
+   margin-right: 8px;
+
+}
+
+input.l_seller_name {
+   width: 140px;
+   height: 38px;
+   margin-left: 8px;
+
+}
+
+input.bus_name {
+   width: 301px;
+   height: 38px;
+   text-align: left;
+
+}
+
+input.password {
+  width: 301px;
+  height: 38px;
+ text-align: left;
+
+}
+
+input.email {
+  width: 301px;
+height: 38px;
+ text-align: left;
+
+}
+
+
+hr_Bus{
+  width: 100%;
+}
+
+.button_Bus{
+  background-color:  white;
+  width: 296px;
+  height: 38px;
+  border-radius: 19px;
+  padding: 11px 32px;
+}
+.activatedButton_Bus{
+  background-color: var(--main-color);
+  color: white;
+  width: 296px;
+  height: 38px;
+  border-radius: 19px;
+  padding: 11px 32px;
+}
+
+.disclaimer_Bus{
+  margin: 20px;
+  font-size: 12px;
+  text-align: center;
+  width: 362px;
+  height: 48px;
+  line-height: 16px;
+  color: #98979E;
+}
+
+.business-signup{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.business-signup > * {
+  margin-bottom: 20px;
+}
