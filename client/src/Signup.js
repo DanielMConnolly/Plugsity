@@ -43,14 +43,18 @@ export default class Signup extends Component {
           lastName: this.state.lastname
         }
 
-      }).catch(error=>{
+      })
+      .then((res=>{
+      
+      if(res.status==200){
+        alert("user is signed up");
+      }
+      })).catch(error=>{
         this.setState({
           emailtaken: true
         })
         
-      }).then((res=>{
-        alert("User is signed up");
-      }))
+      })
     }
     
   }

@@ -1,6 +1,7 @@
 
 import { element } from 'prop-types';
 import PlugsityLogo from './assets/plugsity-logo.png'
+import ShinyHappy from './assets/shiny-happy.svg';
 import './css/SignupLogin.css'
 import Signup from './Signup'
 import { useState } from 'react';
@@ -22,6 +23,7 @@ function SignupLogin() {
                     <div className="tab">After 'while, <em>Crocodile</em>! </div>
                 </div>
             </Tabs>
+            <div ><img src={ShinyHappy} /></div>
         </div>
     );
 }
