@@ -4,13 +4,14 @@ import PlugsityLogo from './assets/plugsity-logo.png'
 import ShinyHappy from './assets/shiny-happy.svg';
 import './css/SignupLogin.css'
 import Signup from './Signup'
+import Login from './Login'
 import { useState } from 'react';
 import Tabs from './Tabs'
 
 function SignupLogin() {
     const [active, setActive] = useState("Signup");
     const signupBlurb = "Sign up for a new account to submit your own video reviews to products you love, submit orders, book service and events"
-    const loginBlurb = "TODO (not defined in mockup)!!! Login to plugsity"
+    const loginBlurb = signupBlurb
     return (
         <div className="SignupLogin">
             <img src={PlugsityLogo} className="logo" />
@@ -20,7 +21,7 @@ function SignupLogin() {
                     <Signup className="tab" />
                 </div>
                 <div label="Login">
-                    <div className="tab">After 'while, <em>Crocodile</em>! </div>
+                    <Login />
                 </div>
             </Tabs>
             <div ><img src={ShinyHappy} /></div>
