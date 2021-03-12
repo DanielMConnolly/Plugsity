@@ -110,7 +110,6 @@ export default class Signup extends Component {
       <div className="disclaimer">By clicking the "Sign Up button, you are creating a plugsity account, and you agree to Plugsity's terms of use and privacy policy</div>
       <hr/>
       <div className="business-signup">
-      
       <div>Sign up as a business? </div> 
       <Link to="/business">
       <div>Get Started</div>
