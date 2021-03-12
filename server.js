@@ -14,6 +14,7 @@ const auth = require('./auth.js')
 //const customer = require('./customer_db.js')
 
 
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/auth', auth);

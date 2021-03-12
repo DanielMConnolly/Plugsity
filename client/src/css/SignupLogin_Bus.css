@@ -1,0 +1,58 @@
+.SignupLogin_Bus {
+    
+    display: flex;
+    flex-direction: column;
+    font-family: 'DM Sans';
+    align-items: center;
+}
+
+img {
+    margin: 20px;
+}
+
+.logo_Bus {
+    width: 166.58px;
+    height: 40px;
+}
+
+.blurb_Bus {
+    text-align: center;
+    font-size : 12px;
+    line-height: 16px;
+    color: #32313D;
+    font-style : normal;
+    font-weight : normal;
+    margin-top: 14px;
+    width: 298px;
+    height: 32px;
+}
+
+.tab-list-active_Bus {
+	color: 2E23FB !important;
+        font-weight: 700;
+        font-style : normal;
+        font-size : 14px;
+        line-height : 16px;
+  
+}
+
+.button_Bus {
+   
+    width: 296px;
+    height: 38px;
+}
+
+
+.label {
+    text-align: center;
+    font-size : 20px;
+    font-style : normal;
+    line-height : 24px;
+    font-weight : 400;
+    color: #32313D;
+    margin-top: 20px;
+}
+
+.tab_Bus {
+    width: 700px;
+}
