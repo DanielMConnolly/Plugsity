@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import './css/Signup.css';
+import './css/Signup_Bus.css';
 import './css/customFormStyle.css';
 import axios from 'axios';
-import './Signup.js';
 
 import PropTypes from 'prop-types';
 
@@ -75,7 +74,7 @@ export default class Signup_Bus extends Component {
     };
 
     return (
-      <div className="Signup">
+      <div className="Signup_Bus">
       <form onSubmit={this.onSubmit}>
 	<div style = {{alignSelf: "center"}}>
         <input
@@ -136,9 +135,9 @@ export default class Signup_Bus extends Component {
           required
         />
         {this.state.passwordsDontMatch && <div>Passwords don't match</div>}     
-        <input style = {{alignSelf: "center"}} className={Object.values(this.state).includes("")?"button":"activatedButton"} type="submit" value="Sign Up" />
+        <input style = {{alignSelf: "center"}} className={Object.values(this.state).includes("")?"button_Bus":"activatedButton_Bus"} type="submit" value="Sign Up" />
       </form>
-      <div className="disclaimer" style = {{alignSelf: "center"}}>By clicking the "Sign Up" button, you are creating a plugsity account, and you agree to Plugsity's Terms of Use and Privacy Policy</div>
+      <div className="disclaimer_Bus" style = {{alignSelf: "center"}}>By clicking the "Sign Up" button, you are creating a plugsity account, and you agree to Plugsity's Terms of Use and Privacy Policy</div>
       <hr/>
       <div className="business-signup" style = {{alignSelf: "center"}}>
       <div style = {bottom_custsignup}> Sign up as a customer? </div> 
@@ -148,3 +147,4 @@ export default class Signup_Bus extends Component {
     );
   }
 }
+
