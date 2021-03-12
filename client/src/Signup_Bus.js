@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/Signup_Bus.css';
-import './css/customFormStyle.css';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 import PropTypes from 'prop-types';
@@ -140,8 +140,11 @@ export default class Signup_Bus extends Component {
       <div className="disclaimer_Bus" style = {{alignSelf: "center"}}>By clicking the "Sign Up" button, you are creating a plugsity account, and you agree to Plugsity's Terms of Use and Privacy Policy</div>
       <hr/>
       <div className="business-signup" style = {{alignSelf: "center"}}>
+      
       <div style = {bottom_custsignup}> Sign up as a customer? </div> 
+      <Link to="/">
       <div>Get Started</div>
+      </Link>
       </div>
       </div>
     );
