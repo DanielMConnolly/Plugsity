@@ -22,9 +22,9 @@ const addUser = (res, firstname, lastname, email, password) => {
                 res.send({error: "email exists"})
             } 
         })
-        con.query(`INSERT INTO Users (email_address, first_name, last_name, user_password, user_id) VALUES ('${email}', '${firstname}', '${lastname}', '${password}', 8)`, function (err, result, fields) {
+        con.query(`INSERT INTO Users (email_address, first_name, last_name, user_password) VALUES ('${email}', '${firstname}', '${lastname}', '${password}')`, function (err, result, fields) {
           if (err) res.send(err);
-          if (result) res.send({ firstName: firstname, lastName: lastname, email: email, password: password });
+          else if (result) res.send({ firstName: firstname, lastName: lastname, email: email, password: password });
           if (fields) console.log(fields);
         });
       });
