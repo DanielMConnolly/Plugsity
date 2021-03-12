@@ -3,7 +3,6 @@ import './App.css';
 import Signup from './Signup.js'
 import Tabs from './Tabs';
 import {useState, useEffect} from 'react';
-import SignupLogin from './SignupLogin';
 
 function App() {
 
@@ -27,7 +26,6 @@ const [reponse, setResponse] = useState(null);
   return (
     <div className="App">
       <SignupLogin/>
-     
       
        
      
