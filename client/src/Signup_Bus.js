@@ -10,16 +10,17 @@ export default class Signup_Bus extends Component {
     super(props);
     
     this.state = {
-      firstlegalname: '',
-      lastlegalname: '',
+      first_name: '',
+      last_name: '',
       businessname: '',
-      email: '',
-      password: '',
+      email_address: '',
+      user_password: '',
       confirmPassword: '',
       passwordsDontMatch: false
     };
   }
 
+  
   handleClick = () => this.setState(({type}) => ({
     type: type === 'text' ? 'password' : 'text'
   }))
@@ -39,18 +40,18 @@ export default class Signup_Bus extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    if(this.state.confirmPassword !== this.state.password){
+    if(this.state.confirmPassword !== this.state.user_password){
       this.setState({
         passwordsDontMatch: true
       })
     }
     else {
-      var url = 'http://3.138.232.158:5000/business';
+      var url = 'http://localhost:5000/business';
       axios.post(url, {
-        first_name: this.inputfirstname.value,
-        last_name: this.inputlastname.value,
-        email_address: this.inputemail.value,
-        user_password: this.user_password.value
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        email_address: this.state.email_address,
+        user_password: this.state.user_password
       })
       .then(function (response) {
         console.log(response);
@@ -58,10 +59,10 @@ export default class Signup_Bus extends Component {
       .catch(function (error) {
         console.log(error);
       });
-      this.inputfirstname.value = '';
-      this.inputlastname.value = '';
-      this.inputemail.value = '';
-      this.user_password.value = '';
+      this.state.first_name = '';
+      this.state.last_name = '';
+      this.state.email_address = '';
+      this.state.user_password = '';
     }
   }
 
@@ -81,18 +82,18 @@ export default class Signup_Bus extends Component {
 	<div style = {{alignSelf: "center"}}>
         <input
           type="text"
-          name="firstlegalname"
+          name="first_name"
           placeholder="First legal name"
-          value={this.state.firstlegalname}
+          value={this.state.first_name}
           onChange={this.handleInputChange}
           class = "f_seller_name"
           required
         />
 	<input
           type="text"
-          name="lastlegalname"
+          name="last_name"
           placeholder="Last legal name"
-          value={this.state.lastlegalname}
+          value={this.state.last_name}
           onChange={this.handleInputChange}
           class = "l_seller_name"
           required
@@ -106,14 +107,14 @@ export default class Signup_Bus extends Component {
           value={this.state.businessname}
           onChange={this.handleInputChange}
           class = "bus_name"
-          required
+          
         />
         <input
           style = {{alignSelf: "center"}}
           type="email"
-          name="email"
+          name="email_address"
           placeholder="Email"
-          value={this.state.email}
+          value={this.state.email_address}
           class = "email"
           onChange={this.handleInputChange}
           required
@@ -121,9 +122,9 @@ export default class Signup_Bus extends Component {
          <input
            style = {{alignSelf: "center",width:"300px",textAlign:"left"}}
           type="password"
-          name="password"
+          name="user_password"
           placeholder="Password"
-          value={this.state.password}
+          value={this.state.user_password}
           onChange={this.handleInputChange}
           required
         />

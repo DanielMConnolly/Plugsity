@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use('/auth', auth);
 //app.use('/customer_db', customer);
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
 // Setting up a route for our API
@@ -58,14 +58,6 @@ db.query(sql, (err, result)=>{
 });
 
 
-app.get('/business', function(req,res){
-    var sql = 'SELECT * FROM Users';
-    db.query(sql, (err, result)=>{
-        if(err) throw err;
-        console.log(result);
-        res.send(result);
-    });
-    });
 
 app.post('/business', function(req, res){
 	console.log(req.body); 
@@ -82,12 +74,12 @@ app.post('/business', function(req, res){
         email_address: req.body.email_address,
         cell_phone: '',
         user_password: req.body.user_password,
-        user_role: Business,
+        user_role: 'Business',
         login_success: true,
-        attempted_at: UTC_TIMESTAMP(),
+        attempted_at: '',
         old_password: '',
         new_password: '',
-        created_at: UTC_TIMESTAMP() 
+        created_at: '' 
 	});
 });
 });
