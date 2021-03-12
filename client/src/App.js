@@ -40,8 +40,8 @@ const [reponse, setResponse] = useState(null);
         <Route path="/business">
           <SignupLogin_Bus/>
         </Route>
-        <Route path="/dashboard">
-          goose
+        <Route path="/home">
+        Congrats!!! Signup worked
         </Route>
       </Switch>
   </Router>

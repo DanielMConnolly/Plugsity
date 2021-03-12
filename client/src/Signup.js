@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import './css/Signup.css'
 import axios from 'axios';
 export default class Signup extends Component {
@@ -48,9 +48,10 @@ export default class Signup extends Component {
       .then((res=>{
       
       if(res.status==200){
-        alert("user is signed up");
+       this.setState({loggedIn: true})
       }
       })).catch(error=>{
+        console.log(error);
         this.setState({
           emailtaken: true
         })
@@ -60,6 +61,9 @@ export default class Signup extends Component {
     
   }
   render() {
+    if(this.state.loggedIn){
+      return(<Redirect to="/home"></Redirect>)
+    }
     return (
       <div className="Signup">
       <form onSubmit={this.onSubmit}>
