@@ -1,0 +1,25 @@
+.page-header{
+    display: flex;
+    flex-direction: row;
+}
+
+.search-bar{
+    display: flex;
+    background-color: #F6F5FA;
+    flex-direction: row;
+}
+
+.menu-icon{
+    width: 25px;
+}
+.category-toggle{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.search-input{
+    width: 200px;
+    background-color:#F6F5FA;
+    border: none;
+}

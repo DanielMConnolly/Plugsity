@@ -7,6 +7,10 @@
   --main-color: #2E23FB;
 }
 
+option{
+   font-family: 'DM Sans';;
+}
+
 .App{
   display: flex;
   justify-content: center;
