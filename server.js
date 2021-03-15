@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use('/auth', auth);
 //app.use('/customer_db', customer);
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
 // Setting up a route for our API
@@ -54,6 +54,33 @@ db.query(sql, (err, result)=>{
     if(err) throw err;
     console.log(result);
     res.send(result);
+});
+});
+
+
+
+app.post('/business', function(req, res){
+	console.log(req.body); 
+    var data = {first_name:req.body.first_name, last_name:req.body.last_name, email_address:req.body.email_address, user_password:req.body.user_password};
+    var sql = 'INSERT INTO Users SET ?';
+    db.query(sql, data, (err, result)=>{
+    if(err) throw err;
+    console.log(result);
+    res.send({
+        status: 'success',
+        no: null,
+		first_name: req.body.first_name,
+		last_name: req.body.last_name,
+        email_address: req.body.email_address,
+        cell_phone: '',
+        user_password: req.body.user_password,
+        user_role: 'Business',
+        login_success: true,
+        attempted_at: '',
+        old_password: '',
+        new_password: '',
+        created_at: '' 
+	});
 });
 });
 
