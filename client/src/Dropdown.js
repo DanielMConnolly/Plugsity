@@ -1,10 +1,17 @@
 
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome'
+import './css/dropdown.css'
 export default class Dropdown extends Component {
 
-    constructor(){
-        const { isListOpen, headerTitle } = this.state;
-        const { list } = this.props;
+    constructor(props){
+      super(props);
+      this.state={
+        isListOpen: false,
+        headerTitle: this.props.title,
+        list: this.props.list
+      }
+
     }
 
 
@@ -16,6 +23,7 @@ export default class Dropdown extends Component {
 
 
     render() {
+      const { isListOpen, headerTitle, list} = this.state;
         return (
             <div className="dd-wrapper">
             <button
@@ -24,11 +32,11 @@ export default class Dropdown extends Component {
               onClick={this.toggleList}
             >
               <div className="dd-header-title">{headerTitle}</div>
-              {this.state.isListOpen
+              {isListOpen
                 ? <FontAwesome name="angle-up" size="2x" />
                 : <FontAwesome name="angle-down" size="2x" />}
             </button>
-            {this.stateisListOpen && (
+            {isListOpen && (
               <div
                 role="list"
                 className="dd-list"

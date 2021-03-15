@@ -5,9 +5,10 @@
 
 :root {
   --main-color: #2E23FB;
+  --header-color:  #F6F5FA;
 }
 
-option{
+option, button{
    font-family: 'DM Sans';;
 }
 
@@ -15,6 +16,7 @@ option{
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'DM Sans';
   flex-direction: column;
 }
 .title{
