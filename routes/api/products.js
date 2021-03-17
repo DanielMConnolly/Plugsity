@@ -1,6 +1,5 @@
-const { v4: uuidV4 } = require("uuid");
 const express = require("express");
-const connnectDB = require("../../config/db");
+const { connection } = require("../../db");
 const router = express.Router();
 
 /*
@@ -14,8 +13,9 @@ const router = express.Router();
 // @desc lists all products
 router.get("/", async (req, res) => {
     try {
+        connection.query("USE Plugsity");
         const query = "SELECT * FROM ProductUpload";
-        connnectDB.query(query, (err, results, fields) => {
+        connection.query(query, (err, results, fields) => {
             if (err) throw err;
             return res.json(results);
         });
@@ -70,7 +70,7 @@ router.post("/createProduct", async (req, res) => {
     );
     const query = `INSERT INTO ProductUpload (user_id, business_id, product_id, product_name, product_description, category, product_category, product_subcategory, product_tags, product_listing, product_cost, product_image_link, product_video_link) VALUES('${user_id}', '${business_id}', '${product_id}','${product_name}', '${product_description}', '${category}', '${product_category}', '${product_subcategory}', '${product_tags}', '${product_listing}', '${product_cost}', '${product_image_link}', '${product_video_link}')`;
 
-    connnectDB.query(query, (error, result, fields) => {
+    connection.query(query, (error, result, fields) => {
         if (error) res.send(error);
         if (result) res.json(result);
         if (fields) console.log(fields);
@@ -84,7 +84,7 @@ router.get("/search", async (req, res) => {
     const searchTerm = req.query.searchTerm;
 
     const query = `SELECT * FROM ProductUpload WHERE concat(product_name, product_description, product_subcategory, product_tags) LIKE '%${searchTerm}%'`;
-    connnectDB.query(query, (error, result, fields) => {
+    connection.query(query, (error, result, fields) => {
         if (error) res.send(error);
         if (result) res.json(result);
         if (fields) console.log(fields);
