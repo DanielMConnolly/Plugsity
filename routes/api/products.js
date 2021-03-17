@@ -41,6 +41,7 @@ router.get("/", async (req, res) => {
  * product_listing, product_cost, product_image_link, product_video_link
  */
 router.post("/createProduct", async (req, res) => {
+    connection.query("USE Plugsity");
     const {
         user_id,
         business_id,
@@ -81,6 +82,7 @@ router.post("/createProduct", async (req, res) => {
 // @path = /api/products/search
 // @desc = use this path to pass a query for searching th DB based on that query
 router.get("/search", async (req, res) => {
+    connection.query("USE Plugsity");
     const searchTerm = req.query.searchTerm;
 
     const query = `SELECT * FROM ProductUpload WHERE concat(product_name, product_description, product_subcategory, product_tags) LIKE '%${searchTerm}%'`;
