@@ -62,7 +62,7 @@ export default class Signup extends Component {
   }
   render() {
     if(this.state.loggedIn){
-      return(<Redirect to="/home"></Redirect>)
+      return(<Redirect to="/homepage"></Redirect>)
     }
     return (
       <div className="Signup">

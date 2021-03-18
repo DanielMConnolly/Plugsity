@@ -8,8 +8,6 @@ import {
 } from "react-router-dom";
 import {useState, useEffect} from 'react';
 import SignupLogin from './SignupLogin';
-import Signup_Bus from './Signup_Bus';
-import Home from './Home';
 import Review from './Review'
 import ReviewList from './ReviewList'
 import SignupLogin_Bus from './SignupLogin_Bus';
