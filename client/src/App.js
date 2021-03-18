@@ -1,11 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import Signup from './Signup.js'
-import Tabs from './Tabs';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import {useState, useEffect} from 'react';
 import SignupLogin from './SignupLogin';
 import Signup_Bus from './Signup_Bus';
 import SignupLogin_Bus from './SignupLogin_Bus';
+import Search from './Search';
 
 function App() {
 
@@ -28,12 +33,20 @@ const [reponse, setResponse] = useState(null);
 
   return (
     <div className="App">
-      <SignupLogin/>
-     
-      
-       
-     
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <SignupLogin/>
+        </Route>
+        <Route path="/business">
+          <SignupLogin_Bus/>
+        </Route>
+        <Route exact path="/homepage">
+          <Search/>
+        </Route>
+      </Switch>
+  </Router>
+  </div>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/Signup_Bus.css';
-import './css/customFormStyle.css';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 import PropTypes from 'prop-types';
@@ -10,16 +10,17 @@ export default class Signup_Bus extends Component {
     super(props);
     
     this.state = {
-      firstlegalname: '',
-      lastlegalname: '',
+      first_name: '',
+      last_name: '',
       businessname: '',
-      email: '',
-      password: '',
+      email_address: '',
+      user_password: '',
       confirmPassword: '',
       passwordsDontMatch: false
     };
   }
 
+  
   handleClick = () => this.setState(({type}) => ({
     type: type === 'text' ? 'password' : 'text'
   }))
@@ -39,27 +40,29 @@ export default class Signup_Bus extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    if(this.state.confirmPassword !== this.state.password){
+    if(this.state.confirmPassword !== this.state.user_password){
       this.setState({
         passwordsDontMatch: true
       })
     }
     else {
-      axios({
-        method: 'post',
-        url: '',
-        headers: {
-          "Accept": 'application/json'
-        },
-        data: {
-          email: this.state.email,
-          password: this.state.password,
-          name: this.state.name
-        }
-
-      }).catch(error=>{
-        console.log(error);
+      var url = 'http://3.138.232.158:5000/business';
+      axios.post(url, {
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        email_address: this.state.email_address,
+        user_password: this.state.user_password
       })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      this.state.first_name = '';
+      this.state.last_name = '';
+      this.state.email_address = '';
+      this.state.user_password = '';
     }
   }
 
@@ -79,18 +82,18 @@ export default class Signup_Bus extends Component {
 	<div style = {{alignSelf: "center"}}>
         <input
           type="text"
-          name="firstlegalname"
+          name="first_name"
           placeholder="First legal name"
-          value={this.state.firstlegalname}
+          value={this.state.first_name}
           onChange={this.handleInputChange}
           class = "f_seller_name"
           required
         />
 	<input
           type="text"
-          name="lastlegalname"
+          name="last_name"
           placeholder="Last legal name"
-          value={this.state.lastlegalname}
+          value={this.state.last_name}
           onChange={this.handleInputChange}
           class = "l_seller_name"
           required
@@ -104,14 +107,14 @@ export default class Signup_Bus extends Component {
           value={this.state.businessname}
           onChange={this.handleInputChange}
           class = "bus_name"
-          required
+          
         />
         <input
           style = {{alignSelf: "center"}}
           type="email"
-          name="email"
+          name="email_address"
           placeholder="Email"
-          value={this.state.email}
+          value={this.state.email_address}
           class = "email"
           onChange={this.handleInputChange}
           required
@@ -119,9 +122,9 @@ export default class Signup_Bus extends Component {
          <input
            style = {{alignSelf: "center",width:"300px",textAlign:"left"}}
           type="password"
-          name="password"
+          name="user_password"
           placeholder="Password"
-          value={this.state.password}
+          value={this.state.user_password}
           onChange={this.handleInputChange}
           required
         />
@@ -140,8 +143,11 @@ export default class Signup_Bus extends Component {
       <div className="disclaimer_Bus" style = {{alignSelf: "center"}}>By clicking the "Sign Up" button, you are creating a plugsity account, and you agree to Plugsity's Terms of Use and Privacy Policy</div>
       <hr/>
       <div className="business-signup" style = {{alignSelf: "center"}}>
+      
       <div style = {bottom_custsignup}> Sign up as a customer? </div> 
+      <Link to="/">
       <div>Get Started</div>
+      </Link>
       </div>
       </div>
     );

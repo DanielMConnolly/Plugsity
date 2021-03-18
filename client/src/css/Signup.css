@@ -45,3 +45,7 @@ hr{
 .business-signup > * {
   margin-bottom: 20px;
 }
+
+.error{
+  color: red;
+}
