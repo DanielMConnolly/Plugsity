@@ -102,7 +102,6 @@ router.get("/:id", async (req, res) => {
     const query = `SELECT * FROM ProductUpload WHERE product_id='${product_id}'`;
     connection.query(query, (error, result) => {
         if (error) res.send(error);
-
         if (result) res.json(result);
     });
 });
