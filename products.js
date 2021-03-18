@@ -92,4 +92,19 @@ router.get("/search", async (req, res) => {
     });
 });
 
+// get request
+// @path = /api/products/:id
+// @desc = use this path to view a particular product based on ID.
+router.get("/:id", async (req, res) => {
+    connection.query("USE Plugsity");
+    const product_id = req.params.id;
+
+    const query = `SELECT * FROM ProductUpload WHERE product_id='${product_id}'`;
+    connection.query(query, (error, result) => {
+        if (error) res.send(error);
+
+        if (result) res.json(result);
+    });
+});
+
 module.exports = router;
