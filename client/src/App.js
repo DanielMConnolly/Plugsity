@@ -13,6 +13,7 @@ import Home from './Home';
 import Review from './Review'
 import ReviewList from './ReviewList'
 import SignupLogin_Bus from './SignupLogin_Bus';
+import Search from './Search';
 
 function App() {
 
@@ -28,8 +29,8 @@ function App() {
         <Route path="/business">
           <SignupLogin_Bus/>
         </Route>
-        <Route path="/home">
-        <Home/>
+        <Route exact path="/homepage">
+          <Search/>
         </Route>
         <Route path="/review">
         <Review/>
