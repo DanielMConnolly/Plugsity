@@ -43,9 +43,6 @@ router.get("/", async (req, res) => {
 router.post("/createProduct", async (req, res) => {
     connection.query("USE Plugsity");
     const {
-        user_id,
-        business_id,
-        product_id,
         product_name,
         product_description,
         category,
@@ -69,7 +66,9 @@ router.post("/createProduct", async (req, res) => {
         product_image_link,
         product_video_link
     );
-    const query = `INSERT INTO ProductUpload (user_id, business_id, product_id, product_name, product_description, category, product_category, product_subcategory, product_tags, product_listing, product_cost, product_image_link, product_video_link) VALUES('${user_id}', '${business_id}', '${product_id}','${product_name}', '${product_description}', '${category}', '${product_category}', '${product_subcategory}', '${product_tags}', '${product_listing}', '${product_cost}', '${product_image_link}', '${product_video_link}')`;
+    const user_id = 10;
+    const business_id = 1;
+    const query = `INSERT INTO ProductUpload (user_id, business_id, product_name, product_description, category, product_category, product_subcategory, product_tags, product_listing, product_cost, product_image_link, product_video_link) VALUES('${user_id}', '${business_id}','${product_name}', '${product_description}', '${category}', '${product_category}', '${product_subcategory}', '${product_tags}', '${product_listing}', '${product_cost}', '${product_image_link}', '${product_video_link}')`;
 
     connection.query(query, (error, result, fields) => {
         if (error) res.send(error);
@@ -86,6 +85,20 @@ router.get("/search", async (req, res) => {
     const searchTerm = req.query.searchTerm;
 
     const query = `SELECT * FROM ProductUpload WHERE concat(product_name, product_description, product_subcategory, product_tags) LIKE '%${searchTerm}%'`;
+    connection.query(query, (error, result) => {
+        if (error) res.send(error);
+        if (result) res.json(result);
+    });
+});
+
+// get request
+// @path = /api/products/:id
+// @desc = use this path to view a particular product based on ID.
+router.get("/:id", async (req, res) => {
+    connection.query("USE Plugsity");
+    const product_id = req.params.id;
+
+    const query = `SELECT * FROM ProductUpload WHERE product_id='${product_id}'`;
     connection.query(query, (error, result) => {
         if (error) res.send(error);
         if (result) res.json(result);
