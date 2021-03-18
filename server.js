@@ -11,6 +11,7 @@ const mysql = require('mysql');
 const app = express();
 const port = process.env.PORT || 5000;
 const auth = require('./auth.js')
+const review = require('./review.js')
 //const customer = require('./customer_db.js')
 
 
@@ -18,6 +19,7 @@ const auth = require('./auth.js')
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/auth', auth);
+app.use('/review', review);
 //app.use('/customer_db', customer);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
