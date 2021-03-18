@@ -351,10 +351,11 @@
     color: #32313D;
 }
 
-.logo{
+.logo1{
     position: absolute;
     margin-left: 130px;
     margin-top: 50px;
+    width: 250px;
 }
 
 .city{

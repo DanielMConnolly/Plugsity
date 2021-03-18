@@ -197,7 +197,7 @@ class Search extends React.Component {
 		return (
 			<div className="container">
 			{/*	Heading*/}
-			<img src={ Logo } alt="logo" height="60px" width="200px" className="logo"/>
+			<img src={ Logo } alt="logo" height="60px" width="200px" className="logo1"/>
 			{/* Search Input*/}
 			<label className="search-label" htmlFor="search-input">
                 
