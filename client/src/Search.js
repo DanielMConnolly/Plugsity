@@ -124,10 +124,6 @@ class Search extends React.Component {
 	  document.removeEventListener("mousedown", this.handleClickOutside1);
 	}
 
-	onFocus=event => {
-		event.target.setAttribute('autocomplete', 'off');
-		console.log(event.target.autocomplete);
-	}
 	
 	handleClickOutside = event => {
 		if (this.container.current && !this.container.current.contains(event.target)) {
@@ -210,11 +206,9 @@ class Search extends React.Component {
 					name="query"
 					value={ query }
 					id="search-input"
-					autoComplete = "off"
                     className = "search-input-field"
 					placeholder="What are you looking for?"
 					onChange={this.handleOnInputChange}
-					onFocus={this.onFocus}
 				/>
                 <button className="products-class" value = "products"><p className="products-design">Products</p> </button>
                 <button className="services-class" > Services </button> 
