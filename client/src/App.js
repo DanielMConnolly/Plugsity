@@ -38,11 +38,11 @@ const [reponse, setResponse] = useState(null);
         <Route exact path="/">
           <SignupLogin/>
         </Route>
-        <Route exact path="/homepage">
-          <Search/>
-        </Route>
         <Route path="/business">
           <SignupLogin_Bus/>
+        </Route>
+        <Route exact path="/homepage">
+          <Search/>
         </Route>
       </Switch>
   </Router>
