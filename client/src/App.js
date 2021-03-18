@@ -9,6 +9,7 @@ import {
 import {useState, useEffect} from 'react';
 import SignupLogin from './SignupLogin';
 import Signup_Bus from './Signup_Bus';
+import Home from './Home';
 import SignupLogin_Bus from './SignupLogin_Bus';
 
 function App() {
@@ -41,7 +42,7 @@ const [reponse, setResponse] = useState(null);
           <SignupLogin_Bus/>
         </Route>
         <Route path="/home">
-        Congrats!!! Signup worked
+        <Home/>
         </Route>
       </Switch>
   </Router>
