@@ -10,6 +10,7 @@ import {useState, useEffect} from 'react';
 import SignupLogin from './SignupLogin';
 import Signup_Bus from './Signup_Bus';
 import SignupLogin_Bus from './SignupLogin_Bus';
+import Search from './Search';
 
 function App() {
 
@@ -36,6 +37,9 @@ const [reponse, setResponse] = useState(null);
       <Switch>
         <Route exact path="/">
           <SignupLogin/>
+        </Route>
+        <Route exact path="/homepage">
+          <Search />
         </Route>
         <Route path="/business">
           <SignupLogin_Bus/>
