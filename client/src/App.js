@@ -9,8 +9,8 @@ import {
 import {useState, useEffect} from 'react';
 import SignupLogin from './SignupLogin';
 import Signup_Bus from './Signup_Bus';
-import Home from './Home';
 import SignupLogin_Bus from './SignupLogin_Bus';
+import Search from './Search';
 
 function App() {
 
@@ -38,11 +38,11 @@ const [reponse, setResponse] = useState(null);
         <Route exact path="/">
           <SignupLogin/>
         </Route>
+        <Route exact path="/homepage">
+          <Search/>
+        </Route>
         <Route path="/business">
           <SignupLogin_Bus/>
-        </Route>
-        <Route path="/home">
-        <Home/>
         </Route>
       </Switch>
   </Router>
