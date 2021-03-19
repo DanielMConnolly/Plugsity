@@ -51,6 +51,7 @@ export default class ProductForm extends Component {
                 product_category: this.state.product_category,
                 product_subcategory: this.state.product_subcategory,
                 product_tags: this.state.product_tags,
+                product_cost: this.state.product_cost,
                 product_listing: this.state.product_listing,
                 product_image_link: this.state.product_image_link,
                 product_video_link: this.state.product_video_link,
