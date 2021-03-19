@@ -8,6 +8,13 @@ router.post('/upload', (req, res, next)=>{
     con.addReview(video_name, user_id, review_rating, product_id);
 });
 
+router.post('/process_video', (req, res, next)=>{
+    const {key} = req.body;
+    con.setVideoComplete(key)
+    return res.status(200).send()
+
+})
+
 router.get('/list', async (req, res, next)=>{
     let video_names = []
 

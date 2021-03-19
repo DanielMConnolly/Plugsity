@@ -23,31 +23,24 @@ export default class Review extends Component {
             array.push(binary.charCodeAt(i))
         }
         let blobData = new Blob([new Uint8Array(array)], { type: "video/mp4" })
+        axios({
+            method: 'POST',
+            url: "http://localhost:5000/review/upload",
+            headers: {
+                "Accept": 'application/json'
+            },
+            data: {
+               user_id: 1,
+               video_name: key,
+               review_rating: 4, 
+               product_id: 1
+            }
+        })
 
-        const result = await fetch(response.data.uploadURL, {
+        await fetch(response.data.uploadURL, {
             method: 'PUT',
             body: blobData
-        }).then(response => {
-            console.log(response)
-            axios({
-                method: 'POST',
-                url: "http://localhost:5000/review/upload",
-                headers: {
-                    "Accept": 'application/json'
-                },
-                data: {
-                   user_id: 1,
-                   video_name: key,
-                   review_rating: 4, 
-                   product_id: 1
-                }
-            })
-            alert('Upload Succesful!')
-        }
-
-        ).catch(err=>console.log(err));
-        this.uploadURL = response.data.uploadURL.split('?')[0];
-
+        });
 
     }
 
