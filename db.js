@@ -45,8 +45,11 @@ const getUser = (res, email, password) => {
         con.query(query, function (err, result, fields) {
             if (err) console.log(err);
             if (result.length > 0) {
-                
+                //if password is the same, give them a token
+                console.log("there exists a query for ", result.)
+                res.status(409);
             }else{
+                console.log("there does not exist a query")
                 res.status(409);
             }
 

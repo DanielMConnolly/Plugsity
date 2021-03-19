@@ -5,7 +5,7 @@ const con = require('./db.js')
 router.post('/signup', (req, res, next) => {
   if (!req.body) return res.sendStatus(400);
   const {email, password, firstName, lastName} = req.body;
-
+  console.loc("signup has occurred")
    con.addUser(res, firstName, lastName, email, password);
 
 });
@@ -13,8 +13,9 @@ router.post('/signup', (req, res, next) => {
 router.post('/login', (req, res, next) => {
   if (!req.body) return res.sendStatus(400);
   const {email, password} = req.body;
-  
+  console.log(email," logged in")
   con.getUser(res, email, password)
+  
 });
 
 module.exports = router;
