@@ -75,6 +75,7 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
+        <label>First Name</label>
            <input
           type="text"
           name="lastname"
@@ -83,6 +84,7 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
+             <label>Last Name</label>
         <input
           type="email"
           name="email"
@@ -91,6 +93,8 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
+             <label>Email</label>
+        
         {this.state.emailtaken && <div className="error">Email already taken</div>}
         <input
           type="password"
@@ -100,6 +104,7 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
+             <label>Password</label>
         <input
           type="password"
           name="confirmPassword"
@@ -108,6 +113,7 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
+             <label>Confirm Password</label>
         {this.state.passwordsDontMatch && <div className="error">Passwords don't match</div>}
         <input className={Object.values(this.state).includes("")?"button":"activatedButton"} type="submit" value="Sign Up" />
       </form>
