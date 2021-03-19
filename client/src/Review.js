@@ -28,6 +28,7 @@ export default class Review extends Component {
             method: 'PUT',
             body: blobData
         }).then(response => {
+            console.log(response)
             axios({
                 method: 'POST',
                 url: "http://localhost:5000/review/upload",
@@ -44,7 +45,7 @@ export default class Review extends Component {
             alert('Upload Succesful!')
         }
 
-        )
+        ).catch(err=>console.log(err));
         this.uploadURL = response.data.uploadURL.split('?')[0];
 
 
