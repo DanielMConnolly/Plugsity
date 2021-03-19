@@ -11,7 +11,7 @@ router.post('/upload', (req, res, next)=>{
 router.post('/process_video', (req, res, next)=>{
     const {key} = req.body;
     con.setVideoComplete(key)
-    return res.status(200).send()
+    return res.status(200).send({"key": key})
 
 })
 
