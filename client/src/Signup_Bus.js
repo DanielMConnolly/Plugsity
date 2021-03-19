@@ -47,6 +47,7 @@ export default class Signup_Bus extends Component {
     }
     else {
       var url = 'http://3.138.232.158:5000/business';
+
       axios.post(url, {
         first_name: this.state.first_name,
         last_name: this.state.last_name,
@@ -55,6 +56,9 @@ export default class Signup_Bus extends Component {
       })
       .then(function (response) {
         console.log(response);
+          this.setState({
+            loggedin:true
+          })
       })
       .catch(function (error) {
         console.log(error);

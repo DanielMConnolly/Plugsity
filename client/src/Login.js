@@ -24,6 +24,7 @@ export default class Signup extends Component {
       })
     }
     else{
+      console.log("logging in now")
       axios({
         method: 'post',
         url: 'http://localhost:5000/auth/login',
@@ -37,6 +38,7 @@ export default class Signup extends Component {
         }
 
       }).catch(error=>{
+        console.log("did not log in")
         console.log(error);
       })
     }

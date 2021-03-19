@@ -38,6 +38,24 @@ const addUser = (res, firstname, lastname, email, password) => {
 
 }
 
+const getUser = (res, email, password) => {
+    con.connect(function (err) {
+        con.query('USE Plugsity');
+        const query = `SELECT email_address FROM Users WHERE email_address = '${email}'`;
+        con.query(query, function (err, result, fields) {
+            if (err) console.log(err);
+            if (result.length > 0) {
+                
+            }else{
+                res.status(409);
+            }
+
+        })
+
+    });
+
+}
+
 const addReview = (video_name, user_id, review_rating, product_id) => {
     con.connect(function (err) {
         con.query('USE Plugsity');
@@ -76,6 +94,7 @@ const getReviews = async (callback) => {
 
 
 exports.addUser = addUser;
+exports.getUser = getUser;
 exports.addReview = addReview;
 exports.getReviews = getReviews;
 exports.connection = con;
