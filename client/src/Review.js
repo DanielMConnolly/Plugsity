@@ -25,7 +25,7 @@ export default class Review extends Component {
         let blobData = new Blob([new Uint8Array(array)], { type: "video/mp4" })
         axios({
             method: 'POST',
-            url: "http://localhost:5000/review/upload",
+            url: "http://3.138.232.158:5000/review/upload",
             headers: {
                 "Accept": 'application/json'
             },
