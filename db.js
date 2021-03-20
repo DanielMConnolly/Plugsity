@@ -57,7 +57,7 @@ const getReviews = async (callback) => {
     return new Promise((resolve, reject) => {
         con.connect(function (err) {
             con.query('USE Plugsity');
-            const query = "SELECT product_video_link FROM ProductMediaReview";
+            const query = "SELECT product_video_link FROM ProductMediaReview WHERE processing_status = 'Ready' ";
             let videos_to_render = [];
             let x = con.query(query, function (err, result, fields) {
                 if (err) { console.log(err) }
@@ -74,7 +74,7 @@ const getReviews = async (callback) => {
 const setVideoComplete = (id)=>{
     con.connect(function (err) {
         con.query('USE Plugsity');
-        const query = `UPDATE ProductMediaReview SET processing_status = 'Ready' WHERE product_video_link = "${id}" AND processing_status = 'Ready' `;
+        const query = `UPDATE ProductMediaReview SET processing_status = 'Ready' WHERE product_video_link = "${id}"`;
         console.log(query);
         con.query(query, function (err, result, fields) {
             if (err) { console.log(err) }
