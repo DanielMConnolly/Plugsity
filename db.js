@@ -74,7 +74,7 @@ const getReviews = async (callback) => {
 const setVideoComplete = (id)=>{
     con.connect(function (err) {
         con.query('USE Plugsity');
-        const query = `UPDATE ProductMediaReview SET processing_status = 'Ready' WHERE product_video_link = "${id}" `;
+        const query = `UPDATE ProductMediaReview SET processing_status = 'Ready' WHERE product_video_link = "${id}" AND processing_status = 'Ready' `;
         console.log(query);
         con.query(query, function (err, result, fields) {
             if (err) { console.log(err) }
