@@ -1,8 +1,13 @@
 .header{
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding-bottom: 30px;
+}
+.header-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 .header-link{
     text-decoration: inherit;

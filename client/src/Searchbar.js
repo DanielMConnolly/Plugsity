@@ -159,7 +159,7 @@ class Searchbar extends Component {
                         <div className="city-dropdown" ref={this.container}>
                             <Dropdown className="dropdown" title="State" list={this.createStateList()} />
                         </div>
-                        <button onClick={()=>this.props.searchFunction(1, this.props.query)} className="search-button1"><p className="search-design"><i className="fa fa-search search-icon" aria-hidden="true"/>Search</p></button>
+                        <button onClick={()=>this.props.searchFunction(this.props.query)} className="search-button1"><i className="fa fa-search search-icon" aria-hidden="true"/>Search</button>
                     </div>
                 </div>
 

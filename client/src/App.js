@@ -39,9 +39,9 @@ function App() {
                     ></Route>
                     <Route
                         path='/search'
-                    >
-                        <Search />
-                    </Route>
+                        render={(props)=><Search {...props}/>}
+                    />
+        
                 </Switch>
             </Router>
         </div>

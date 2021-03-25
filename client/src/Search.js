@@ -14,7 +14,7 @@ class Search extends React.Component {
 		super(props);
 
 		this.state = {
-			query: '',
+			query: props.query?props.query:'',
 			results: {},
 			loading: false,
 			message: '',
@@ -116,7 +116,13 @@ class Search extends React.Component {
 		});
 	};
 
-	componentDidMount() {
+	componentDidMount(props) {
+		if(this.props.location.state){
+			this.setState({
+				query: this.props.location.state.query
+			})
+		}
+		this.fetchSearchResults(1, this.state.query);
 		document.addEventListener("mousedown", this.handleClickOutside);
 		document.addEventListener("mousedown", this.handleClickOutside1);
 	}
@@ -202,7 +208,7 @@ class Search extends React.Component {
 		return (
 			<>
 				<img src={Logo} alt="logo" height="60px" width="200px" className="logo1" />
-				<Searchbar searchFunction={this.fetchSearchResults} onHandleChange={this.handleOnInputChange} query={query}/>
+				<Searchbar searchFunction={(query)=> this.fetchSearchResults(1, query)} onHandleChange={this.handleOnInputChange} query={query}/>
 				{/*	Error Message*/}
 				{message && <p className="message">{message}</p>}
 
@@ -233,8 +239,7 @@ class Search extends React.Component {
 					// eslint-disable-next-line no-restricted-globals
 					handleNextClick={() => this.handlePageClick('next', Event)}
 				/>
-				<p className="heading"> Proudly Supporting</p>
-				<p className="heading1"> small local businesses</p>
+
 			</>
 		)
 	}
