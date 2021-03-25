@@ -51,6 +51,9 @@ class Search extends React.Component {
 	 *
 	 */
 	fetchSearchResults = (updatedPageNo = '', query) => {
+		if(!query){
+			return;
+		}
 		const pageNumber = updatedPageNo ? `&page=${updatedPageNo}` : '';
 		const searchUrl = `http://3.138.232.158:5000/api/products/search?searchTerm=${query}`;
 
@@ -92,7 +95,7 @@ class Search extends React.Component {
 	handleOnInputChange = (Event) => {
 		const query = Event.target.value;
 		if (!query) {
-			this.setState({ query, results: {}, message: '', totalPages: 0, totalResults: 0 });
+			this.setState({ query, results: [], message: '', totalPages: 0, totalResults: 0 });
 		} else {
 			this.setState({ query, loading: true, message: '' }, () => {
 				this.fetchSearchResults(1, query); // Here I am passing Page Number and search query
@@ -203,6 +206,7 @@ class Search extends React.Component {
 
 	render() {
 		const { query, loading, message, currentPageNo, totalPages } = this.state;
+		console.log(this.state.query);
 
 		const showPrevLink = 1 < currentPageNo;
 		const showNextLink = totalPages > currentPageNo;

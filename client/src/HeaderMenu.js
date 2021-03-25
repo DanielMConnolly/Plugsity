@@ -17,8 +17,8 @@ class HeaderMenu extends Component {
                     <a href="#" className="header-link">Video Reviews</a>
 
                 </div>
-               <Dropdown title="My Account" list={[]} borderstyle/>
-               <button><FontAwesome name="shopping-cart" size="2x" /> Cart</button>
+               <Dropdown title="My Account" list={[]} borderstyle/> <div className="vertical-pipe">|</div>
+               <div className="cart-button"><FontAwesome name="shopping-cart" size="2x" /> Cart <p> 0 items</p></div>
             </div>
 
             <div className="row">

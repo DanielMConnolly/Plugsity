@@ -14,9 +14,12 @@
     color: inherit;
     cursor: auto;
     padding: 10px;
-    padding-top: 0px;
 }
 
 .header-menu{
     justify-content: center;
+}
+
+.cartButton {
+    
 }
