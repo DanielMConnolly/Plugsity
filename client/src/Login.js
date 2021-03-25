@@ -31,12 +31,16 @@ export default class Signup extends Component {
         password: this.state.password,
       }
 
-    }).catch(error=>{
-      console.log("did not log in")
+    }).then((response) => {
+      console.log(response);
+      console.log(response.status)
+    }, (error)=>{
+      //password or username is incorrect
+      console.log("something happened?")
       this.setState({
         passwordWrong: true
-      })
-    })
+      });
+    });
     
   }
   render() {

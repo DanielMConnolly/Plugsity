@@ -207,7 +207,6 @@ class Search extends React.Component {
 			{/*	Heading*/}
 			<img src={ Logo } alt="logo" height="60px" width="200px" className="logo1"/>
 			
-			<button className="logout" value = "username" onClick={this.logout}><p className="logout">Logout</p> </button>
 			{/* Search Input*/}
 			<label className="search-label" htmlFor="search-input">
                 

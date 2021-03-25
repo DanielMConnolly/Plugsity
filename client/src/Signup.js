@@ -46,7 +46,8 @@ export default class Signup extends Component {
 
       })
       .then((res=>{
-      
+        console.log("we successfully logged in")
+        console.log(res)
         if(res.status==200){
         this.setState({loggedIn: true})
         }
