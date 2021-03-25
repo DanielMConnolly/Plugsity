@@ -15,7 +15,7 @@ class Search extends React.Component {
 
 		this.state = {
 			query: props.query?props.query:'',
-			results: {},
+			results: [],
 			loading: false,
 			message: '',
 			totalResults: 0,
@@ -173,9 +173,10 @@ class Search extends React.Component {
 
 	container = React.createRef();
 	renderSearchResults = () => {
-		const { results } = this.state;
+		const { results} = this.state;
+		console.log(this.state.query);
 
-		if (Object.keys(results).length && results.length) {
+		if (this.state.query!='') {
 			return (
 				<div className="results-container">
 					{ results.map(result => {
