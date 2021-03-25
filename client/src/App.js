@@ -22,7 +22,7 @@ function App() {
                         <SignupLogin_Bus />
                     </Route>
                     <Route exact path='/homepage'>
-                        <HomePage/>
+                        <HomePage />
                     </Route>
                     <Route path='/review'>
                         <Review />
@@ -37,10 +37,10 @@ function App() {
                         path='/products/:productID'
                         component={ProductDetails}
                     ></Route>
-                       <Route
+                    <Route
                         path='/search'
-                        >
-                            <Search/>
+                    >
+                        <Search />
                     </Route>
                 </Switch>
             </Router>
