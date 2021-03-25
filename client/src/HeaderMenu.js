@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import Logo from './assets/plugsity-logo.png';
 import Dropdown from './Dropdown'
-import "./css/Header.css"
+import "./css/header.css"
 
 class HeaderMenu extends Component {
 
