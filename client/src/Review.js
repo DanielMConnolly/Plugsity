@@ -1,8 +1,10 @@
 import axios from 'axios';
+import dotenv from 'dotenv'
 import { Component } from 'react';
 
-const API_ENDPOINT = 'https://hizg8qqb08.execute-api.us-east-1.amazonaws.com/uploads'
 
+const API_ENDPOINT = 'https://hizg8qqb08.execute-api.us-east-1.amazonaws.com/uploads'
+dotenv.config()
 
 
 
@@ -12,9 +14,6 @@ export default class Review extends Component {
             method: 'GET',
             url: API_ENDPOINT
         })
-        console.log(response.data.uploadURL);
-        console.log(response.data.Key);
-
         const key = response.data.Key;
 
         let binary = atob(this.state.image.split(',')[1]);
@@ -25,7 +24,7 @@ export default class Review extends Component {
         let blobData = new Blob([new Uint8Array(array)], { type: "video/mp4" })
         axios({
             method: 'POST',
-            url: "http://3.138.232.158:5000/review/upload",
+            url: process.env.REACT_APP_PROXY+ "/review/upload",
             headers: {
                 "Accept": 'application/json'
             },
