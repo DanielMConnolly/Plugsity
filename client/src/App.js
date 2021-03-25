@@ -8,7 +8,7 @@ import ReviewList from "./ReviewList";
 import SignupLogin_Bus from "./SignupLogin_Bus";
 import Search from "./Search";
 import ProductForm from "./ProductForm";
-
+import ProductDetails from "./ProductDetails";
 function App() {
     return (
         <div className='App'>
@@ -32,6 +32,10 @@ function App() {
                     <Route path='/products/createProduct'>
                         <ProductForm />
                     </Route>
+                    <Route
+                        path='/products/:productID'
+                        component={ProductDetails}
+                    ></Route>
                 </Switch>
             </Router>
         </div>
