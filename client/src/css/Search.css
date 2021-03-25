@@ -5,6 +5,16 @@
 	text-align: center;
 }
 
+.search-container{
+    display: flex;
+ 
+}
+
+.search-results{
+    margin-left: 200px;
+
+}
+
 .searchBar {
     height: 56px;
     border-radius: 28px;

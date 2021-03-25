@@ -4,9 +4,12 @@ import axios from 'axios';
 import Loader from './assets/loader.gif';
 import PageNavigation from './PageNavigation';
 import Logo from './assets/plugsity-logo.png';
-import Searchbar from './Searchbar';
+import AltHeader from './AltHeader';
 import 'font-awesome/css/font-awesome.min.css';
+import SearchSidebar from './SearchSidebar'
 import 'react-dropdown/style.css';
+
+
 
 class Search extends React.Component {
 
@@ -14,7 +17,7 @@ class Search extends React.Component {
 		super(props);
 
 		this.state = {
-			query: props.query?props.query:'',
+			query: props.query ? props.query : '',
 			results: [],
 			loading: false,
 			message: '',
@@ -51,7 +54,7 @@ class Search extends React.Component {
 	 *
 	 */
 	fetchSearchResults = (updatedPageNo = '', query) => {
-		if(!query){
+		if (!query) {
 			return;
 		}
 		const pageNumber = updatedPageNo ? `&page=${updatedPageNo}` : '';
@@ -120,12 +123,12 @@ class Search extends React.Component {
 	};
 
 	componentDidMount(props) {
-		if(this.props.location.state){
+		if (this.props.location.state) {
 			this.setState({
 				query: this.props.location.state.query
 			})
+			this.fetchSearchResults(1, this.props.location.state.query);
 		}
-		this.fetchSearchResults(1, this.state.query);
 		document.addEventListener("mousedown", this.handleClickOutside);
 		document.addEventListener("mousedown", this.handleClickOutside1);
 	}
@@ -176,10 +179,9 @@ class Search extends React.Component {
 
 	container = React.createRef();
 	renderSearchResults = () => {
-		const { results} = this.state;
-		console.log(this.state.query);
+		const { results } = this.state;
 
-		if (this.state.query!='') {
+		if (this.state.query != '') {
 			return (
 				<div className="results-container">
 					{ results.map(result => {
@@ -206,44 +208,48 @@ class Search extends React.Component {
 
 	render() {
 		const { query, loading, message, currentPageNo, totalPages } = this.state;
-		console.log(this.state.query);
-
 		const showPrevLink = 1 < currentPageNo;
-		const showNextLink = totalPages > currentPageNo;
+		const showNextLink = totalPages > currentPageNo;;
 		return (
 			<>
-				<img src={Logo} alt="logo" height="60px" width="200px" className="logo1" />
-				<Searchbar searchFunction={(query)=> this.fetchSearchResults(1, query)} onHandleChange={this.handleOnInputChange} query={query}/>
+				<AltHeader initQuery={this.props.location.state ? this.props.location.state.query : ''} searchFunction={this.fetchSearchResults} onHandleChange={this.handleOnInputChange} />
 				{/*	Error Message*/}
-				{message && <p className="message">{message}</p>}
+				<div className="search-container">
+				<div>
+					<SearchSidebar />
+				</div>
+				<div className="search-results">
+					{message && <p className="message">{message}</p>}
 
-				{/*	Loader*/}
-				<img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'}`} alt="loader" />
+					{/*	Loader*/}
+					<img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'}`} alt="loader" />
 
-				{/*Navigation*/}
-				<PageNavigation
-					loading={loading}
-					showPrevLink={showPrevLink}
-					showNextLink={showNextLink}
-					// eslint-disable-next-line no-restricted-globals
-					handlePrevClick={() => this.handlePageClick('prev', Event)}
-					// eslint-disable-next-line no-restricted-globals
-					handleNextClick={() => this.handlePageClick('next', Event)}
-				/>
+					{/*Navigation*/}
+					<PageNavigation
+						loading={loading}
+						showPrevLink={showPrevLink}
+						showNextLink={showNextLink}
+						// eslint-disable-next-line no-restricted-globals
+						handlePrevClick={() => this.handlePageClick('prev', Event)}
+						// eslint-disable-next-line no-restricted-globals
+						handleNextClick={() => this.handlePageClick('next', Event)}
+					/>
 
-				{/*	Result*/}
-				{this.renderSearchResults()}
+					{/*	Result*/}
+					{this.renderSearchResults()}
 
-				{/*Navigation*/}
-				<PageNavigation
-					loading={loading}
-					showPrevLink={showPrevLink}
-					showNextLink={showNextLink}
-					// eslint-disable-next-line no-restricted-globals
-					handlePrevClick={() => this.handlePageClick('prev', Event)}
-					// eslint-disable-next-line no-restricted-globals
-					handleNextClick={() => this.handlePageClick('next', Event)}
-				/>
+					{/*Navigation*/}
+					<PageNavigation
+						loading={loading}
+						showPrevLink={showPrevLink}
+						showNextLink={showNextLink}
+						// eslint-disable-next-line no-restricted-globals
+						handlePrevClick={() => this.handlePageClick('prev', Event)}
+						// eslint-disable-next-line no-restricted-globals
+						handleNextClick={() => this.handlePageClick('next', Event)}
+					/>
+				</div>
+				</div>
 
 			</>
 		)

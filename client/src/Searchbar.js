@@ -66,52 +66,6 @@ class Searchbar extends Component {
         return Math.floor(total / denominator) + valueToBeAdded;
     };
 
-    /**
-     * Fetch the search results and update the state with the result.
-     * Also cancels the previous query before making the new one.
-     *
-     * @param {int} updatedPageNo Updated Page No.
-     * @param {String} query Search Query.
-     *
-     */
-    fetchSearchResults = (updatedPageNo = '', query) => {
-        const pageNumber = updatedPageNo ? `&page=${updatedPageNo}` : '';
-        const searchUrl = `http://3.138.232.158:5000/api/products/search?searchTerm=${query}`;
-
-        // To cancel the request if it has already made
-        if (this.cancel) {
-            this.cancel.cancel();
-        }
-
-        //Create a Token
-        this.cancel = axios.CancelToken.source();
-
-
-        axios.get(searchUrl, {
-            cancelToken: this.cancel.token
-        })
-            .then(res => {
-                //const total = res.data.total;
-                //const totalPagesCount = this.getPageCount( total, 20 );
-                const resultNotFoundMsg = !res.data.length
-                    ? 'Ooops! Could not find what you were looking for...☹️'
-                    : '';
-                this.setState({
-                    results: res.data,
-                    message: resultNotFoundMsg,
-                    currentPageNo: updatedPageNo,
-                    loading: false
-                })
-            })
-            .catch(error => {
-                if (axios.isCancel(error) || error) {
-                    this.setState({
-                        loading: false,
-                        message: 'Ooops! Could not find what you were looking for...☹️'
-                    })
-                }
-            })
-    };
 
     handleButtonClick = () => {
         this.setState(state => {
