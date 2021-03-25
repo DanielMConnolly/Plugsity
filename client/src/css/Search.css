@@ -12,14 +12,23 @@
     padding: 5px;
     align-items: center;
     background: #F6F5FA;
+    font-size: 16px;
 }
 
-.selected-toggle {
+
+.selected-toggle, .search-button1 {
     background: #2E23FB;
     border-radius: 22px;
+    font-size: 16px;
+    padding: 10px;
+    margin: 0px 10px;
     border: none;
     color: white;
     cursor: pointer;
+}
+
+.search-button1{
+    padding: 10px 20px;
 }
 
 .category-toggle{
@@ -31,14 +40,6 @@
 
 }
 
-.search-button1{
-    width: 94px;
-    height: 44px;
-    background: #2E23FB;
-    border-radius: 22px;
-    border: none;
-    
-}
 
 
 .search-input-field{
@@ -46,6 +47,9 @@
     width: 500px;
     background-color: transparent;
     border: none;
+}
+.search-input-field:focus{
+   outline: none;
 }
 
 .vertical-line{
@@ -72,15 +76,13 @@
     display: inline-flex;
     border:none;
     align-items: center;
+    background-color: white;
+    margin-left: auto;
     
 }
 
 .search-icon {
-	top: 14px;
-	font-size: 24px;
-	cursor: pointer;
-	right: 70px;
-    color: #FFFFFF;
+    padding-right: 5px;
 }
 
 .products-design{
@@ -237,37 +239,7 @@
 	opacity: 0.5;
 }
 
-.heading{
-    position: absolute;
-    left: 5%;
-    right: 54.44%;
-    top: 40%;
-    bottom: 90.74%;
-    /* Heading / Heading 2 */
-    font-family: DM Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 42px;
-    line-height: 48px;
-    /* identical to box height, or 114% */
-    color: #32313D;
-}
 
-.heading1{
-    position: absolute;
-    left: 11.5%;
-    right: 54.44%;
-    top: 50%;
-    bottom: 90.74%;
-    /* Heading / Heading 2 */
-    font-family: DM Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 42px;
-    line-height: 48px;
-    /* identical to box height, or 114% */
-    color: #32313D;
-}
 
 .logo1{
     width: 250px;

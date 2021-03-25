@@ -14,8 +14,8 @@ class Search extends React.Component {
 		super(props);
 
 		this.state = {
-			query: '',
-			results: {},
+			query: props.query?props.query:'',
+			results: [],
 			loading: false,
 			message: '',
 			totalResults: 0,
@@ -51,6 +51,9 @@ class Search extends React.Component {
 	 *
 	 */
 	fetchSearchResults = (updatedPageNo = '', query) => {
+		if(!query){
+			return;
+		}
 		const pageNumber = updatedPageNo ? `&page=${updatedPageNo}` : '';
 		const searchUrl = `http://3.138.232.158:5000/api/products/search?searchTerm=${query}`;
 
@@ -92,7 +95,7 @@ class Search extends React.Component {
 	handleOnInputChange = (Event) => {
 		const query = Event.target.value;
 		if (!query) {
-			this.setState({ query, results: {}, message: '', totalPages: 0, totalResults: 0 });
+			this.setState({ query, results: [], message: '', totalPages: 0, totalResults: 0 });
 		} else {
 			this.setState({ query, loading: true, message: '' }, () => {
 				this.fetchSearchResults(1, query); // Here I am passing Page Number and search query
@@ -116,7 +119,13 @@ class Search extends React.Component {
 		});
 	};
 
-	componentDidMount() {
+	componentDidMount(props) {
+		if(this.props.location.state){
+			this.setState({
+				query: this.props.location.state.query
+			})
+		}
+		this.fetchSearchResults(1, this.state.query);
 		document.addEventListener("mousedown", this.handleClickOutside);
 		document.addEventListener("mousedown", this.handleClickOutside1);
 	}
@@ -167,9 +176,10 @@ class Search extends React.Component {
 
 	container = React.createRef();
 	renderSearchResults = () => {
-		const { results } = this.state;
+		const { results} = this.state;
+		console.log(this.state.query);
 
-		if (Object.keys(results).length && results.length) {
+		if (this.state.query!='') {
 			return (
 				<div className="results-container">
 					{ results.map(result => {
@@ -196,13 +206,14 @@ class Search extends React.Component {
 
 	render() {
 		const { query, loading, message, currentPageNo, totalPages } = this.state;
+		console.log(this.state.query);
 
 		const showPrevLink = 1 < currentPageNo;
 		const showNextLink = totalPages > currentPageNo;
 		return (
 			<>
 				<img src={Logo} alt="logo" height="60px" width="200px" className="logo1" />
-				<Searchbar searchFunction={this.fetchSearchResults} onHandleChange={this.handleOnInputChange} query={query}/>
+				<Searchbar searchFunction={(query)=> this.fetchSearchResults(1, query)} onHandleChange={this.handleOnInputChange} query={query}/>
 				{/*	Error Message*/}
 				{message && <p className="message">{message}</p>}
 
@@ -233,8 +244,7 @@ class Search extends React.Component {
 					// eslint-disable-next-line no-restricted-globals
 					handleNextClick={() => this.handlePageClick('next', Event)}
 				/>
-				<p className="heading"> Proudly Supporting</p>
-				<p className="heading1"> small local businesses</p>
+
 			</>
 		)
 	}

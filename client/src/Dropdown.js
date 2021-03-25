@@ -26,7 +26,7 @@ export default class Dropdown extends Component {
     render() {
       const { isListOpen, headerTitle, list} = this.state;
         return (
-            <div className= "dd-wrapper">
+            <div className= {"dd-wrapper " + this.props.style}>
             <button
               type="button"
               className={this.props.borderstyle?"dd-header dd-border": "dd-header"}
