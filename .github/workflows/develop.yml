@@ -19,5 +19,5 @@ jobs:
         instance-ids: ${{ secrets.DEVELOP_INSTANCE_ID  }}
         comment: Deploy the develop branch
         working-directory: /home/ec2-user
-        command: /bin/sh ./deploy.sh
+        command: /bin/sh ./deploy.sh > output.txt
       
