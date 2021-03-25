@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import "bootstrap/dist/css/bootstrap.css";
+
 import "./css/ProductDetails.css";
-import { Container, Row, Col } from "react-bootstrap";
 
 const ProductDetailsLeft = ({ imageURL }) => (
     <div className='column product-img'>

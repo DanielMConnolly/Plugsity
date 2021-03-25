@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "bootstrap/dist/css/bootstrap.css";
+
 import "./css/ProductDetails.css";
 import Button from "./ProductButton";
 import Tabs from "./Tabs";

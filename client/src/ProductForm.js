@@ -13,8 +13,8 @@ export default class ProductForm extends Component {
         this.state = {
             product_name: "",
             product_description: "",
-            category: "",
-            product_category: "",
+            category: "Product",
+            product_category: "Art",
             product_subcategory: "",
             product_tags: "",
             product_listing: "",

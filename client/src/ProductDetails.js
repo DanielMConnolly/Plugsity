@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
 import ProductDetailsRight from "./ProductDetailsRight";
-import "bootstrap/dist/css/bootstrap.css";
+
 import ProductDetailsLeft from "./ProductDetailsLeft";
 
 export default class ProductDetails extends Component {
