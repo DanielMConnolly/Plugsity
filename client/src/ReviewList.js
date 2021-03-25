@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { Component } from 'react';
+import dotenv from 'dotenv'
 import ReactPlayer from 'react-player'
+
+dotenv.config()
 
 export default class Review extends Component {
 
@@ -18,7 +21,7 @@ export default class Review extends Component {
     componentDidMount() {
         axios({
             method: 'GET',
-            url: "http://localhost:5000/review/list",
+            url: process.env.REACT_APP_PROXY + "/review/list",
 
         }).then(response => {
 
