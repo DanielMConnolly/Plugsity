@@ -11,7 +11,59 @@ const con = mysql.createConnection({
     password: process.env.DB_PASSWORD
 });
 
+//updates or registers user_id in the token table
+function createToken(user_id){
+    let token_to_be_returned = 0;
+    con.connect(function(err) {
+        con.query('USE Plugsity');
+        let did_find = true;
+        //const queryFind = `SELECT user_token FROM UserToken WHERE user_id = '${user_id}'`;
+        const queryFind = `SELECT dummyid FROM dummyUserToken WHERE dummyid = '${user_id}'`;
+        con.query(queryFind, function (err, result, fields) {
+            if (err) console.log(err);
+            if (result.length > 0) {
+                did_find = true;
+            }else{
+                did_find = false;
+            }
+            //TODO: fix tokenizer
+            token_to_be_returned = Math.floor(Math.random() * 2^20);
+            console.log(`token is ${token_to_be_returned}`);
+            console.log(`user id is ${user_id}`);
+            let queryUpdate = "";
+            if (did_find == true){
+                //queryUpdate = `UPDATE UserToken SET user_token = '${token_to_be_returned}' WHERE user_id = '${user_id}'`
+                queryUpdate = `UPDATE dummyUserToken SET dummyToken = '${token_to_be_returned}' WHERE dummyid = '${user_id}'`;
+            }else{
+                //queryUpdate = `INSER INTO user_token (user_token, user_id) VALUES ('${token_to_be_returned}', '${user_id}')`
+                queryUpdate = `INSERT INTO dummyUserToken (dummyid, dummyToken) VALUES ('${user_id}', '${token_to_be_returned}')`;
+            }
+            con.query(queryUpdate, function (err, result, feilds) {
+                if (err) console.log(err);
+                return token_to_be_returned
+            });
+        });
+    })
 
+}
+
+//returns false when token is not verified
+function tokenVarification(user_id,token){
+    con.connect(function(err) {
+        con.query('USE Plugsity');
+        let trueToken = -1
+        //const query = `SELECT user_token FROM UserToken WHERE user_id = '${user_id}'`;
+        const query = `SELECT dummyToken FROM dummyUserToken WHERE dummyid = '${user_id}'`;
+        con.query(query, function (err, result, feilds) {
+            console.log("trying to get a query, this is our result:", result)
+            //TODO: change type??
+            //trueToken = result.user_token
+            trueToken = result.dummyToken
+            return trueToken !== token
+        })
+
+    })
+}
 const addUser = (res, firstname, lastname, email, password) => {
     con.connect(function (err) {
         con.query('USE Plugsity');
@@ -41,20 +93,22 @@ const addUser = (res, firstname, lastname, email, password) => {
 const getUser = (res, email, password) => {
     con.connect(function (err) {
         con.query('USE Plugsity');
-        const query = `SELECT email_address FROM Users WHERE email_address = '${email}'`;
+        const query = `SELECT * FROM Users WHERE (email_address = '${email}' AND user_password = '${password}')`;
         con.query(query, function (err, result, fields) {
             if (err) console.log(err);
             if (result.length > 0) {
-                //if password is the same, give them a token
-                console.log("there exists a query for ", result.)
-                res.status(409);
+                console.log("Trying to create a token")
+                let retToken = createToken(result[0].user_id)
+                if (tokenVarification(result[0].user_id,retToken)){
+                    console.log("Huston we have a problem")
+                }
+                res.send({token:retToken});
             }else{
+                //passwords are different or email is noneexistant
                 console.log("there does not exist a query")
-                res.status(409);
+                res.sendStatus(409);
             }
-
         })
-
     });
 
 }
