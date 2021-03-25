@@ -9,7 +9,7 @@ form {
   flex-direction: column;
 }
 
-input {
+.Signup_Bus input {
     margin-top: 20px;
     font-family: 'DM Sans';
     height: 30px;
