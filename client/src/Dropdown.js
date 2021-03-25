@@ -1,4 +1,5 @@
 
+import { defaultsDeep } from 'lodash';
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome'
 import './css/dropdown.css'
@@ -25,10 +26,10 @@ export default class Dropdown extends Component {
     render() {
       const { isListOpen, headerTitle, list} = this.state;
         return (
-            <div className="dd-wrapper">
+            <div className= "dd-wrapper">
             <button
               type="button"
-              className="dd-header"
+              className={this.props.borderstyle?"dd-header dd-border": "dd-header"}
               onClick={this.toggleList}
             >
               <div className="dd-header-title">{headerTitle}</div>

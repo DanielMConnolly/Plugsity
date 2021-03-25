@@ -113,17 +113,6 @@ class Searchbar extends Component {
             })
     };
 
-    handleOnInputChange = (Event) => {
-        const query = Event.target.value;
-        if (!query) {
-            this.setState({ query, results: {}, message: '', totalPages: 0, totalResults: 0 });
-        } else {
-            this.setState({ query, loading: true, message: '' }, () => {
-                this.fetchSearchResults(1, query); // Here I am passing Page Number and search query
-            });
-        }
-    };
-
     handleButtonClick = () => {
         this.setState(state => {
             return {
@@ -151,12 +140,14 @@ class Searchbar extends Component {
                 <input
                         type="text"
                         name="query"
-                        value={query}
+                        value={this.props.query}
                         id="search-input"
                         autoComplete="off"
                         className="search-input-field"
                         placeholder="What are you looking for?"
-                        onChange={this.handleOnInputChange}
+                        onChange={(e)=>{
+                            this.props.onHandleChange(e)}
+                        }
                         onFocus={this.onFocus}
                     />
                     <div className="search-button">
@@ -168,7 +159,7 @@ class Searchbar extends Component {
                         <div className="city-dropdown" ref={this.container}>
                             <Dropdown className="dropdown" title="State" list={this.createStateList()} />
                         </div>
-                        <button onClick={()=>this.props.searchFunction(1, query)} className="search-button1"><p className="search-design"><i className="fa fa-search search-icon" aria-hidden="true"/>Search</p></button>
+                        <button onClick={()=>this.props.searchFunction(1, this.props.query)} className="search-button1"><p className="search-design"><i className="fa fa-search search-icon" aria-hidden="true"/>Search</p></button>
                     </div>
                 </div>
 

@@ -202,7 +202,7 @@ class Search extends React.Component {
 		return (
 			<>
 				<img src={Logo} alt="logo" height="60px" width="200px" className="logo1" />
-				<Searchbar searchFunction={this.fetchSearchResults}/>
+				<Searchbar searchFunction={this.fetchSearchResults} onHandleChange={this.handleOnInputChange} query={query}/>
 				{/*	Error Message*/}
 				{message && <p className="message">{message}</p>}
 
