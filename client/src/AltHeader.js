@@ -1,5 +1,9 @@
 import {Component} from 'react';
+import FontAwesome from 'react-fontawesome';
 import { Redirect } from 'react-router';
+import AccountHeader from './AccountHeader';
+import './css/AltHeader.css';
+import Icon from './assets/plugsity-icon.png';
 import Searchbar from './Searchbar';
 
 
@@ -7,7 +11,6 @@ class AltHeader extends Component{
 
     constructor(props){
         super(props);
-        console.log("altheader props: ", props);
         this.state= {
             searchActivated: false,
             query: props.initQuery||''
@@ -46,7 +49,14 @@ class AltHeader extends Component{
             />)
         }
         return(
+        <div class="alt-header-row">
+        <div className="alt-header-left">
+        <FontAwesome className="hamburger-menu" name="bars" size='2x'/>
+        <img src={Icon} className="plugsity-icon" />
+        </div>
         <Searchbar query={this.state.query} onHandleChange={e=>this.onHandleChange(e)} searchFunction={()=>this.toSearch()}/>
+        <AccountHeader/>
+        </div>
         );
         
     }
