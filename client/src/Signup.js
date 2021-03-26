@@ -47,6 +47,8 @@ export default class Signup extends Component {
       })
         .then((res => {
 
+          localStorage.setItem('token',res.data.token);
+          localStorage.setItem('user_id',res.data.user_id);
           if (res.status == 200) {
             this.setState({ loggedIn: true })
           }
