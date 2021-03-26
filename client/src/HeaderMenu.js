@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import Logo from './assets/plugsity-logo.png';
 import Dropdown from './Dropdown'
-import FontAwesome from 'react-fontawesome'
+
 import "./css/header.css"
+import AccountHeader from './AccountHeader';
 
 class HeaderMenu extends Component {
 
@@ -17,10 +18,7 @@ class HeaderMenu extends Component {
                     <a href="#" className="header-link">Video Reviews</a>
 
                 </div>
-                <div className="row">
-               <Dropdown title="My Account" list={[]} borderstyle style="account-dropdown" /> <div className="vertical-pipe"></div>
-               <div className="cart-button"><FontAwesome name="shopping-cart" /><div className="cart-label"> CART <div className="cart-items-count"> 0 items</div></div></div>
-               </div>
+              <AccountHeader/>
             </div>
 
             <div className="row">
