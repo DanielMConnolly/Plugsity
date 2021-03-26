@@ -7,8 +7,9 @@ import Review from "./Review";
 import ReviewList from "./ReviewList";
 import SignupLogin_Bus from "./SignupLogin_Bus";
 import Search from "./Search";
+import HomePage from './Homepage';
 import ProductForm from "./ProductForm";
-
+import ProductDetails from "./ProductDetails";
 function App() {
     return (
         <div className='App'>
@@ -21,7 +22,7 @@ function App() {
                         <SignupLogin_Bus />
                     </Route>
                     <Route exact path='/homepage'>
-                        <Search />
+                        <HomePage />
                     </Route>
                     <Route path='/review'>
                         <Review />
@@ -32,6 +33,15 @@ function App() {
                     <Route path='/products/createProduct'>
                         <ProductForm />
                     </Route>
+                    <Route
+                        path='/products/:productID'
+                        component={ProductDetails}
+                    ></Route>
+                    <Route
+                        path='/search'
+                        render={(props)=><Search {...props}/>}
+                    />
+        
                 </Switch>
             </Router>
         </div>
