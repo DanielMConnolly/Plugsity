@@ -18,7 +18,7 @@ class AccountHeader extends Component{
         console.log("logging out");
         axios({
             method: 'post',
-            url: 'http://localhost:5000/auth/logout',
+            url: 'http://3.138.232.158:5000/auth/logout',
             headers: {
               "Accept": 'application/json'
             },
