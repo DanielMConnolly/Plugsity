@@ -1,10 +1,8 @@
 import axios from 'axios';
-import dotenv from 'dotenv'
 import { Component } from 'react';
 
-
 const API_ENDPOINT = 'https://hizg8qqb08.execute-api.us-east-1.amazonaws.com/uploads'
-dotenv.config()
+
 
 
 
@@ -14,6 +12,9 @@ export default class Review extends Component {
             method: 'GET',
             url: API_ENDPOINT
         })
+        console.log(response.data.uploadURL);
+        console.log(response.data.Key);
+
         const key = response.data.Key;
 
         let binary = atob(this.state.image.split(',')[1]);
@@ -22,24 +23,30 @@ export default class Review extends Component {
             array.push(binary.charCodeAt(i))
         }
         let blobData = new Blob([new Uint8Array(array)], { type: "video/mp4" })
-        axios({
-            method: 'POST',
-            url: process.env.REACT_APP_PROXY+ "/review/upload",
-            headers: {
-                "Accept": 'application/json'
-            },
-            data: {
-               user_id: 1,
-               video_name: key,
-               review_rating: 4, 
-               product_id: 1
-            }
-        })
 
-        await fetch(response.data.uploadURL, {
+        const result = await fetch(response.data.uploadURL, {
             method: 'PUT',
             body: blobData
-        });
+        }).then(response => {
+            axios({
+                method: 'POST',
+                url: "http://localhost:5000/review/upload",
+                headers: {
+                    "Accept": 'application/json'
+                },
+                data: {
+                   user_id: 1,
+                   video_name: key,
+                   review_rating: 4, 
+                   product_id: 1
+                }
+            })
+            alert('Upload Succesful!')
+        }
+
+        )
+        this.uploadURL = response.data.uploadURL.split('?')[0];
+
 
     }
 
