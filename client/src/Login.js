@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom'
 import './css/Signup.css'
 import axios from 'axios';
 export default class Signup extends Component {
@@ -6,7 +7,8 @@ export default class Signup extends Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      passwordWrong: false
     };
   }
   handleInputChange = (event) => {
@@ -18,31 +20,36 @@ export default class Signup extends Component {
   }
   onSubmit = (event) => {
     event.preventDefault();
-    if(this.state.confirmPassword!==this.state.password){
-      this.setState({
-        passwordsDontMatch: true
-      })
-    }
-    else{
-      axios({
-        method: 'post',
-        url: 'http://localhost:5000/auth/login',
-        headers: {
-          "Accept": 'application/json'
-        },
-        data: {
-          email: this.state.email,
-          password: this.state.password,
-          name: this.state.name
-        }
+    axios({
+      method: 'post',
+      url: 'http://3.138.232.158:5000/auth/login',
+      headers: {
+        "Accept": 'application/json'
+      },
+      data: {
+        email: this.state.email,
+        password: this.state.password,
+      }
 
-      }).catch(error=>{
-        console.log(error);
-      })
-    }
+    }).then((response) => {
+      console.log("successfully logging in:",response.data)
+      localStorage.setItem('token',response.data.token);
+      localStorage.setItem('user_id',response.data.user_id);
+      if (response.status == 200) {
+        this.setState({ loggedIn: true })
+      }
+    }, (error)=>{
+      //password or username is incorrect
+      this.setState({
+        passwordWrong: true
+      });
+    });
     
   }
   render() {
+    if (this.state.loggedIn) {
+      return (<Redirect to="/homepage"></Redirect>)
+    }
     return (
       <div className="Login">
       <form onSubmit={this.onSubmit}>
@@ -62,6 +69,7 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
+        {this.state.passwordWrong && <div className="error">Password or Username is incorrect</div>}
         <input className={Object.values(this.state).includes("")?"button":"Login"} type="submit" value="Login" />
       </form>
       <hr/>

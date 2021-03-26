@@ -145,6 +145,10 @@ class Search extends React.Component {
 		}
 	};
 
+	logout(){
+		console.log("loggingout")
+	}
+
 	/**
 	 * Fetch results according to the prev or next page requests.
 	 *

@@ -3,6 +3,7 @@ import { element } from 'prop-types';
 import PlugsityLogo from './assets/plugsity-logo.png'
 import './css/SignupLogin_Bus.css'
 import Signup_Bus from './Signup_Bus'
+import Login from './Login'
 import { useState } from 'react';
 import Tabs from './Tabs'
 
@@ -23,7 +24,7 @@ function SignupLogin_Bus() {
                     <Signup_Bus className="tab_Bus" />
                 </div>
                 <div label="Login" className = "tab_Bus">
-                    <div className="tab_Bus"> Later! </div>
+                    <Login className="tab_Bus"/>
                 </div>
             </Tabs>
         </div>
