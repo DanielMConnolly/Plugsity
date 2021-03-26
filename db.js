@@ -91,11 +91,11 @@ const addUser = (res, firstname, lastname, email, password) => {
             if (email_ok) {
                 con.query(`INSERT INTO Users (email_address, first_name, last_name, user_password) VALUES ('${email}', '${firstname}', '${lastname}', '${password}')`, function (err, r, fields) {
                     if (err) { 
-                        console.log(err); res.send(err) 
+                        console.log(err); res.send(err) ;
                     }else if (r){
                         con.query(`SELECT user_id FROM Users WHERE email_address = '${email}';`, function (err, result, fields) {
                             if (err) { 
-                                console.log(err); res.send(err) 
+                                console.log(err); res.send(err) ;
                             }else if (result) { 
                                 createToken(result[0].user_id).then(function(tokenRes){
                                     res.send({ firstName: firstname, lastName: lastname, email: email, password: password, token:tokenRes, user_id:result[0].user_id }); 
@@ -136,21 +136,27 @@ const logout = (res, token, user_id) => {
     con.connect(function (err){
         con.query('USE Plugsity');
         const query = `SELECT dummyToken FROM dummyUserToken WHERE dummyid = '${user_id}'`;
+        console.log("starting logout")
         con.query(query, function(err,result,fields){
             if (err) {console.log(err); res.send(err);}
             if (result.length > 0) {
+                console.log("there exists an entry of this userid")
                 tokenVarification(user_id,token).then(function(){//correct token
                     //delete entry
+                    console.log("token found")
                     const queryDelete = `DELETE FROM dummyUserToken WHERE dummyid = '${user_id}'`;
                     con.query(query, function(err,resultDelete,fieldsDelete){
                         if (err) {
                             console.log(err); res.send(err);
                         }else{
+                            console.log(feildsDelete)
+                            console.log(resultDelete)
+                            console.log("token deleted")
                             res.sendStatus(200);
                         }
-
                     });
                 },function (){//wrong token
+                    console.log("wrong token")
                     res.sendStatus(409);
                 });
             }else{

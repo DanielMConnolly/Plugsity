@@ -32,6 +32,7 @@ export default class Signup extends Component {
       }
 
     }).then((response) => {
+      console.log("successfully logging in:",response.data)
       localStorage.setItem('token',response.data.token);
       localStorage.setItem('user_id',response.data.user_id);
       if (response.status == 200) {

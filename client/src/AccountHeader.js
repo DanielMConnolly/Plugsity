@@ -12,9 +12,9 @@ class AccountHeader extends Component{
             logout: false,
             user_id: ''
         };
-      }
+    }
 
-    logoutUser(){
+    logoutUser = (event) => {
         console.log("logging out");
         axios({
             method: 'post',
@@ -43,7 +43,7 @@ class AccountHeader extends Component{
     }
     return(
         <div className="row">
-        <Dropdown title="My Account" list={[{title:"Hello"},{title: "Log Out", "id": 2, "selected": false, "onClick": this.logoutUser}]} borderstyle style="account-dropdown" /> <div className="vertical-pipe"></div>
+        <Dropdown title="My Account" list={[{title:`Hello User ${this.state.user_id}`},{title: "Log Out", "id": 2, "selected": false, "onClick": this.logoutUser}]} borderstyle style="account-dropdown" /> <div className="vertical-pipe"></div>
         <div className="cart-button"><FontAwesome name="shopping-cart" /><div className="cart-label"> CART <div className="cart-items-count"> 0 items</div></div></div>
         </div>
         )
