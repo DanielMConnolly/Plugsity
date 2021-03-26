@@ -11,7 +11,7 @@ form{
   display: flex;
   flex-direction: column;
 }
-.Signup input{
+input{
     margin-top: 20px;
     font-family: 'DM Sans';
     height: 30px;

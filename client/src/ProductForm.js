@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
-import "./css/Signup.css";
-import "./css/ProductForm.css";
+import "./css/Signup_Bus.css";
+import "./css/SignupLogin.css";
 import PropTypes from "prop-types";
 import PlugsityLogo from "./assets/plugsity-logo.png";
 export default class ProductForm extends Component {
@@ -13,8 +12,8 @@ export default class ProductForm extends Component {
         this.state = {
             product_name: "",
             product_description: "",
-            category: "Product",
-            product_category: "Art",
+            category: "",
+            product_category: "",
             product_subcategory: "",
             product_tags: "",
             product_listing: "",
@@ -52,7 +51,6 @@ export default class ProductForm extends Component {
                 product_category: this.state.product_category,
                 product_subcategory: this.state.product_subcategory,
                 product_tags: this.state.product_tags,
-                product_cost: this.state.product_cost,
                 product_listing: this.state.product_listing,
                 product_image_link: this.state.product_image_link,
                 product_video_link: this.state.product_video_link,
@@ -79,8 +77,8 @@ export default class ProductForm extends Component {
 
     render() {
         return (
-            <div className='Signup'>
-                <img src={PlugsityLogo} alt='' className='logo' />
+            <div className='Signup_Buss'>
+                <img src={PlugsityLogo} className='logo' />
                 <form onSubmit={this.onSubmit}>
                     <input
                         type='text'
@@ -90,7 +88,6 @@ export default class ProductForm extends Component {
                         onChange={this.handleInputChange}
                         required
                     />
-                    <label>Product Name</label>
                     <input
                         type='text'
                         name='product_description'
@@ -99,92 +96,40 @@ export default class ProductForm extends Component {
                         onChange={this.handleInputChange}
                         required
                     />
-                    <label>Product Description</label>
                     <select
-                        className='drpdwn'
                         name='category'
                         value={this.state.category}
                         onChange={this.handleInputChange}
                         required
                     >
-                        <option className='drpdwn' value='Product'>
-                            Product
-                        </option>
-                        <option className='drpdwn' value='Service'>
-                            Service
-                        </option>
-                        <option className='drpdwn' value='Event'>
-                            Event
-                        </option>
-                    </select>
-                    <label>Select Type of your Product</label>
-                    <select
-                        className='drpdwn'
-                        name='product_category'
-                        value={this.state.product_category}
-                        onChange={this.handleInputChange}
-                        required
-                    >
-                        <option className='drpdwn' value='Art'>
-                            Art
-                        </option>
-                        <option className='drpdwn' value='Auto_Parts'>
+                        <option value='art'>Art</option>
+                        <option value='auto_parts'>
                             Auto Parts & Accessories
                         </option>
-                        <option className='drpdwn' value='Baby'>
-                            Baby
-                        </option>
-                        <option className='drpdwn' value='Beauty_Cosmetics'>
+                        <option value='baby'>Baby</option>
+                        <option value='beauty_cosmetics'>
                             Beauty & Cosmetics
                         </option>
-                        <option className='drpdwn' value='Books'>
-                            Books
-                        </option>
-                        <option className='drpdwn' value='Professional'>
+                        <option value='books'>Books</option>
+                        <option value='professional'>
                             Business & Industrial (Professional)
                         </option>
-                        <option className='drpdwn' value='Electronics'>
-                            Electronics
-                        </option>
-                        <option className='drpdwn' value='Entertainment'>
-                            Entertainment
-                        </option>
-                        <option className='drpdwn' value='Fashion'>
-                            Fashion
-                        </option>
-                        <option className='drpdwn' value='Garden'>
-                            Garden
-                        </option>
-                        <option className='drpdwn' value='Health'>
-                            Health
-                        </option>
-                        <option className='drpdwn' value='Home'>
-                            Home
-                        </option>
-                        <option className='drpdwn' value='Movies'>
-                            Movies
-                        </option>
-                        <option className='drpdwn' value='Music'>
-                            Music
-                        </option>
-                        <option className='drpdwn' value='Pet'>
-                            Pet
-                        </option>
-                        <option className='drpdwn' value='Sports'>
-                            Sports
-                        </option>
-                        <option className='drpdwn' value='Tools'>
-                            Tools & Equipment
-                        </option>
-                        <option className='drpdwn' value='Toy_Hobbies'>
-                            Toy & Hobbies
-                        </option>
-                        <option className='drpdwn' value='Travel'>
-                            Travel
-                        </option>
+                        <option value='electronics'>Electronics</option>
+                        <option value='entertainment'>Entertainment</option>
+                        <option value='fashion'>Fashion</option>
+                        <option value='garden'>Garden</option>
+                        <option value='health'>Health</option>
+                        <option value='home'>Home</option>
+                        <option value='movies'>Movies</option>
+                        <option value='music'>Music</option>
+                        <option value='pet'>Pet</option>
+                        <option value='sports'>Sports</option>
+                        <option value='tools'>Tools & Equipment</option>
+                        <option value='toy_hobbies'>Toy & Hobbies</option>
+                        <option value='travel'>Travel</option>
                     </select>
-                    <label>Select Product Type</label>
-
+                    {/* TODO */}
+                    {/* Need product categories and subcategories here */}
                     <input
                         type='text'
                         name='product_tags'
@@ -192,7 +137,6 @@ export default class ProductForm extends Component {
                         value={this.state.product_tags}
                         onChange={this.handleInputChange}
                     />
-                    <label>Product Tags</label>
                     <input
                         type='text'
                         name='product_listing'
@@ -200,7 +144,6 @@ export default class ProductForm extends Component {
                         value={this.state.product_listing}
                         onChange={this.handleInputChange}
                     />
-                    <label>Product Listings</label>
                     <input
                         type='number'
                         name='product_cost'
@@ -209,7 +152,6 @@ export default class ProductForm extends Component {
                         onChange={this.handleInputChange}
                         required
                     />
-                    <label>Product Cost $</label>
                     <input
                         type='text'
                         name='product_image_link'
@@ -217,7 +159,6 @@ export default class ProductForm extends Component {
                         value={this.state.product_image_link}
                         onChange={this.handleInputChange}
                     />
-                    <label>Product Image Link</label>
                     <input
                         type='text'
                         name='product_video_link'
@@ -225,7 +166,6 @@ export default class ProductForm extends Component {
                         value={this.state.product_video_link}
                         onChange={this.handleInputChange}
                     />
-                    <label>Product Video Link</label>
                     <input type='submit' value='Submit Product' />
                 </form>
             </div>

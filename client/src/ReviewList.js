@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { Component } from 'react';
-import dotenv from 'dotenv'
 import ReactPlayer from 'react-player'
-
-dotenv.config()
 
 export default class Review extends Component {
 
@@ -21,7 +18,7 @@ export default class Review extends Component {
     componentDidMount() {
         axios({
             method: 'GET',
-            url: process.env.REACT_APP_PROXY + "/review/list",
+            url: "http://localhost:5000/review/list",
 
         }).then(response => {
 
@@ -31,11 +28,11 @@ export default class Review extends Component {
             this.setState({
                 videos: response.data.video_links.map(item => item["product_video_link"])
             });
-            console.log(this.state.videos)
         });
     }
     render() {
 
+        console.log(ReactPlayer.canPlay("https://s3uploader-s3uploadbucket-39rbxdinzvg2.s3.us-east-2.amazonaws.com/7280697.mp4"))
         return (
            <>
             {this.renderVideos()}

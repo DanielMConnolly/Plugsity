@@ -1,3 +1,14 @@
+.container {
+	
+    position: absolute;
+    width: 1441px;
+    height: 666px;
+    left: 0px;
+    top: 0px;
+    background-color: #CCF0D9;
+}
+
+
 .heading {
 	font-size: 30px;
 	padding: 16px 0;
@@ -5,61 +16,74 @@
 	text-align: center;
 }
 
-.search-container{
-    display: flex;
- 
-}
-
-.search-results{
-    margin-left: 200px;
-
-}
-
-.searchBar {
+.search-label {
+	width: 1127px;
     height: 56px;
     border-radius: 28px;
-    display: flex;
-    padding: 5px;
-    align-items: center;
+}
+
+.container input {
+	position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin-left: 157px;
+    margin-top: 208px;
+    margin-bottom: 402px;
+    margin-right: 157px;
+    width: 824px;
+    height: 56px;
+    border-radius: 28px;
     background: #F6F5FA;
-    font-size: 16px;
+    mix-blend-mode: normal;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 28px;
+    
 }
 
 
-.selected-toggle, .search-button1 {
+
+.products-class {
+    position: absolute;
+    width: 94px;
+    height: 44px;
+    left: 6px;
+    top: 216px;
+    margin-top: 0px;
+    margin-left: 163px;
+    margin-right: 1184px;
     background: #2E23FB;
     border-radius: 22px;
-    font-size: 16px;
-    padding: 10px;
-    margin: 0px 10px;
     border: none;
-    color: white;
     cursor: pointer;
 }
 
 .search-button1{
-    padding: 10px 20px;
-}
-
-.category-toggle{
-    padding: 10px;
-    margin: 0px 10px;
+    position: absolute;
+    width: 94px;
+    height: 44px;
+    top: 216px;
+    margin-top: -210px;
+    margin-right: 1184px;
+    background: #2E23FB;
     border-radius: 22px;
     border: none;
-    cursor: pointer;
-
+    
 }
-
 
 
 .search-input-field{
+    position:relative;
+    padding-left: 303px;
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: normal;
     font-size: 16px;
-    width: 500px;
-    background-color: transparent;
-    border: none;
-}
-.search-input-field:focus{
-   outline: none;
+    line-height: 24px;
+    color: #32313D;
+    mix-blend-mode: normal;
+    opacity: 0.5;
 }
 
 .vertical-line{
@@ -74,6 +98,9 @@
 }
 
 .vertical-line1{
+    position:relative;
+    margin-top: -33px;
+    padding-left: 440px;
     width: 1px;
     height: 16px;
     border: 1px;
@@ -82,17 +109,23 @@
 }
 
 .search-button{
+    position: absolute;
+    margin-left: 1000px;
+    margin-top: -49px;
     border-radius: 22px;
-    display: inline-flex;
+    width: 242px;
+    height: 56px;
     border:none;
-    align-items: center;
-    background-color: white;
-    margin-left: auto;
     
 }
 
 .search-icon {
-    padding-right: 5px;
+	position: absolute;
+	top: 14px;
+	font-size: 24px;
+	cursor: pointer;
+	right: 70px;
+    color: #FFFFFF;
 }
 
 .products-design{
@@ -126,6 +159,43 @@
     text-align: center;
     color: #FFFFFF;
     cursor: pointer;
+}
+
+.services-class{
+    position: absolute;
+    margin-top: 228px;
+    margin-left: 281px;
+    border: none;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    width: 55px;
+    height: 16px;
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #32313D;
+    cursor: pointer;
+}
+
+.events-class{
+    position: absolute;
+    margin-left: 376px;
+    margin-top: -31px;
+    border: none;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    width: 55px;
+    height: 16px;
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #32313D;
+    cursor: pointer;
+    
 }
 
 /*Result Container*/
@@ -249,9 +319,42 @@
 	opacity: 0.5;
 }
 
+.heading{
+    position: absolute;
+    left: 5%;
+    right: 54.44%;
+    top: 40%;
+    bottom: 90.74%;
+    /* Heading / Heading 2 */
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 42px;
+    line-height: 48px;
+    /* identical to box height, or 114% */
+    color: #32313D;
+}
 
+.heading1{
+    position: absolute;
+    left: 11.5%;
+    right: 54.44%;
+    top: 50%;
+    bottom: 90.74%;
+    /* Heading / Heading 2 */
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 42px;
+    line-height: 48px;
+    /* identical to box height, or 114% */
+    color: #32313D;
+}
 
 .logo1{
+    position: absolute;
+    margin-left: 130px;
+    margin-top: 50px;
     width: 250px;
 }
 
