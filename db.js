@@ -13,7 +13,7 @@ const con = mysql.createConnection({
 
 //updates or registers user_id in the token table
 //return a promise of a token
-//
+// resolve is only implemented and returns a callback token
 function createToken(user_id) {
     return new Promise((resolve, reject) => {
         let token_to_be_returned = 0;
@@ -30,7 +30,8 @@ function createToken(user_id) {
                     did_find = false;
                 }
                 //TODO: fix tokenizer
-                token_to_be_returned = Math.floor(Math.random() * 2^20);
+                //token_to_be_returned = Math.floor(Math.random() * 2^20);
+                token_to_be_returned = require('crypto').randomBytes(10).toString('hex')
                 console.log(`token is ${token_to_be_returned}`);
                 console.log(`user id is ${user_id}`);
                 let queryUpdate = "";
@@ -43,8 +44,7 @@ function createToken(user_id) {
                 }
                 con.query(queryUpdate, function (err, result, feilds) {
                     if (err) console.log(err);
-                    console.log("this is me trying to return a string")
-                    resolve(token_to_be_returned.toString());
+                    resolve(token_to_be_returned);
                 });
             }); 
         });
@@ -75,6 +75,8 @@ function tokenVarification(user_id,token){
         });
     });
 }
+
+//used for signin
 const addUser = (res, firstname, lastname, email, password) => {
     con.connect(function (err) {
         con.query('USE Plugsity');
@@ -89,15 +91,20 @@ const addUser = (res, firstname, lastname, email, password) => {
         })
         if (email_ok) {
             con.query(`INSERT INTO Users (email_address, first_name, last_name, user_password) VALUES ('${email}', '${firstname}', '${lastname}', '${password}')`, function (err, result, fields) {
-                if (err) { console.log(err); res.send(err) }
-                else if (result) { res.send({ firstName: firstname, lastName: lastname, email: email, password: password }); }
-
+                if (err) { 
+                    console.log(err); res.send(err) 
+                }else if (result) { 
+                    createToken(result[0].user_id).then(function(tokenRes){
+                        res.send({ firstName: firstname, lastName: lastname, email: email, password: password, token:tokenRes }); 
+                    });//end of create token
+                }
                 if (fields) console.log(fields);
             });
         }
     });
 }
 
+//used for login
 const getUser = (res, email, password) => {
     con.connect(function (err) {
         con.query('USE Plugsity');
@@ -105,17 +112,13 @@ const getUser = (res, email, password) => {
         con.query(query, function (err, result, fields) {
             if (err) {console.log(err); res.send(err);}
             if (result.length > 0) {
-                console.log("Trying to create a token");
-                var myToken;
                 createToken(result[0].user_id).then(function(tokenRes){
-                    myToken = tokenRes;
-                    tokenVarification(result[0].user_id,myToken).then(function(){//resolve
-                        
+                    tokenVarification(result[0].user_id,tokenRes).then(function(){//resolve
                         console.log("token varified");
-                        res.send({token:myToken});
                     }, function(){//reject
                         console.log("token no varified");
                     });
+                    res.send({token:tokenRes});
                 });//end of create token
             }else{
                 //passwords are different or email is noneexistant
