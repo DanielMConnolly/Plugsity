@@ -45,9 +45,9 @@ export default class Dropdown extends Component {
                 {list.map((item) => (
                   <button
                     type="button"
-                    className="dd-list-item"
+                    className="dd-list-item" 
                     key={item.id}
-                    onClick={() => this.selectItem(item)}
+                    onClick={() => item.onClick()}
                   >
                     {item.title}
                     {' '}
