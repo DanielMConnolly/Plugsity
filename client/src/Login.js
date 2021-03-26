@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom'
 import './css/Signup.css'
 import axios from 'axios';
 export default class Signup extends Component {
@@ -32,11 +33,13 @@ export default class Signup extends Component {
       }
 
     }).then((response) => {
-      console.log(response);
-      console.log(response.status)
+      console.log("trying to login")
+      console.log(response)
+      if (response.status == 200) {
+        this.setState({ loggedIn: true })
+      }
     }, (error)=>{
       //password or username is incorrect
-      console.log("something happened?")
       this.setState({
         passwordWrong: true
       });
@@ -44,6 +47,9 @@ export default class Signup extends Component {
     
   }
   render() {
+    if (this.state.loggedIn) {
+      return (<Redirect to="/homepage"></Redirect>)
+    }
     return (
       <div className="Login">
       <form onSubmit={this.onSubmit}>
@@ -63,7 +69,7 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
-        {this.state.passwordWrong && <div className="error">Password is incorrect</div>}
+        {this.state.passwordWrong && <div className="error">Password or Username is incorrect</div>}
         <input className={Object.values(this.state).includes("")?"button":"Login"} type="submit" value="Login" />
       </form>
       <hr/>

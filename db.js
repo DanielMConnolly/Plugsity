@@ -90,15 +90,24 @@ const addUser = (res, firstname, lastname, email, password) => {
             }
         })
         if (email_ok) {
-            con.query(`INSERT INTO Users (email_address, first_name, last_name, user_password) VALUES ('${email}', '${firstname}', '${lastname}', '${password}')`, function (err, result, fields) {
+            con.query(`INSERT INTO Users (email_address, first_name, last_name, user_password) VALUES ('${email}', '${firstname}', '${lastname}', '${password}')`, function (err, r, fields) {
                 if (err) { 
                     console.log(err); res.send(err) 
-                }else if (result) { 
-                    createToken(result[0].user_id).then(function(tokenRes){
-                        res.send({ firstName: firstname, lastName: lastname, email: email, password: password, token:tokenRes }); 
-                    });//end of create token
+                }else if (r){
+                    con.query(`SELECT user_id FROM Users WHERE email_address = '${email}';`, function (err, result, fields) {
+                        console.log(result)
+                        if (err) { 
+                            console.log(err); res.send(err) 
+                        }else if (result) { 
+                            createToken(result[0].user_id).then(function(tokenRes){
+                                res.send({ firstName: firstname, lastName: lastname, email: email, password: password, token:tokenRes }); 
+                            });//end of create token
+                        }
+                        if (fields) console.log(fields);
+                    });
                 }
                 if (fields) console.log(fields);
+                
             });
         }
     });
