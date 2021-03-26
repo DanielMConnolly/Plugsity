@@ -6,7 +6,8 @@ export default class Signup extends Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      passwordWrong: false
     };
   }
   handleInputChange = (event) => {
@@ -18,28 +19,28 @@ export default class Signup extends Component {
   }
   onSubmit = (event) => {
     event.preventDefault();
-    if(this.state.confirmPassword!==this.state.password){
-      this.setState({
-        passwordsDontMatch: true
-      })
-    }
-    else{
-      axios({
-        method: 'post',
-        url: 'http://localhost:5000/auth/login',
-        headers: {
-          "Accept": 'application/json'
-        },
-        data: {
-          email: this.state.email,
-          password: this.state.password,
-          name: this.state.name
-        }
+    console.log("pressed login button")
+    axios({
+      method: 'post',
+      url: 'http://localhost:5000/auth/login',
+      headers: {
+        "Accept": 'application/json'
+      },
+      data: {
+        email: this.state.email,
+        password: this.state.password,
+      }
 
-      }).catch(error=>{
-        console.log(error);
-      })
-    }
+    }).then((response) => {
+      console.log(response);
+      console.log(response.status)
+    }, (error)=>{
+      //password or username is incorrect
+      console.log("something happened?")
+      this.setState({
+        passwordWrong: true
+      });
+    });
     
   }
   render() {
@@ -62,6 +63,7 @@ export default class Signup extends Component {
           onChange={this.handleInputChange}
           required
         />
+        {this.state.passwordWrong && <div className="error">Password is incorrect</div>}
         <input className={Object.values(this.state).includes("")?"button":"Login"} type="submit" value="Login" />
       </form>
       <hr/>
