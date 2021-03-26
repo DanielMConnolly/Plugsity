@@ -21,7 +21,7 @@ function SignupLogin() {
                     <Signup className="tab" />
                 </div>
                 <div label="Login">
-                    <Login />
+                    <Login className="tab"/>
                 </div>
             </Tabs>
             <div ><img src={ShinyHappy} /></div>
