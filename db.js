@@ -51,7 +51,7 @@ function createToken(user_id) {
 
 //returns a promise for when the token is correct
 //resolve is when token is varified
-//reject is when token is garbo
+//reject is when token is 
 function tokenVarification(user_id,token){
     return new Promise((resolve, reject) => {
         con.connect(function(err) {
