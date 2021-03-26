@@ -20,7 +20,6 @@ export default class Signup extends Component {
   }
   onSubmit = (event) => {
     event.preventDefault();
-    console.log("pressed login button")
     axios({
       method: 'post',
       url: 'http://localhost:5000/auth/login',
@@ -33,8 +32,8 @@ export default class Signup extends Component {
       }
 
     }).then((response) => {
-      console.log("trying to login")
-      console.log(response)
+      localStorage.setItem('token',response.data.token);
+      localStorage.setItem('user_id',response.data.user_id);
       if (response.status == 200) {
         this.setState({ loggedIn: true })
       }

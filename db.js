@@ -32,8 +32,6 @@ function createToken(user_id) {
                 //TODO: fix tokenizer
                 //token_to_be_returned = Math.floor(Math.random() * 2^20);
                 token_to_be_returned = require('crypto').randomBytes(10).toString('hex')
-                console.log(`token is ${token_to_be_returned}`);
-                console.log(`user id is ${user_id}`);
                 let queryUpdate = "";
                 if (did_find == true){
                     //queryUpdate = `UPDATE UserToken SET user_token = '${token_to_be_returned}' WHERE user_id = '${user_id}'`
@@ -61,11 +59,6 @@ function tokenVarification(user_id,token){
             //const query = `SELECT user_token FROM UserToken WHERE user_id = '${user_id}'`;
             const query = `SELECT dummyToken FROM dummyUserToken WHERE dummyid = '${user_id}'`;
             con.query(query, function (err, result, feilds) {
-                console.log("trying to get a query, this is our result:", result)
-                console.log(result[0].dummyToken)
-                console.log(token)
-                //TODO: change type??
-                console.log("the answer is ",token == result[0].dummyToken);
                 if (token == result[0].dummyToken){
                     resolve();
                 }else{
@@ -75,6 +68,13 @@ function tokenVarification(user_id,token){
         });
     });
 }
+/*
+tokenVarification(result[0].user_id,tokenRes).then(function(){//resolve
+    console.log("token varified");
+}, function(){//reject
+    console.log("token no varified");
+});
+*/
 
 //used for signin
 const addUser = (res, firstname, lastname, email, password) => {
@@ -88,28 +88,26 @@ const addUser = (res, firstname, lastname, email, password) => {
                 email_ok = false;
                 res.status(409);
             }
-        })
-        if (email_ok) {
-            con.query(`INSERT INTO Users (email_address, first_name, last_name, user_password) VALUES ('${email}', '${firstname}', '${lastname}', '${password}')`, function (err, r, fields) {
-                if (err) { 
-                    console.log(err); res.send(err) 
-                }else if (r){
-                    con.query(`SELECT user_id FROM Users WHERE email_address = '${email}';`, function (err, result, fields) {
-                        console.log(result)
-                        if (err) { 
-                            console.log(err); res.send(err) 
-                        }else if (result) { 
-                            createToken(result[0].user_id).then(function(tokenRes){
-                                res.send({ firstName: firstname, lastName: lastname, email: email, password: password, token:tokenRes }); 
-                            });//end of create token
-                        }
-                        if (fields) console.log(fields);
-                    });
-                }
-                if (fields) console.log(fields);
-                
-            });
-        }
+            if (email_ok) {
+                con.query(`INSERT INTO Users (email_address, first_name, last_name, user_password) VALUES ('${email}', '${firstname}', '${lastname}', '${password}')`, function (err, r, fields) {
+                    if (err) { 
+                        console.log(err); res.send(err) 
+                    }else if (r){
+                        con.query(`SELECT user_id FROM Users WHERE email_address = '${email}';`, function (err, result, fields) {
+                            if (err) { 
+                                console.log(err); res.send(err) 
+                            }else if (result) { 
+                                createToken(result[0].user_id).then(function(tokenRes){
+                                    res.send({ firstName: firstname, lastName: lastname, email: email, password: password, token:tokenRes, user_id:result[0].user_id }); 
+                                });//end of create token
+                            }
+                            if (fields) console.log(fields);
+                        });
+                    }
+                    if (fields) console.log(fields);
+                });
+            }
+        });
     });
 }
 
@@ -122,12 +120,8 @@ const getUser = (res, email, password) => {
             if (err) {console.log(err); res.send(err);}
             if (result.length > 0) {
                 createToken(result[0].user_id).then(function(tokenRes){
-                    tokenVarification(result[0].user_id,tokenRes).then(function(){//resolve
-                        console.log("token varified");
-                    }, function(){//reject
-                        console.log("token no varified");
-                    });
-                    res.send({token:tokenRes});
+                    
+                    res.send({token:tokenRes, user_id:result[0].user_id});
                 });//end of create token
             }else{
                 //passwords are different or email is noneexistant
@@ -136,7 +130,36 @@ const getUser = (res, email, password) => {
             }
         })
     });
+}
 
+const logout = (res, token, user_id) => {
+    con.connect(function (err){
+        con.query('USE Plugsity');
+        const query = `SELECT dummyToken FROM dummyUserToken WHERE dummyid = '${user_id}'`;
+        con.query(query, function(err,result,fields){
+            if (err) {console.log(err); res.send(err);}
+            if (result.length > 0) {
+                tokenVarification(user_id,token).then(function(){//correct token
+                    //delete entry
+                    const queryDelete = `DELETE FROM dummyUserToken WHERE dummyid = '${user_id}'`;
+                    con.query(query, function(err,resultDelete,fieldsDelete){
+                        if (err) {
+                            console.log(err); res.send(err);
+                        }else{
+                            res.sendStatus(200);
+                        }
+
+                    });
+                },function (){//wrong token
+                    res.sendStatus(409);
+                });
+            }else{
+                //passwords are different or email is noneexistant
+                console.log("there does not exist a query,logout anyway")
+                res.sendStatus(200);
+            }
+        });
+    });
 }
 
 const addReview = (video_name, user_id, review_rating, product_id) => {
@@ -194,6 +217,7 @@ const setVideoComplete = (id)=>{
 
 exports.addUser = addUser;
 exports.getUser = getUser;
+exports.logout = logout;
 exports.addReview = addReview;
 exports.getReviews = getReviews;
 exports.setVideoComplete = setVideoComplete;
