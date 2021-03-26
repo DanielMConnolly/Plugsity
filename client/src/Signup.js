@@ -33,7 +33,7 @@ export default class Signup extends Component {
     else {
       axios({
         method: 'post',
-        url: 'http://localhost:5000/auth/signup',
+        url: 'http://3.138.232.158:5000/auth/signup',
         headers: {
           "Accept": 'application/json'
         },

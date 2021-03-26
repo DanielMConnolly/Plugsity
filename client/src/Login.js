@@ -22,7 +22,7 @@ export default class Signup extends Component {
     event.preventDefault();
     axios({
       method: 'post',
-      url: 'http://localhost:5000/auth/login',
+      url: 'http://3.138.232.158:5000/auth/login',
       headers: {
         "Accept": 'application/json'
       },
