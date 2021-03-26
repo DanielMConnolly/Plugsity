@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import {Link, Redirect} from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import './css/Signup.css'
 import axios from 'axios';
 export default class Signup extends Component {
@@ -19,18 +19,18 @@ export default class Signup extends Component {
 
     this.setState({
       [name]: value,
-      emailtaken: this.state.emailtaken?name=="email":false
+      emailtaken: this.state.emailtaken ? name == "email" : false
     });
 
   }
   onSubmit = (event) => {
     event.preventDefault();
-    if(this.state.confirmPassword!==this.state.password){
+    if (this.state.confirmPassword !== this.state.password) {
       this.setState({
         passwordsDontMatch: true
       })
     }
-    else{
+    else {
       axios({
         method: 'post',
         url: 'http://localhost:5000/auth/signup',
@@ -45,81 +45,86 @@ export default class Signup extends Component {
         }
 
       })
-      .then((res=>{
-        console.log("we successfully logged in")
-        console.log(res)
-        if(res.status==200){
-        this.setState({loggedIn: true})
-        }
-      })).catch(error=>{
-        console.log(error);
-        this.setState({
-          emailtaken: true
+        .then((res => {
+
+          if (res.status == 200) {
+            this.setState({ loggedIn: true })
+          }
+        })).catch(error => {
+          console.log(error);
+          this.setState({
+            emailtaken: true
+          })
+
         })
-        
-      })
     }
-    
+
   }
   render() {
-    if(this.state.loggedIn){
-      return(<Redirect to="/homepage"></Redirect>)
+    if (this.state.loggedIn) {
+      return (<Redirect to="/homepage"></Redirect>)
     }
     return (
       <div className="Signup">
-      <form onSubmit={this.onSubmit}>
-        <input
-          type="text"
-          name="firstname"
-          placeholder="First Name"
-          value={this.state.firstName}
-          onChange={this.handleInputChange}
-          required
-        />
-           <input
-          type="text"
-          name="lastname"
-          placeholder="Last Name"
-          value={this.state.lastName}
-          onChange={this.handleInputChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={this.state.email}
-          onChange={this.handleInputChange}
-          required
-        />
-        {this.state.emailtaken && <div className="error">Email already taken</div>}
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleInputChange}
-          required
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={this.state.confirmPassword}
-          onChange={this.handleInputChange}
-          required
-        />
-        {this.state.passwordsDontMatch && <div className="error">Passwords don't match</div>}
-        <input className={Object.values(this.state).includes("")?"button":"activatedButton"} type="submit" value="Sign Up" />
-      </form>
-      <div className="disclaimer">By clicking the "Sign Up button, you are creating a plugsity account, and you agree to Plugsity's terms of use and privacy policy</div>
-      <hr/>
-      <div className="business-signup">
-      <div>Sign up as a business? </div> 
-      <Link to="/business">
-      <div>Get Started</div>
-      </Link>
-      </div>
+        <form onSubmit={this.onSubmit}>
+          <input
+            type="text"
+            name="firstname"
+            placeholder="First Name"
+            value={this.state.firstName}
+            onChange={this.handleInputChange}
+            required
+          />
+          <label>First Name</label>
+          <input
+            type="text"
+            name="lastname"
+            placeholder="Last Name"
+            value={this.state.lastName}
+            onChange={this.handleInputChange}
+            required
+          />
+          <label>Last Name</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={this.state.email}
+            onChange={this.handleInputChange}
+            required
+          />
+          <label>Email</label>
+
+          {this.state.emailtaken && <div className="error">Email already taken</div>}
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={this.state.password}
+            onChange={this.handleInputChange}
+            required
+          />
+          <label>Password</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={this.state.confirmPassword}
+            onChange={this.handleInputChange}
+            required
+          />
+          <label>Confirm Password</label>
+          {this.state.passwordsDontMatch && <div className="error">Passwords don't match</div>}
+          <input className={Object.values(this.state).includes("") ? "button" : "activatedButton"} type="submit" value="Sign Up" />
+        </form>
+        <div className="disclaimer">By clicking the "Sign Up button, you are creating a plugsity account, and you agree to Plugsity's terms of use and privacy policy</div>
+        <hr />
+        <div className="business-signup">
+          <div>Sign up as a business? </div>
+          <Link to="/business">
+            <div>Get Started</div>
+          </Link>
+        </div>
       </div>
     );
   }
