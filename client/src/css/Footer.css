@@ -1,0 +1,136 @@
+.column-6-left {
+    width: 220px;
+    padding: 1px;
+    float: left;
+    margin-right: 80px;
+    padding-left: 90px;
+  }
+  
+  .column-6-middle {
+    width: 143px;
+    padding: 1px;
+    float: left;
+    margin-left: 50px;
+    margin-right: 1px;
+  }
+
+  
+  .column-6-right {
+    width: 250px;
+    padding: 1px;
+    float: right;
+    margin-right: 60px;
+  }
+
+  .footer-text{
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;   
+    color: #32313D;
+    width: 131px;
+    height:32px; 
+    margin-top: 10px;
+  }
+
+.footer-title{
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 16px;
+    /* identical to box height, or 114% */
+    color: #32313D;
+
+}
+
+.footer-subtitle{
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    /* identical to box height, or 114% */
+
+
+    color: #32313D;
+
+}
+
+.footer-last-column{
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 24px;
+    /* identical to box height, or 120% */
+
+
+    color: #32313D;
+
+}
+
+.input-name{
+    background: #FFFFFF;
+    border: 1px solid rgba(50, 49, 61, 0.2);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 100px;
+    padding:10px;
+    flex: 1;
+}
+
+.subscribe{
+    background: #2E23FB;
+    border-radius: 100px;
+    width: 89px;
+    height: 34px;
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    /* identical to box height, or 114% */
+    text-align: center;
+    margin-left: -90px;  
+    color: #FFFFFF;
+    margin-top:2px;   
+}
+
+.flexContainer{
+    display: flex;
+}
+
+.fa {
+    padding: 6px;
+    font-size: 28px;
+    width: 28px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+  }
+.fa:hover {
+      opacity: 0.7;
+  }
+  
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.fa-instagram {
+    background: #125688;
+    color: white;
+}
+
+.fa-linkedin {
+    background: #007bb5;
+    color: white;
+}
+  
