@@ -206,7 +206,7 @@ class Search extends React.Component {
 	 *
 	 * @param {String} type 'prev' or 'next'
 	 */
-	handlePageClick = (type) => {
+	/**handlePageClick = (type) => {
 		// eslint-disable-next-line no-restricted-globals
 		Event.preventDefault();
 		const updatePageNo = 'prev' === type
@@ -218,7 +218,7 @@ class Search extends React.Component {
 				this.fetchSearchResults(updatePageNo, this.state.query);
 			});
 		}
-	};
+	}; **/
 
 	container = React.createRef();
 	renderSearchResults = () => {
@@ -229,34 +229,35 @@ class Search extends React.Component {
 			return (
 			<div>
 				<form>
-					<h5 className="h5-class"> Filter Categories:</h5>
+				<br /><h5 className="h5-class"> Filter Categories:</h5>
 					{ results.map(result => {
 						return (
 							<div>	
-								<div className="form-row">
+								<div className="form-row2">
 									
 									<div className="form-check form-check-inline">
 										<input type="checkbox" id="category" name="category" value={result.product_category} onChange={this.handleInputChange} />
-										<label for="category">{result.product_category}</label>
+										<label for="category" className="filter-text">{result.product_category}</label>
 									</div>
 									
 								</div>
+								
         					</div>	
-	
+							
 						)
 					})}
 					
 				</form>	
 
 				<form>
-					<h5 className="h5-class"> Filter Sub-Categories:</h5>
+				<br /><h5 className="h5-class"> Filter Sub-Categories:</h5> 
 					{ results.map(result => {
 						return (
 							<div>	
 								<div className="form-row1">
 								<div className="form-check form-check-inline">
 									<input type="checkbox" id="subcategory" name="subategory" value={result.product_subcategory} onChange={this.handleInputChange} />
-									<label for="subcategory">{result.product_subcategory}</label>
+									<label for="subcategory" className="filter-text">{result.product_subcategory}</label>
 								</div>
 								</div>
         					</div>	
@@ -267,7 +268,7 @@ class Search extends React.Component {
 				</form>	
 
 				<form>
-					<h5 className="h5-class"> Price Range:</h5>
+				<br /><h5 className="h5-class"> Price Range:</h5>
 					<div>
 						<RangeStepInput
 							className="form-row1"
@@ -329,7 +330,7 @@ class Search extends React.Component {
 					<img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'}`} alt="loader" />
 
 					{/*Navigation*/}
-					<PageNavigation
+					{/*<PageNavigation
 						loading={loading}
 						showPrevLink={showPrevLink}
 						showNextLink={showNextLink}
@@ -339,11 +340,11 @@ class Search extends React.Component {
 						handleNextClick={() => this.handlePageClick('next', Event)}
 					/>
 
-					{/*	Result*/}
+					{/*	Result*/} 
 					{this.renderSearchResults()}
 
-					{/*Navigation*/}
-					<PageNavigation
+					
+					{/*<PageNavigation
 						loading={loading}
 						showPrevLink={showPrevLink}
 						showNextLink={showNextLink}
@@ -351,7 +352,7 @@ class Search extends React.Component {
 						handlePrevClick={() => this.handlePageClick('prev', Event)}
 						// eslint-disable-next-line no-restricted-globals
 						handleNextClick={() => this.handlePageClick('next', Event)}
-					/>
+					/> */}
 				</div>
 				</div>
 

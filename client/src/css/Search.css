@@ -55,7 +55,7 @@
 
 .search-input-field{
     font-size: 16px;
-    width: 500px;
+    width: 350px;
     background-color: transparent;
     border: none;
 }
@@ -89,7 +89,6 @@
     align-items: center;
     background-color: white;
     margin-left: auto;
-    
 }
 
 .search-icon {
@@ -133,7 +132,7 @@
 .results-container {
 	display: flex;
 	flex-flow: wrap;
-    margin-top: -350px;
+    margin-top: -320px;
     margin-left: 80px;
     
 }
@@ -334,23 +333,15 @@ li:hover {
     padding-right: 0px;
 }
 
-.form-row{
+.form-row2{
     border-radius: 2px solid black;
     margin-left: -100px;
     background: #F8F8F8;
     width: 200px;
     padding-left: 30px;
     border: 1px solid rgba(0, 0.07, 0, 0);
-    
     color: #32313D;
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    display: inline-flex;
-    display: flex;
-    flex-direction: column;
-    
+    padding: 4px;
 }
 
 .form-row1{
@@ -361,13 +352,18 @@ li:hover {
     padding-left: 30px;
     border: 1px solid rgba(0, 0.07, 0, 0);   
     color: #32313D;
+    padding: 4px;
+}
+
+.filter-text{
     font-family: 'DM Sans';
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
     display: flex;
     flex-direction: column;
-    
+    margin-left: 10px;
+    margin-top: 4px;
 }
 
 .h5-class{
