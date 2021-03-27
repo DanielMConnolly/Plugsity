@@ -8,6 +8,7 @@ import AltHeader from './AltHeader';
 import 'font-awesome/css/font-awesome.min.css';
 import SearchSidebar from './SearchSidebar'
 import 'react-dropdown/style.css';
+import {RangeStepInput} from 'react-range-step-input';
 
 
 
@@ -25,10 +26,13 @@ class Search extends React.Component {
 			totalPages: 0,
 			currentPageNo: 0,
 			open: false,
-			open1: false
+			open1: false,
+			facets: [],
+			range: 500
 		};
 
 		this.cancel = '';
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
 
@@ -101,10 +105,36 @@ class Search extends React.Component {
 			this.setState({ query, results: [], message: '', totalPages: 0, totalResults: 0 });
 		} else {
 			this.setState({ query, loading: true, message: '' }, () => {
-				this.fetchSearchResults(1, query); // Here I am passing Page Number and search query
+				//this.fetchSearchResults(1, query); // Here I am passing Page Number and search query
 			});
 		}
 	};
+
+	handleOnInputSearch = (Event) => {
+		const query = this.state.query;
+		if ( query ) {	
+		  this.setState({ query, loading: true, message: '' }, () => {
+			this.fetchSearchResults(1, query);
+  
+		  });
+		} 
+	}
+
+	handleInputChange(event) {
+        const target = event.target;
+        var value = target.value;
+        
+        if(target.checked){
+            this.state.facets[value] = value;
+			this.fetchSearchResults(1, value);   
+        }else{
+            this.state.facets.splice(value, 1);
+        }
+        
+    }
+
+	
+
 
 	handleButtonClick = () => {
 		this.setState(state => {
@@ -162,6 +192,15 @@ class Search extends React.Component {
 		console.log("loggingout")
 	}
 
+	submit(){
+        console.warn(this.state)
+    }
+
+	onChange(e) {
+        const newVal = e.target.value;
+        this.setState({range: newVal});
+		this.fetchSearchResults(1, newVal);
+    }
 	/**
 	 * Fetch results according to the prev or next page requests.
 	 *
@@ -184,30 +223,92 @@ class Search extends React.Component {
 	container = React.createRef();
 	renderSearchResults = () => {
 		const { results } = this.state;
-
-		if (this.state.query != '') {
+		
+		
+		if (this.state.query !== '' && this.state.loading === false) {
 			return (
+			<div>
+				<form>
+					<h5 className="h5-class"> Filter Categories:</h5>
+					{ results.map(result => {
+						return (
+							<div>	
+								<div className="form-row">
+									
+									<div className="form-check form-check-inline">
+										<input type="checkbox" id="category" name="category" value={result.product_category} onChange={this.handleInputChange} />
+										<label for="category">{result.product_category}</label>
+									</div>
+									
+								</div>
+        					</div>	
+	
+						)
+					})}
+					
+				</form>	
+
+				<form>
+					<h5 className="h5-class"> Filter Sub-Categories:</h5>
+					{ results.map(result => {
+						return (
+							<div>	
+								<div className="form-row1">
+								<div className="form-check form-check-inline">
+									<input type="checkbox" id="subcategory" name="subategory" value={result.product_subcategory} onChange={this.handleInputChange} />
+									<label for="subcategory">{result.product_subcategory}</label>
+								</div>
+								</div>
+        					</div>	
+	
+						)
+					})}
+					
+				</form>	
+
+				<form>
+					<h5 className="h5-class"> Price Range:</h5>
+					<div>
+						<RangeStepInput
+							className="form-row1"
+							min={0} max={100}
+							step={1}
+							value={this.state.range}
+							onChange={this.onChange.bind(this)}/>
+					</div>					
+				</form>	
+								
+
 				<div className="results-container">
 					{ results.map(result => {
 						return (
+							
+								
 							<a href={result.product_image_link} className="result-item">
 
 								<div className="image-username">
 									<p className="image-product-name">{result.product_category}</p>
 									<p className="image-username1">By the {result.product_name}</p>
 									<p className="image-cost">${result.product_cost}</p>
+								
 								</div>
 
 								<div className="image-wrapper">
 									<iframe className="image" src={result.product_image_link} alt={`${result.product_name} image`} />
 								</div>
-							</a>
+								
+									
+								
+								</a>
+							
 						)
 					})}
 
 				</div>
-			)
+		
+				</div>	)
 		}
+		
 	};
 
 	render() {
@@ -216,12 +317,11 @@ class Search extends React.Component {
 		const showNextLink = totalPages > currentPageNo;;
 		return (
 			<>
-				<AltHeader initQuery={this.props.location.state ? this.props.location.state.query : ''} searchFunction={this.fetchSearchResults} onHandleChange={this.handleOnInputChange} />
+				<AltHeader initQuery={this.props.location.state ? this.props.location.state.query : ''} handleOnSearch={this.handleOnInputSearch} onHandleChange={this.handleOnInputChange} />
 				{/*	Error Message*/}
+				
 				<div className="search-container">
-				<div>
-					<SearchSidebar />
-				</div>
+				
 				<div className="search-results">
 					{message && <p className="message">{message}</p>}
 
