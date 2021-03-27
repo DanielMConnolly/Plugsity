@@ -9,14 +9,13 @@
     border: none;
     align-items: center;
     background-color: transparent;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
 }
 
 .dd-border{
     border: 2px solid blue;
     border-radius: 22px;
-    
 }
 .dd-header-title{
     padding-right:10px

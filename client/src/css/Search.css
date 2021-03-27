@@ -22,7 +22,7 @@
     padding: 5px;
     align-items: center;
     background: #F6F5FA;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 
@@ -39,7 +39,6 @@
 
 .search-button1{
     padding: 10px 20px;
-    width: 130px;
 }
 
 .category-toggle{
@@ -133,7 +132,7 @@
 .results-container {
 	display: flex;
 	flex-flow: wrap;
-    margin-top: -350px;
+    margin-top: 250px;
     margin-left: 80px;
     
 }
@@ -154,12 +153,11 @@
 	position: absolute;
     font-family: 'DM Sans';
     background-color:#F8F8F8;
-    margin-top: 250px;
-    width: 100px;
+    margin-top: 300px;
     padding-bottom: 80px;
     padding-top: 50px;
     padding-left:50px;
-    padding-right: 220px;
+    padding-right: 300px;
 }
 
 .image-username1 {
@@ -200,8 +198,8 @@
 
 
 .image {
-	width: 270px;
-    height: 250px;
+	width: 345px;
+    height: 350px;
     border: 2px solid black;
 }
 
@@ -268,7 +266,6 @@
 .city-dropdown{
     position: relative;
     display: inline-block;
-    font-size: 10px;
 }
 
 .dropdown {
@@ -282,7 +279,6 @@
     right: auto;
     text-align: center;
     transform: translate(-50%, 0);
-    
   }
   
 .ul{
@@ -316,67 +312,4 @@ li:hover {
     font-family: 'DM Sans';
     font-style: normal;
     font-weight: bold;
-}
-
-.facet{
-    float: left;
-    margin-left: 0px;
-    color: #32313D;
-	font-size: 16px;
-	position: relative;
-    font-family: 'DM Sans';
-    background-color:#F8F8F8;
-    margin-top: 0px;
-    width: 50px;
-    padding-bottom: 0px;
-    padding-top: 0px;
-    padding-left:0px;
-    padding-right: 0px;
-}
-
-.form-row{
-    border-radius: 2px solid black;
-    margin-left: -100px;
-    background: #F8F8F8;
-    width: 200px;
-    padding-left: 30px;
-    border: 1px solid rgba(0, 0.07, 0, 0);
-    
-    color: #32313D;
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    display: inline-flex;
-    display: flex;
-    flex-direction: column;
-    
-}
-
-.form-row1{
-    border-radius: 2px solid black;
-    margin-left: -100px;
-    background: #F8F8F8;
-    width: 200px;
-    padding-left: 30px;
-    border: 1px solid rgba(0, 0.07, 0, 0);   
-    color: #32313D;
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    display: flex;
-    flex-direction: column;
-    
-}
-
-.h5-class{
-    margin-left: -100px;
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 16px;
-    color: #32313D;
 }

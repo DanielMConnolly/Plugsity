@@ -43,7 +43,7 @@ class Searchbar extends Component {
     }
 
     createToggleOptions() {
-        return this.state.toggleOptions.map(item => <div className={this.state.selectedToggle === item ? " category-toggle selected-toggle" : "category-toggle"} id={item} onClick={e => this.handleCategoryToggle(e)}>{item}</div>)
+        return this.state.toggleOptions.map(item => <div className={this.state.selectedToggle == item ? " category-toggle selected-toggle" : "category-toggle"} id={item} onClick={e => this.handleCategoryToggle(e)}>{item}</div>)
     }
 
     handleCategoryToggle(e){
@@ -113,7 +113,7 @@ class Searchbar extends Component {
                         <div className="city-dropdown" ref={this.container}>
                             <Dropdown className="dropdown" title="State" list={this.createStateList()} />
                         </div>
-                        <button className="search-button1" onClick={(e)=>{this.props.handleOnSearch(e)}}><i className="fa fa-search search-icon" aria-hidden="true"/>Search</button>
+                        <button onClick={()=>this.props.searchFunction(this.props.query)} className="search-button1"><i className="fa fa-search search-icon" aria-hidden="true"/>Search</button>
                     </div>
                 </div>
 
