@@ -10,6 +10,9 @@ import Search from "./Search";
 import HomePage from './Homepage';
 import ProductForm from "./ProductForm";
 import ProductDetails from "./ProductDetails";
+import UserProfile from "./ProfilePages/UserProfile";
+import Footer from "./Footer";
+
 function App() {
     return (
         <div className='App'>
@@ -32,6 +35,12 @@ function App() {
                     </Route>
                     <Route path='/products/createProduct'>
                         <ProductForm />
+                    </Route>
+                    <Route path='/myProfile'>
+                        <UserProfile />
+                    </Route>
+                    <Route path='/footer'>
+                        <Footer />
                     </Route>
                     <Route
                         path='/products/:productID'
