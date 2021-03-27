@@ -1,0 +1,15 @@
+.search-sidebar-box{
+    background-color: gray;
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+    display: inline-flex;
+}
+
+.search-sidebar{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    padding: 10px;
+}

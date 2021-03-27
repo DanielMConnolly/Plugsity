@@ -1,3 +1,4 @@
+
 import { defaultsDeep } from 'lodash';
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome'
@@ -33,8 +34,8 @@ export default class Dropdown extends Component {
             >
               <div className="dd-header-title">{headerTitle}</div>
               {isListOpen
-                ? <FontAwesome name="angle-up" size="2x" />
-                : <FontAwesome name="angle-down" size="2x" />}
+                ? <FontAwesome name="angle-up" size="1x" />
+                : <FontAwesome name="angle-down" size="1x" />}
             </button>
             {isListOpen && (
               <div
