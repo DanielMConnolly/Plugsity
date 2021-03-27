@@ -84,7 +84,7 @@ router.get("/search", async (req, res) => {
     connection.query("USE Plugsity");
     const searchTerm = req.query.searchTerm;
 
-    const query = `SELECT * FROM ProductUpload WHERE concat(product_name, product_description, product_subcategory, product_category, product_tags) LIKE '%${searchTerm}%'`;
+    const query = `SELECT * FROM ProductUpload WHERE concat(product_name, product_description, product_subcategory, product_tags) LIKE '%${searchTerm}%'`;
     connection.query(query, (error, result) => {
         if (error) res.send(error);
         if (result) res.json(result);
