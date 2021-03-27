@@ -26,6 +26,15 @@ class AltHeader extends Component{
             });
     }
 
+    handleOnSearch(e){
+		if(this.props.handleOnSearch){
+            this.props.handleOnSearch(e);
+        }
+            this.setState({
+                query: e.target.value
+            });
+	}
+
     toSearch(query){
         if(this.props.searchFunction){
             this.prop.searchFunction(1, this.state.query);
@@ -54,7 +63,7 @@ class AltHeader extends Component{
         <FontAwesome className="hamburger-menu" name="bars" size='2x'/>
         <img src={Icon} className="plugsity-icon" />
         </div>
-        <Searchbar query={this.state.query} onHandleChange={e=>this.onHandleChange(e)} searchFunction={()=>this.toSearch()}/>
+        <Searchbar query={this.state.query} handleOnSearch={e=>this.handleOnSearch(e)} onHandleChange={e=>this.onHandleChange(e)} />
         <AccountHeader/>
         </div>
         );
