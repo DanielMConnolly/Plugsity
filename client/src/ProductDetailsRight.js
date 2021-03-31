@@ -74,8 +74,8 @@ export default class ProductDetailsRight extends Component {
             active: "Description",
         };
         this.descriptionBlurb = "Product Description";
-        this.shippingBlurb = this.descriptionBlurb;
-        this.returnsBlurb = this.shippingBlurb;
+        this.shippingBlurb = "Shipping Details";
+        this.returnsBlurb = "Return Policy";
         // console.log("STATE Vars: ", this.state);
     }
 

@@ -105,4 +105,16 @@ router.get("/:id", async (req, res) => {
     });
 });
 
+router.get("/getProduct/:business_id", async (req, res) => {
+    connection.query("USE Plugsity");
+    const business_id = req.params.business_id;
+
+    const query = `SELECT * from ProductUpload WHERE business_id=${business_id}`;
+
+    connection.query(query, (error, result) => {
+        if (error) res.send(error);
+        if (result) res.json(result);
+    });
+});
+
 module.exports = router;
