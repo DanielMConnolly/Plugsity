@@ -7,7 +7,7 @@ import Review from "./Review";
 import ReviewList from "./ReviewList";
 import SignupLogin_Bus from "./SignupLogin_Bus";
 import Search from "./Search";
-import HomePage from './Homepage';
+import HomePage from "./Homepage";
 import ProductForm from "./ProductForm";
 import ProductDetails from "./ProductDetails";
 import UserProfile from "./ProfilePages/UserProfile";
@@ -43,14 +43,14 @@ function App() {
                         <Footer />
                     </Route>
                     <Route
-                        path='/products/:productID'
+                        exact
+                        path='/products/show/:productID'
                         component={ProductDetails}
                     ></Route>
                     <Route
                         path='/search'
-                        render={(props)=><Search {...props}/>}
+                        render={(props) => <Search {...props} />}
                     />
-        
                 </Switch>
             </Router>
         </div>

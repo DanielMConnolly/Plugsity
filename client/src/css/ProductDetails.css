@@ -70,6 +70,85 @@ html {
     color: white;
     /* padding: 15px 32px; */
 }
+#header {
+    text-align: center;
+}
+.results-container {
+    display: flex;
+    flex-flow: wrap;
+    margin-top: 20px;
+    margin-left: 80px;
+}
+
+.result-item {
+    position: relative;
+    padding: 16px;
+    margin: 35px;
+    margin-bottom: 150px;
+    text-align: center;
+    min-width: 200px;
+}
+.image-username {
+    color: #32313d;
+    font-size: 16px;
+    position: absolute;
+    font-family: "DM Sans";
+    background-color: #f8f8f8;
+    margin-top: 300px;
+    padding-bottom: 80px;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 300px;
+}
+
+.image-username1 {
+    color: #32313d;
+    font-size: 14px;
+    margin-left: 0px;
+    position: absolute;
+    font-family: "DM Sans";
+    mix-blend-mode: normal;
+    opacity: 0.5;
+    background-color: #f8f8f8;
+    margin-top: 10px;
+}
+
+.image-product-name {
+    position: absolute;
+    font-family: "DM Sans";
+    color: #32313d;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    background-color: #f8f8f8;
+    margin-top: -19px;
+}
+
+.image-cost {
+    color: #32313d;
+    font-size: 14px;
+    position: absolute;
+    font-family: "DM Sans";
+    mix-blend-mode: normal;
+    opacity: 0.5;
+    background-color: #f8f8f8;
+    margin-top: 35px;
+}
+
+.image {
+    width: 345px;
+    height: 350px;
+    border: 2px solid black;
+}
+
+.image-wrapper {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100%;
+    justify-content: center;
+}
 
 .l-wrap {
     max-width: 80%;
