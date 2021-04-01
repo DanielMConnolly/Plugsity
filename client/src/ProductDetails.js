@@ -9,51 +9,22 @@ import Header from "./Header";
 export default class ProductDetails extends Component {
     constructor(props) {
         super(props);
-        console.log(props.match.params.productID);
         this.state = {
             productID: props.match.params.productID,
             response: {},
-            count: 1,
-            name: "",
-            description: "",
-            category: "",
-            product_category: "",
-            subcategory: "",
-            tags: "",
-            listing: "",
-            cost: 0,
-            image_link: "",
-            video_link: "",
             loading: false,
         };
-        // console.log(this.state.productID);
     }
 
-    getProductDetails() {
-        axios.get(`/api/products/${this.state.productID}`).then((response) => {
-            console.log(response.data);
-        });
-    }
-
-    componentDidMount() {
+    getProductDetails(productID) {
         axios
-            .get(`/api/products/${this.state.productID}`)
+            .get(`/api/products/${productID}`)
             .then((response) => {
                 console.log("API RESPONSE: ", response.data);
                 if (response.data.length > 0) {
                     this.setState({
-                        response: response.data[0],
-                        name: response.data[0].product_name,
-                        cost: response.data[0].product_cost,
-                        category: response.data[0].category,
-                        product_category: response.data[0].product_category,
-                        subcategory: response.data[0].product_subcategory,
-                        description: response.data[0].product_description,
-                        tags: response.data[0].product_tags,
-                        listing: response.data[0].product_listing,
-                        image: response.data[0].product_image_link,
-                        video: response.data[0].product_video_link,
                         loading: true,
+                        response: response.data[0]
                     });
                 } else {
                     console.log("Something went wrong!", this.state);
@@ -62,37 +33,23 @@ export default class ProductDetails extends Component {
             .catch((error) => {
                 console.log(error);
             });
+
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.productID !== this.props.match.params.productID) {
+           this.getProductDetails(this.props.match.params.productID)
+        }
+    }
+
+    componentDidMount() {
+      this.getProductDetails(this.state.productID)
     }
 
     render() {
-        const {
-            name,
-            cost,
-            category,
-            product_category,
-            subcategory,
-            description,
-            tags,
-            listing,
-            image,
-            video,
-            loading,
-        } = this.state;
-        let props = {
-            name: name,
-            cost: cost,
-            category: category,
-            product_category: product_category,
-            subcategory: subcategory,
-            description: description,
-            tags: tags,
-            listing: listing,
-            image: image,
-            video: video,
-        };
-
-        if (loading) {
-            console.log("Inside Loading", this.state.productID);
+        window.scroll(0, 0);
+        console.log( this.state);
+        if (this.state.loading) {
             return (
                 <div>
                     <div>
@@ -100,8 +57,8 @@ export default class ProductDetails extends Component {
                     </div>
                     <div>
                         <div className='product-container'>
-                            <ProductDetailsLeft imageURL={this.state.image} />
-                            <ProductDetailsRight {...props} />
+                            <ProductDetailsLeft imageURL={this.state.response.product_image_link} />
+                            <ProductDetailsRight {...this.state.response} />
                         </div>
                         <div>
                             <h3 id='header'>More Products Like This</h3>
@@ -113,5 +70,6 @@ export default class ProductDetails extends Component {
         } else {
             return <div>Fetching Results</div>;
         }
+
     }
 }
