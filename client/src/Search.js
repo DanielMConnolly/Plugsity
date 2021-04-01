@@ -2,11 +2,10 @@ import React from 'react';
 import './css/Search.css';
 import axios from 'axios';
 import Loader from './assets/loader.gif';
-import PageNavigation from './PageNavigation';
 import Logo from './assets/plugsity-logo.png';
 import AltHeader from './AltHeader';
 import 'font-awesome/css/font-awesome.min.css';
-import SearchSidebar from './SearchSidebar'
+import ProductCard from './Product/ProductCard';
 import 'react-dropdown/style.css';
 import {RangeStepInput} from 'react-range-step-input';
 
@@ -282,26 +281,8 @@ class Search extends React.Component {
 
 				<div className="results-container">
 					{ results.map(result => {
-						return (
-							
-								
-							<a href={result.product_image_link} className="result-item">
-
-								<div className="image-username">
-									<p className="image-product-name">{result.product_category}</p>
-									<p className="image-username1">By the {result.product_name}</p>
-									<p className="image-cost">${result.product_cost}</p>
-								
-								</div>
-
-								<div className="image-wrapper">
-									<iframe className="image" src={result.product_image_link} alt={`${result.product_name} image`} />
-								</div>
-								
-									
-								
-								</a>
-							
+						return (	
+							<ProductCard productData={result}/>		
 						)
 					})}
 
