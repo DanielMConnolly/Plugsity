@@ -85,9 +85,13 @@ html {
     margin-left: 80px;
 }
 
+.filter-menus{
+    position: fixed;
+    left: 100px;
+}
+
 .result-item {
     padding: 16px;
-    margin: 35px;
     text-align: center;
     min-width: 200px;
     width: fit-content;
