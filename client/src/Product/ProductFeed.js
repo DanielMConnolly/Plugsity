@@ -47,6 +47,7 @@ class ProductFeed extends Component {
         return (
             <div className="searchArea">
                 <div className="filter-menus">
+                    <div className="menu-wrapper">
                     <br /><h5 className="h5-class"> Filter Categories:</h5>
                     {this.props.filters.map(category => {
                         return (
@@ -86,6 +87,7 @@ class ProductFeed extends Component {
                             step={1}
                             value={this.state.range}
                             onChange={()=>{}} />
+                    </div>
                     </div>
                 </div>
                 <div class="results-exterior">
