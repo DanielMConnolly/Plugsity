@@ -136,42 +136,21 @@ const logout = (res, token, user_id) => {
     con.connect(function (err) {
         con.query('USE Plugsity');
         const query = `SELECT dummyToken FROM dummyUserToken WHERE dummyid = '${user_id}'`;
-<<<<<<< HEAD
-        console.log("starting logout")
-        con.query(query, function (err, result, fields) {
-            if (err) { console.log(err); res.send(err); }
-            if (result.length > 0) {
-                console.log("there exists an entry of this userid")
-                tokenVarification(user_id, token).then(function () {//correct token
-=======
         con.query(query, function(err,result,fields){
             if (err) {console.log(err); res.send(err);}
             if (result.length > 0) {
                 tokenVarification(user_id,token).then(function(){//correct token
->>>>>>> 06ccf8e01034c1dadea3150bad3431973778067d
                     //delete entry
                     const queryDelete = `DELETE FROM dummyUserToken WHERE dummyid = '${user_id}'`;
                     con.query(query, function (err, resultDelete, fieldsDelete) {
                         if (err) {
                             console.log(err); res.send(err);
-<<<<<<< HEAD
-                        } else {
-                            console.log(feildsDelete)
-                            console.log(resultDelete)
-                            console.log("token deleted")
-                            res.sendStatus(200);
-                        }
-                    });
-                }, function () {//wrong token
-                    console.log("wrong token")
-=======
                         }else{
                             
                             res.sendStatus(200);
                         }
                     });
                 },function (){//wrong token
->>>>>>> 06ccf8e01034c1dadea3150bad3431973778067d
                     res.sendStatus(409);
                 });
             } else {
