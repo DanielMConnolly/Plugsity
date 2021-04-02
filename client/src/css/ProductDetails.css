@@ -87,7 +87,15 @@ html {
 
 .filter-menus{
     position: fixed;
+    bottom: 0%;
+    top: 0%;
+    top: 150px;
     left: 100px;
+}
+
+.menu-wrapper{
+    overflow-y: scroll;
+    height: 100%;
 }
 
 .result-item {
