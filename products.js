@@ -84,7 +84,7 @@ router.get("/search", async (req, res) => {
     connection.query("USE Plugsity");
     const searchTerm = req.query.searchTerm;
 
-    const query = `SELECT * FROM ProductUpload WHERE concat(product_name, product_description, product_subcategory, product_tags) LIKE '%${searchTerm}%'`;
+    const query = `SELECT * FROM ProductUpload WHERE concat(product_name, product_description, product_subcategory, product_category, product_tags) LIKE '%${searchTerm}%'`;
     connection.query(query, (error, result) => {
         if (error) res.send(error);
         if (result) res.json(result);
@@ -99,6 +99,18 @@ router.get("/:id", async (req, res) => {
     const product_id = req.params.id;
 
     const query = `SELECT * FROM ProductUpload WHERE product_id='${product_id}'`;
+    connection.query(query, (error, result) => {
+        if (error) res.send(error);
+        if (result) res.json(result);
+    });
+});
+
+router.get("/getProduct/:business_id", async (req, res) => {
+    connection.query("USE Plugsity");
+    const business_id = req.params.business_id;
+
+    const query = `SELECT * from ProductUpload WHERE business_id=${business_id}`;
+
     connection.query(query, (error, result) => {
         if (error) res.send(error);
         if (result) res.json(result);
