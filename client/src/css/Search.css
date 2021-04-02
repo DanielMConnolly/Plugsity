@@ -20,6 +20,8 @@
     border-radius: 28px;
     display: flex;
     padding: 5px;
+    justify-content: center;
+    width: 90%;
     align-items: center;
     background: #F6F5FA;
     font-size: 14px;
@@ -137,16 +139,6 @@
     
 }
 
-.result-item {
-	position: relative;
-	padding: 16px;
-	margin: 35px;
-    margin-bottom: 150px;
-	text-align: center;
-	min-width: 200px;
-	
-}
-
 .image-username {
 	color: #32313D;
 	font-size: 16px;
@@ -161,56 +153,7 @@
     padding-right: 220px;
 }
 
-.image-username1 {
-	color: #32313D;
-	font-size: 14px;
-    margin-left: 0px;
-	position: absolute;
-    font-family: 'DM Sans';
-	mix-blend-mode: normal;
-    opacity: 0.5;
-    background-color:#F8F8F8;
-    margin-top: 10px;
-    
-}
 
-.image-cost{
-    color: #32313D;
-	font-size: 14px;
-	position: absolute;
-    font-family: 'DM Sans';
-	mix-blend-mode: normal;
-    opacity: 0.5;
-    background-color:#F8F8F8;
-    margin-top: 35px;
-}
-
-.image-product-name{
-    position: absolute;
-    font-family: 'DM Sans';
-    color: #32313D;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    background-color:#F8F8F8;
-    margin-top: -19px;
-}
-
-
-.image {
-	width: 270px;
-    height: 250px;
-    border: 2px solid black;
-}
-
-.image-wrapper {
-	display: flex;
-	align-items: center;
-	box-sizing: border-box;
-	height: 100%;
-	justify-content: center;
-}
 
 /*Loader*/
 .search-loading {

@@ -1,11 +1,10 @@
 .homepage{
-    background-color: #CCF0D9;
-    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
+
 .homepageContent{
-    width: 80%;
     display: flex;
     flex-direction: column;
 }
@@ -13,9 +12,29 @@
 
     font-weight: bold;
     font-size: 42px;
-    text-align: left;
     /* identical to box height, or 114% */
     color: #32313D;
 
 }
 
+.popular-products{
+    margin-top: 50px;
+    padding-left: 50px;
+}
+
+.homepage .tab-list{
+    width: fit-content;
+}
+
+.products-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.services{
+    width: 100%;
+}
+/* .products-list>* {
+    flex: 1 1 160px;
+} */
