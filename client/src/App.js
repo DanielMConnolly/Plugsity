@@ -12,6 +12,7 @@ import ProductForm from "./ProductForm";
 import ProductDetails from "./ProductDetails";
 import UserProfile from "./ProfilePages/UserProfile";
 import Footer from "./Footer";
+import AllProducts from "./ProductsAll";
 
 function App() {
     return (
@@ -51,6 +52,9 @@ function App() {
                         path='/search'
                         render={(props) => <Search {...props} />}
                     />
+                    <Route path='/products/show/'>
+                        <AllProducts />
+                    </Route>
                 </Switch>
             </Router>
         </div>
