@@ -16,17 +16,16 @@ class ProductCard extends Component {
         let product = this.state.productData;
         return (
             <Link to={'/products/show/' + product.product_id} className="result-item">
-
-                <div className="image-username">
-                    <p className="image-product-name">{product.product_category}</p>
-                    <p className="image-username1">By the {product.product_name}</p>
-                    <p className="image-cost">${product.product_cost}</p>
-
-                </div>
-
                 <div className="image-wrapper">
                     <img className="image" src={product.product_image_link} alt={`${product.product_name} image`} />
                 </div>
+                <div className="product-data">
+                    <span className="product-data-name">{product.product_category}</span>
+                    <span className="product-data-price">By the {product.product_name}</span>
+                    <span className="product-data-price">${product.product_cost}</span>
+
+                </div>
+
 
 
 

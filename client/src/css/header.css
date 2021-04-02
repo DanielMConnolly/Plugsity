@@ -1,13 +1,14 @@
 .header{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding-bottom: 30px;
 }
 .header-row{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
     padding: 20px;
 }
 .header-link{
@@ -18,7 +19,11 @@
 }
 
 .header-menu{
-    justify-content: center;
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .cart-button{

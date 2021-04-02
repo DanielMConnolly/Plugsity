@@ -31,10 +31,11 @@ class Tabs extends Component {
             activeTab,
           }
         } = this;
+        console.log(this.props);
     
         return (
           <div className="tabs">
-            <div className="tab-list">
+            <div className={ this.props.center?"center tab-list":"tab-list"}>
               {children.map((child) => {
                 const { label } = child.props;
     
