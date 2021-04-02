@@ -24,7 +24,7 @@ export default class ProductDetails extends Component {
                 if (response.data.length > 0) {
                     this.setState({
                         loading: true,
-                        response: response.data[0]
+                        response: response.data[0],
                     });
                 } else {
                     console.log("Something went wrong!", this.state);
@@ -33,22 +33,24 @@ export default class ProductDetails extends Component {
             .catch((error) => {
                 console.log(error);
             });
-
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.match.params.productID !== this.props.match.params.productID) {
-           this.getProductDetails(this.props.match.params.productID)
+        if (
+            prevProps.match.params.productID !==
+            this.props.match.params.productID
+        ) {
+            this.getProductDetails(this.props.match.params.productID);
         }
     }
 
     componentDidMount() {
-      this.getProductDetails(this.state.productID)
+        this.getProductDetails(this.state.productID);
     }
 
     render() {
         window.scroll(0, 0);
-        console.log( this.state);
+        console.log(this.state);
         if (this.state.loading) {
             return (
                 <div>
@@ -57,7 +59,11 @@ export default class ProductDetails extends Component {
                     </div>
                     <div>
                         <div className='product-container'>
-                            <ProductDetailsLeft imageURL={this.state.response.product_image_link} />
+                            <ProductDetailsLeft
+                                imageURL={
+                                    this.state.response.product_image_link
+                                }
+                            />
                             <ProductDetailsRight {...this.state.response} />
                         </div>
                         <div>
@@ -70,6 +76,5 @@ export default class ProductDetails extends Component {
         } else {
             return <div>Fetching Results</div>;
         }
-
     }
 }

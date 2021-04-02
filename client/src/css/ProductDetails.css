@@ -70,6 +70,11 @@ html {
     color: white;
     /* padding: 15px 32px; */
 }
+
+#header-left {
+    margin-left: 20px;
+}
+
 #header {
     text-align: center;
 }
