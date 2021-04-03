@@ -32,7 +32,7 @@ class Header extends Component{
               }}
             />)
         }
-        return(<div className="header"> <HeaderMenu/> <Searchbar query={this.state.query} onHandleChange={e=>this.onHandleChange(e)} searchFunction={()=>this.toSearch()}/></div>);
+        return(<div className="header"> <HeaderMenu/> <Searchbar query={this.state.query} onHandleChange={e=>this.onHandleChange(e)} handleOnSearch={()=>this.toSearch()}/></div>);
     }
 
 

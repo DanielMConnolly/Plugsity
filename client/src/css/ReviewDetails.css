@@ -1,0 +1,38 @@
+.reviewContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reviewData{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 200px;
+}
+
+.reviewHeadline{
+    align-self: left;
+    font-size: 24px;
+}
+
+.likeShareBar{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.likeShareBar * {
+    flex-grow: 1;
+}
+
+.likeButton {
+    cursor: pointer;
+}
+.liked{
+    cursor: pointer;
+    color: blue;
+}
+.reviewViewsAndLikes{
+    opacity: 0.5;
+}

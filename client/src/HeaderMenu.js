@@ -8,10 +8,10 @@ import AccountHeader from './AccountHeader';
 class HeaderMenu extends Component {
 
     render() {
-        return (<div className="headerMenu">
-            <div className="header-row">
+        return (
+            <div className="header-menu">
                 <img src={Logo} alt="logo" width="200" />
-                <div className="row">
+                <div className="header-row">
                     <Dropdown title="Categories" list={[]}/>
                     <Dropdown title="Trending" list={[]}/>
                     <a href="#" className="header-link">Top List</a>
@@ -21,12 +21,7 @@ class HeaderMenu extends Component {
               <AccountHeader/>
             </div>
 
-            <div className="row">
-
-            </div>
-
-
-        </div>);
+     );
     }
 
 

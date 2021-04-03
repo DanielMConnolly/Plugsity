@@ -54,18 +54,6 @@ router.post("/createProduct", async (req, res) => {
         product_image_link,
         product_video_link,
     } = req.body;
-    console.log(
-        product_name,
-        product_description,
-        category,
-        product_category,
-        product_subcategory,
-        product_tags,
-        product_listing,
-        product_cost,
-        product_image_link,
-        product_video_link
-    );
     const user_id = 10;
     const business_id = 1;
     const query = `INSERT INTO ProductUpload (user_id, business_id, product_name, product_description, category, product_category, product_subcategory, product_tags, product_listing, product_cost, product_image_link, product_video_link) VALUES('${user_id}', '${business_id}','${product_name}', '${product_description}', '${category}', '${product_category}', '${product_subcategory}', '${product_tags}', '${product_listing}', '${product_cost}', '${product_image_link}', '${product_video_link}')`;
@@ -99,6 +87,18 @@ router.get("/:id", async (req, res) => {
     const product_id = req.params.id;
 
     const query = `SELECT * FROM ProductUpload WHERE product_id='${product_id}'`;
+    connection.query(query, (error, result) => {
+        if (error) res.send(error);
+        if (result) res.json(result);
+    });
+});
+
+router.get("/getProduct/:business_id", async (req, res) => {
+    connection.query("USE Plugsity");
+    const business_id = req.params.business_id;
+
+    const query = `SELECT * from ProductUpload WHERE business_id=${business_id}`;
+
     connection.query(query, (error, result) => {
         if (error) res.send(error);
         if (result) res.json(result);

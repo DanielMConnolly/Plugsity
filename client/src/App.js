@@ -3,15 +3,17 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SignupLogin from "./SignupLogin";
-import Review from "./Review";
-import ReviewList from "./ReviewList";
+import Review from "./Review/Review";
+import ReviewDetails from "./Review/ReviewDetails"
+import ReviewList from "./Review/ReviewList";
 import SignupLogin_Bus from "./SignupLogin_Bus";
 import Search from "./Search";
-import HomePage from './Homepage';
+import HomePage from "./Homepage";
 import ProductForm from "./ProductForm";
 import ProductDetails from "./ProductDetails";
 import UserProfile from "./ProfilePages/UserProfile";
 import Footer from "./Footer";
+import AllProducts from "./ProductsAll";
 
 function App() {
     return (
@@ -24,10 +26,15 @@ function App() {
                     <Route path='/business'>
                         <SignupLogin_Bus />
                     </Route>
-                    <Route exact path='/homepage'>
+                    <Route path='/homepage'>
                         <HomePage />
                     </Route>
-                    <Route path='/review'>
+                    <Route
+                        exact
+                        path='/reviews/show/:reviewID'
+                        component={ReviewDetails}
+                    ></Route>
+                    <Route exact path='/review/upload'>
                         <Review />
                     </Route>
                     <Route path='/reviewlist'>
@@ -43,14 +50,17 @@ function App() {
                         <Footer />
                     </Route>
                     <Route
-                        path='/products/:productID'
+                        exact
+                        path='/products/show/:productID'
                         component={ProductDetails}
                     ></Route>
                     <Route
                         path='/search'
-                        render={(props)=><Search {...props}/>}
+                        render={(props) => <Search {...props} />}
                     />
-        
+                    <Route path='/products/show/'>
+                        <AllProducts />
+                    </Route>
                 </Switch>
             </Router>
         </div>

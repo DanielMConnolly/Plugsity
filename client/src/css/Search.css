@@ -10,16 +10,21 @@
  
 }
 
+
+
 .search-results{
     margin-left: 200px;
 
 }
+
 
 .searchBar {
     height: 56px;
     border-radius: 28px;
     display: flex;
     padding: 5px;
+    justify-content: center;
+    width: 90%;
     align-items: center;
     background: #F6F5FA;
     font-size: 14px;
@@ -51,6 +56,11 @@
 
 }
 
+.results-exterior{
+    position: relative;
+    left: 300px;
+    width: 85%;
+}
 
 
 .search-input-field{
@@ -128,24 +138,8 @@
     cursor: pointer;
 }
 
-/*Result Container*/
-.results-container {
-	display: flex;
-	flex-flow: wrap;
-    margin-top: -320px;
-    margin-left: 80px;
-    
-}
 
-.result-item {
-	position: relative;
-	padding: 16px;
-	margin: 35px;
-    margin-bottom: 150px;
-	text-align: center;
-	min-width: 200px;
-	
-}
+
 
 .image-username {
 	color: #32313D;
@@ -161,56 +155,8 @@
     padding-right: 220px;
 }
 
-.image-username1 {
-	color: #32313D;
-	font-size: 14px;
-    margin-left: 0px;
-	position: absolute;
-    font-family: 'DM Sans';
-	mix-blend-mode: normal;
-    opacity: 0.5;
-    background-color:#F8F8F8;
-    margin-top: 10px;
-    
-}
-
-.image-cost{
-    color: #32313D;
-	font-size: 14px;
-	position: absolute;
-    font-family: 'DM Sans';
-	mix-blend-mode: normal;
-    opacity: 0.5;
-    background-color:#F8F8F8;
-    margin-top: 35px;
-}
-
-.image-product-name{
-    position: absolute;
-    font-family: 'DM Sans';
-    color: #32313D;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    background-color:#F8F8F8;
-    margin-top: -19px;
-}
 
 
-.image {
-	width: 270px;
-    height: 250px;
-    border: 2px solid black;
-}
-
-.image-wrapper {
-	display: flex;
-	align-items: center;
-	box-sizing: border-box;
-	height: 100%;
-	justify-content: center;
-}
 
 /*Loader*/
 .search-loading {
@@ -333,9 +279,8 @@ li:hover {
     padding-right: 0px;
 }
 
-.form-row2{
+.form-row{
     border-radius: 2px solid black;
-    margin-left: -100px;
     background: #F8F8F8;
     width: 200px;
     padding-left: 30px;
@@ -344,16 +289,7 @@ li:hover {
     padding: 4px;
 }
 
-.form-row1{
-    border-radius: 2px solid black;
-    margin-left: -100px;
-    background: #F8F8F8;
-    width: 200px;
-    padding-left: 30px;
-    border: 1px solid rgba(0, 0.07, 0, 0);   
-    color: #32313D;
-    padding: 4px;
-}
+
 
 .filter-text{
     font-family: 'DM Sans';
@@ -367,7 +303,6 @@ li:hover {
 }
 
 .h5-class{
-    margin-left: -100px;
     font-family: 'DM Sans';
     font-style: normal;
     font-weight: normal;

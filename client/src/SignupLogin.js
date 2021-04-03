@@ -16,7 +16,7 @@ function SignupLogin() {
         <div className="SignupLogin">
             <img src={PlugsityLogo} className="logo" />
             <div className="blurb">{active==="Signup"?signupBlurb:loginBlurb}</div>
-            <Tabs activeTab={active} onClick={(label) => setActive(label)}>
+            <Tabs activeTab={active} onClick={(label) => setActive(label)} center>
                 <div label="Signup" className="tab" >
                     <Signup className="tab" />
                 </div>

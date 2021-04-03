@@ -5,10 +5,9 @@ import Loader from './assets/loader.gif';
 import Logo from './assets/plugsity-logo.png';
 import AltHeader from './AltHeader';
 import 'font-awesome/css/font-awesome.min.css';
-import ProductFeed from './Product/ProductFeed';
+import ProductCard from './Product/ProductCard';
 import 'react-dropdown/style.css';
 import {RangeStepInput} from 'react-range-step-input';
-
 
 
 
@@ -18,6 +17,7 @@ class Search extends React.Component {
 		super(props);
 
 		this.state = {
+			query: props.query ? props.query : '',
 			results: [],
 			loading: false,
 			message: '',
@@ -26,15 +26,20 @@ class Search extends React.Component {
 			currentPageNo: 0,
 			open: false,
 			open1: false,
-            filter_subcategories: [],
-            filter_categories: [],
+			facets: [],
+			sub_facets: [],
 			range: 500
 		};
 
 		this.cancel = '';
-
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
+	filterResults(results){
+		let categories = this.state.facets;
+		let sub_categories = this.state.sub_facets;
+		return results.filter(item=> categories.includes(item.product_category) || sub_categories.includes(item.product_subcategory));
+	}
 	/**
 	 * Get the Total Pages count.
 	 *
@@ -81,17 +86,11 @@ class Search extends React.Component {
 				const resultNotFoundMsg = !res.data.length
 					? 'Ooops! Could not find what you were looking for...☹️'
 					: '';
-                const results = res.data;
-                const filter_categories = [...new Set(results.map(result=>result.product_category).filter(item=>item!=''))]
-			    const filter_subcategories = [...new Set(results.map(result=>result.product_subcategory).filter(item=>item!=''))]
 				this.setState({
-					results: results,
+					results: res.data,
 					message: resultNotFoundMsg,
 					currentPageNo: updatedPageNo,
-					loading: false,
-                    filter_categories: filter_categories,
-                    filter_subcategories: filter_subcategories
-
+					loading: false
 				})
 			})
 			.catch(error => {
@@ -101,6 +100,12 @@ class Search extends React.Component {
 						message: 'Ooops! Could not find what you were looking for...☹️'
 					})
 				}
+			})
+			const filter_categories = [...new Set(this.state.results.map(result=>result.product_category).filter(item=>item!=''))]
+			const filter_subcategories = [...new Set(this.state.results.map(result=>result.product_subcategory).filter(item=>item!=''))]
+			this.setState({
+				filter_categories: filter_categories,
+				filter_subcategories: filter_subcategories
 			})
 	};
 
@@ -124,7 +129,25 @@ class Search extends React.Component {
 		} 
 	}
 
+	handleInputChange(event, facets) {
+        const target = event.target;
+        var value = target.value;
+        if(target.checked){
+			let new_facets = this.state[[facets]];
+			new_facets.push(value)
+			this.setState({
+				[facets]: new_facets
+			})
+    
+        }else{
+            this.setState({
+				[facets]: this.state.facets.filter(category=>category!=value)
+			})
+        }
+        
+    }
 
+	
 
 
 	handleButtonClick = () => {
@@ -145,6 +168,9 @@ class Search extends React.Component {
 
 	componentDidMount(props) {
 		if (this.props.location.state) {
+			this.setState({
+				query: this.props.location.state.query
+			})
 			this.fetchSearchResults(1, this.props.location.state.query);
 		}
 		document.addEventListener("mousedown", this.handleClickOutside);
@@ -208,13 +234,77 @@ class Search extends React.Component {
 	}; **/
 
 	container = React.createRef();
+	renderSearchResults = () => {
+		let products  = this.state.results;
+		if(this.state.sub_facets.length>0 || this.state.facets.length>0){
+			products = this.filterResults(products);
+		}
+		console.log("in here: " , this.state.filter_categories);
+		if (this.state.query !== '' && this.state.loading === false) {
+			return (
+			<div className="searchArea">
+				<div className="filter-menus">
+				<br /><h5 className="h5-class"> Filter Categories:</h5>
+					{ this.state.filter_categories.map(category => {
+						return (
+								<div className="form-row" key={category}>
+									
+									<div className="form-check form-check-inline">
+										<input type="checkbox" id="category" name="category" value={category} onChange={(e)=>this.handleInputChange(e, "facets")} />
+										<label for="category" className="filter-text">{category}</label>
+									</div>
+									
+								</div>
+							
+						)
+					})}
+					
+				<br /><h5 className="h5-class"> Filter Sub-Categories:</h5> 
+					{ this.state.filter_subcategories.map(product_subcategory => {
+						return ( 
+				
+								<div className="form-row" key={product_subcategory}>
+								<div className="form-check form-check-inline">
+									<input type="checkbox" id="subcategory" name="subategory" value={product_subcategory} onChange={(e)=>this.handleInputChange(e, "sub_facets")} />
+									<label for="subcategory" className="filter-text">{product_subcategory}</label>
+								</div>
+								</div>
+        			
+	
+						)
+					})}
+					
+
+				<br /><h5 className="h5-class"> Price Range:</h5>
+					<div>
+						<RangeStepInput
+							className="form-row1"
+							min={0} max={100}
+							step={1}
+							value={this.state.range}
+							onChange={this.onChange.bind(this)}/>
+					</div>					
+					</div>		
+					<div class="results-exterior">
+				<div className="results-container">
+					{ products.map(product => {
+						return (
+							<div>
+							<ProductCard productData={product}/>
+							</div>		
+						)
+					})}
+
+				</div></div>
+				</div>	)
+		}
+		
+	};
 
 	render() {
 		const { query, loading, message, currentPageNo, totalPages } = this.state;
 		const showPrevLink = 1 < currentPageNo;
 		const showNextLink = totalPages > currentPageNo;;
-        let products  = this.state.results;
-        console.log(this.state.results);
 		return (
 			<>
 				<AltHeader initQuery={this.props.location.state ? this.props.location.state.query : ''} handleOnSearch={this.handleOnInputSearch} />
@@ -238,12 +328,7 @@ class Search extends React.Component {
 					/>
 
 					{/*	Result*/} 
-					
-	
-
-                    <ProductFeed products={products} filters={this.state.filter_categories} subFilters={this.state.filter_subcategories}/>
-		
-		
+					{this.renderSearchResults()}
 
 					
 					{/*<PageNavigation
