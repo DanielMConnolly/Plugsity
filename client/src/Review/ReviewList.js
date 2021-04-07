@@ -22,7 +22,7 @@ export default class Review extends Component {
         console.log(process);
         axios({
             method: 'GET',
-            url: process.env.REACT_APP_PROXY + "/review/list",
+            url:  "/review/list",
 
         }).then(response => {
             console.log(response);
