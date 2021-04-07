@@ -19,6 +19,7 @@ export default class Review extends Component {
     }
 
     componentDidMount() {
+        console.log(process);
         axios({
             method: 'GET',
             url: process.env.REACT_APP_PROXY + "/review/list",
