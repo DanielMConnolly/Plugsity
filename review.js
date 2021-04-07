@@ -17,7 +17,7 @@ router.post('/process_video', (req, res, next) => {
 router.get('/list', async (req, res, next) => {
     let video_names = []
 
-    let reviews = await con.getReviews().then((result) => {
+    let reviews = await con.getAllReviews().then((result) => {
         video_names = result;
     });
     return res.send({ "video_links": video_names })
