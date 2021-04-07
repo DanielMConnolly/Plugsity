@@ -24,7 +24,7 @@ export default class Review extends Component {
         let blobData = new Blob([new Uint8Array(array)], { type: "video/mp4" })
         axios({
             method: 'POST',
-            url: process.env.REACT_APP_PROXY+ "/review/upload",
+            url:  "/review/upload",
             headers: {
                 "Accept": 'application/json'
             },
