@@ -34,7 +34,7 @@ function App() {
                         path='/reviews/show/:reviewID'
                         component={ReviewDetails}
                     ></Route>
-                    <Route exact path='/review/upload'>
+                    <Route exact path='/reviews/upload'>
                         <Review />
                     </Route>
                     <Route path='/reviewlist'>
