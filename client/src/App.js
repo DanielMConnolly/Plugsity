@@ -14,8 +14,24 @@ import ProductDetails from "./ProductDetails";
 import UserProfile from "./ProfilePages/UserProfile";
 import Footer from "./Footer";
 import AllProducts from "./ProductsAll";
+import SignupLogin from './SignupLogin';
+import Bus_Identification_1 from './Bus_Identification_1';
+import Bus_Identification_2 from './Bus_Identification_2';
+import Point_Of_Contact from './Point_Of_Contact';
+import Point_Of_Contact_2 from './Point_Of_Contact_2';
+import Payment_Methods_3 from './Payment_Methods_3';
+import Payment_Methods_1 from './Payment_Methods_1';
+import Business_Policies from './Business_Policies';
+import AltHeader from './AltHeader';
+import { Stepper, StepLabel, Step } from '@material-ui/core';
+import { multiStepContext } from './StepContext';
+import './StepperCSS.css';
+import './css/Business_Setup.css';
+
+
 
 function App() {
+    const { currentStep, finalData } = useContext(multiStepContext);
     return (
         <div className='App'>
             <Router>
