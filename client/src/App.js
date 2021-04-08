@@ -14,6 +14,7 @@ import ProductDetails from "./ProductDetails";
 import UserProfile from "./ProfilePages/UserProfile";
 import Footer from "./Footer";
 import AllProducts from "./ProductsAll";
+import Business_Setup from "./Business_Setup";
 
 function App() {
     return (
@@ -48,6 +49,9 @@ function App() {
                     </Route>
                     <Route path='/footer'>
                         <Footer />
+                    </Route>
+                    <Route path='/business_setup'>
+                        <Business_Setup />
                     </Route>
                     <Route
                         exact

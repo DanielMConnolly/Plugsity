@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const auth = require('./auth.js')
 const review = require('./review.js')
+const businessSetup = require('./business_setup.js')
 //const customer = require('./customer_db.js')
 
 app.use(cors());
@@ -89,5 +90,7 @@ app.use("/api/products", require("./products"));
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
+
+app.use("/api/businessSetup", businessSetup);
 
 app.listen(port, () => console.log(`listening on port ${port}`));
