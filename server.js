@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const auth = require('./auth.js')
 const review = require('./review.js')
+const businessSetup = require('./business_setup.js')
 //const customer = require('./customer_db.js')
 
 app.use(cors());
