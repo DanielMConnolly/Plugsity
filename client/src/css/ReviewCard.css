@@ -1,10 +1,37 @@
 .review-card-video{
     height: 200px;
     width: 100%;
-    background-color: blue;
+    position: relative;
+    overflow: hidden;
 }
 .review-card-data{
     height: 250px;
     width: 100%;
-    background-color: green;
+}
+.review-card-user{
+    z-index: 10;
+    position: absolute;
+    top: 150px;
+    color: white;
+}
+
+.review-card-video-player{
+    position: relative;
+    height: inherit;
+}
+.review-card-headline{
+    margin: 10px 10px;
+}
+
+.review-card-details{
+    border: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.review-card-details img{
+    width: 40px;
+    height: 40px;
+}
+
+.review-card-product-details{
+    display: inline;
 }

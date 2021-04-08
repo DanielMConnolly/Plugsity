@@ -18,7 +18,7 @@ class ProductCard extends Component {
                 </div>
                 <div className="product-data">
                     <span className="product-data-name">{product.product_name}</span>
-                    <span className="product-data-price">By the {product.product_name}</span>
+                    <span className="product-data-price">By {product.product_name}</span>
                     <span className="product-data-price">${product.product_cost}</span>
 
                 </div>

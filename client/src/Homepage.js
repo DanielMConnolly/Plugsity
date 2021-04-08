@@ -14,7 +14,6 @@ class HomePage extends Component {
         this.state = {
             active: "Products",
             popularProducts: [],
-            review: {}
         }
     }
 
@@ -39,6 +38,7 @@ class HomePage extends Component {
             this.setState({
                 review: res.data.review
             })
+            console.log(res.data.review)
 
         })
     }
@@ -79,7 +79,9 @@ class HomePage extends Component {
                     </div>
 
                     <div className="popular-reviews">
+                        {this.state.review && 
                         <ReviewCard review={this.state.review}/>
+                         }  
                     </div>
            
 

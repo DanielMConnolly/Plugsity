@@ -326,7 +326,7 @@ const getProduct = (id)=> {
     return new Promise((resolve, reject)=>
     con.connect(function (err){
         con.query('USE Plugsity');
-        const query =  `SELECT * FROM ProductUpload WHERE product_id="${id}"`;
+        const query =  `SELECT ProductUpload.*, BusinessPage.legal_business_name FROM ProductUpload, BusinessPage WHERE product_id="${id} AND Product_Upload.business_id = BusinessPage.business_id"`;
         con.query(query, function(err, result, fields){
             if(err){console.log(err)}
                     console.log(result);
