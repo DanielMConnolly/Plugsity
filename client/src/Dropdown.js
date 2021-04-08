@@ -34,8 +34,8 @@ export default class Dropdown extends Component {
             >
               <div className="dd-header-title">{headerTitle}</div>
               {isListOpen
-                ? <FontAwesome name="angle-up" size="1x" />
-                : <FontAwesome name="angle-down" size="1x" />}
+                ? <FontAwesome name="angle-up" />
+                : <FontAwesome name="angle-down" />}
             </button>
             {isListOpen && (
               <div

@@ -27,10 +27,15 @@ router.get('/:id', async (req, res) => {
     let review = {}
     const id = req.params.id;
     await con.getReview(id).then(async (result) => {
-        review = result[0];
+        review = JSON.parse(JSON.stringify(result[0]));
 
-        review["likes"] = await con.getAllLikes(id);
-        console.log(review);
+        let likes = JSON.parse(JSON.stringify(await con.getAllLikes(id)))[0]["likes"];
+        let user = JSON.parse(JSON.stringify(await con.getUserProfile(review["user_id"])))[0]
+        let product = JSON.parse(JSON.stringify(await con.getProduct(review["product_id"])))[0]
+        console.log(product);
+        review["user"] = user;
+        review["likes"] = likes;
+        review["product"] = product;
     });
     con.addReviewView(id);
 

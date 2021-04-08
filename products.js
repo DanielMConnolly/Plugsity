@@ -1,5 +1,5 @@
 const express = require("express");
-const { connection } = require("./db");
+const { connection, getProduct} = require("./db");
 const router = express.Router();
 
 /*
@@ -85,12 +85,8 @@ router.get("/search", async (req, res) => {
 router.get("/:id", async (req, res) => {
     connection.query("USE Plugsity");
     const product_id = req.params.id;
-
-    const query = `SELECT * FROM ProductUpload WHERE product_id='${product_id}'`;
-    connection.query(query, (error, result) => {
-        if (error) res.send(error);
-        if (result) res.json(result);
-    });
+    const product = await getProduct(product_id);
+    res.json(product);
 });
 
 router.get("/getProduct/:business_id", async (req, res) => {
