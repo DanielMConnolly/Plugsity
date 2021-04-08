@@ -25,6 +25,13 @@
 }
 
 
+.skinny-card:hover{
+    text-decoration: none;
+    border: 2px solid blue;
+    color: black
+}
+
+
 .see-more-card-products{
     font-size: 30px;
 }
