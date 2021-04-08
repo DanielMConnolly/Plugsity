@@ -1,0 +1,43 @@
+ #btn_next.MuiButton-containedPrimary, #btn_back.MuiButton-containedPrimary, #btn_save_submit.MuiButton-containedPrimary, #btn_cnnctPP.MuiButton-containedPrimary, #btn_bus_setup_submit.MuiButton-containedPrimary {
+	background-color: #2E23FB
+}
+
+
+#btn_save_submit.MuiButton-containedPrimary {
+	
+    background-color: #2E23FB
+}
+
+
+#bus_iden2_div_2 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorSecondary.MuiOutlinedInput-colorSecondary {
+
+ width: 93%;
+}
+
+
+#pt_cntct_div_2 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorSecondary.MuiOutlinedInput-colorSecondary {
+    width: 96%;
+}
+
+#pt_cntct_2_div_2 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorSecondary.MuiOutlinedInput-colorSecondary {
+    width: 100%;
+}
+
+#bus_iden2_div_3 .MuiButton-containedPrimary, #bus_iden2_div_4 .MuiButton-containedPrimary, #pt_cntct_div_4 .MuiButton-containedPrimary, #pt_cntct_2_div_3 .MuiButton-containedPrimary {
+	background-color: #DAE5F3 !important;
+	width : 92%;
+}
+
+.MuiStepIcon-root.MuiStepIcon-completed, .MuiStepIcon-root.MuiStepIcon-active {
+	color: #2E23FB!important;
+}
+
+#bus_iden2_div_3 .MuiButton-label , #bus_iden2_div_4 .MuiButton-label, #pt_cntct_div_4 .MuiButton-label, #pt_cntct_2_div_3 .MuiButton-label   {
+	color: #2E23FB;
+       font-family: DM Sans;
+font-weight :500;
+font-style : normal;
+font-size : 14px;
+line-height: 16px;
+align:center;
+}
