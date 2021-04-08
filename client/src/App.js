@@ -32,6 +32,26 @@ import './css/Business_Setup.css';
 
 function App() {
     const { currentStep, finalData } = useContext(multiStepContext);
+     function showStep(step) {
+        switch (step) {
+            case 1:
+                return <Bus_Identification_1 />
+            case 2:
+                return <Bus_Identification_2 />
+            case 3:
+                return <Point_Of_Contact />
+            case 4:
+                return <Point_Of_Contact_2 />
+            case 5:
+                return <Payment_Methods_1 />
+            case 6:
+                return <Payment_Methods_3 />
+            case 7:
+                return <Business_Policies />
+            
+        }
+
+    };
     return (
         <div className='App'>
             <Router>
