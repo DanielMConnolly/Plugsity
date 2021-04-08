@@ -112,7 +112,7 @@ const addUser = (res, firstname, lastname, email, password) => {
 }
 
 //used for login
-const getUser = (res, email, password) => {
+const authenticateUser = (res, email, password) => {
     con.connect(function (err) {
         con.query('USE Plugsity');
         const query = `SELECT * FROM Users WHERE (email_address = '${email}' AND user_password = '${password}')`;
@@ -306,12 +306,45 @@ const addReviewView = (id) => {
 
 }
 
+const getUserProfile = (id)=>{
+    return new Promise((resolve, reject)=>
+    con.connect(function (err){
+        con.query('USE Plugsity');
+        const query =  `SELECT first_name, last_name, profile_photo_link FROM Users, UserProfile WHERE Users.user_id = UserProfile.user_id AND  Users.user_id = "${id}"`;
+        con.query(query, function(err, result, fields){
+            if(err){console.log(err)}
+                    console.log(result);
+                    resolve(result);
+                })
+                
+            }
+       
+    ));
+}
+
+const getProduct = (id)=> {
+    return new Promise((resolve, reject)=>
+    con.connect(function (err){
+        con.query('USE Plugsity');
+        const query =  `SELECT * FROM ProductUpload WHERE product_id="${id}"`;
+        con.query(query, function(err, result, fields){
+            if(err){console.log(err)}
+                    console.log(result);
+                    resolve(result);
+                })
+                
+            }
+       
+    ));
+}
 
 
 
 exports.addUser = addUser;
-exports.getUser = getUser;
+exports.getUserProfile = getUserProfile;
+exports.authenticateUser = authenticateUser;
 exports.logout = logout;
+exports.getProduct = getProduct;
 exports.addReview = addReview;
 exports.getAllReviews = getAllReviews;
 exports.getReview = getReview;

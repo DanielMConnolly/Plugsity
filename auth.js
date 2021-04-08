@@ -12,7 +12,7 @@ router.post('/signup', (req, res, next) => {
 router.post('/login', (req, res, next) => {
   if (!req.body) return res.sendStatus(400);
   const {email, password} = req.body;
-  con.getUser(res, email, password);
+  con.authenticateUser(res, email, password);
 });
 
 router.post('/logout', (req, res, next) => {

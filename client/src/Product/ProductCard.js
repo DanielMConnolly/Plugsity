@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import "../css/ProductDetails.css";
+import "../css/ProductCard.css";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
