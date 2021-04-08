@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SignupLogin from "./SignupLogin";
 import Review from "./Review/Review";
-import ReviewDetails from "./Review/ReviewDetails"
+import ReviewDetails from "./Review/ReviewDetails";
 import ReviewList from "./Review/ReviewList";
 import SignupLogin_Bus from "./SignupLogin_Bus";
 import Search from "./Search";
@@ -14,6 +14,7 @@ import ProductDetails from "./ProductDetails";
 import UserProfile from "./ProfilePages/UserProfile";
 import Footer from "./Footer";
 import AllProducts from "./ProductsAll";
+import ConnectWithStripe from "./ConnectWithStripe";
 
 function App() {
     return (
@@ -34,7 +35,7 @@ function App() {
                         path='/reviews/show/:reviewID'
                         component={ReviewDetails}
                     ></Route>
-                    <Route exact path='/review/upload'>
+                    <Route exact path='/reviews/upload'>
                         <Review />
                     </Route>
                     <Route path='/reviewlist'>
@@ -60,6 +61,9 @@ function App() {
                     />
                     <Route path='/products/show/'>
                         <AllProducts />
+                    </Route>
+                    <Route exact path='/onboard'>
+                        <ConnectWithStripe />
                     </Route>
                 </Switch>
             </Router>

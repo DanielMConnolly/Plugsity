@@ -6,14 +6,14 @@ const mysql = require("mysql");
 
 const app = express();
 const port = process.env.PORT || 5000;
-const auth = require('./auth.js')
-const review = require('./review.js')
+const auth = require("./auth.js");
+const review = require("./review.js");
 //const customer = require('./customer_db.js')
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/auth', auth);
-app.use('/review', review);
+app.use("/auth", auth);
+app.use("/review", review);
 //app.use('/customer_db', customer);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -84,6 +84,9 @@ app.post("/business", function (req, res) {
 
 //products route
 app.use("/api/products", require("./products"));
+
+//stripe orute
+app.use("/api/stripe", require("./stripe"));
 
 // // Redirect back to index.html if urls do not match
 app.get("*", (req, res) => {
