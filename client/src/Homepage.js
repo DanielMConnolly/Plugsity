@@ -38,12 +38,10 @@ class HomePage extends Component {
             this.setState({
                 review: res.data.review
             })
-            console.log(res.data.review)
 
         })
     }
     render() {
-        console.log(this.state.popularProducts)
         return (
          
             <div className="homepage">
