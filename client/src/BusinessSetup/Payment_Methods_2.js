@@ -2,9 +2,9 @@ import { React, useContext } from 'react';
 import { Button, TextField, Select, MenuItem, InputLabel, FormLabel, FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 import { multiStepContext } from './StepContext';
 import { makeStyles } from '@material-ui/core/styles';
-import Shape from './Shape.png';
-import off_to_the_next_step from './Off_to_next_step.png';
-import './css/Business_Setup.css';
+import Shape from '../Shape.png';
+import off_to_the_next_step from '../Off_to_next_step.png';
+import '../css/Business_Setup.css';
 
 export default function Point_Of_Contact_2() {
     const { setStep, userData, setUserData } = useContext(multiStepContext);

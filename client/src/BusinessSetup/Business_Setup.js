@@ -1,13 +1,6 @@
 import React, { useContext } from 'react';
-import logo from './logo.svg';
-import Logo from './Logo Symbol.png';
-import './App.css';
-import Signup from './Signup';
-import Signup_Bus from './Signup_Bus';
-import SignupLogin_Bus from './SignupLogin_Bus';
-import Tabs from './Tabs';
+import '../App.css';
 import {useState, useEffect} from 'react';
-import SignupLogin from './SignupLogin';
 import Bus_Identification_1 from './Bus_Identification_1';
 import Bus_Identification_2 from './Bus_Identification_2';
 import Point_Of_Contact from './Point_Of_Contact';
@@ -15,21 +8,13 @@ import Point_Of_Contact_2 from './Point_Of_Contact_2';
 import Payment_Methods_3 from './Payment_Methods_3';
 import Payment_Methods_1 from './Payment_Methods_1';
 import Business_Policies from './Business_Policies';
-import Header from './Header';
-import AltHeader from './AltHeader';
+import Header from '../Header';
+import AltHeader from '../AltHeader';
 
 import { Stepper, StepLabel, Step } from '@material-ui/core';
 import { multiStepContext } from './StepContext';
-import './StepperCSS.css';
-import './css/Business_Setup.css';
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-
+import '../css/Stepper.css';
+import '../css/Business_Setup.css';
 
 function App() {
 

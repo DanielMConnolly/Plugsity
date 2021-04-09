@@ -2,9 +2,9 @@ import { React, useContext } from 'react';
 import { Button, TextField, Select, MenuItem, InputLabel } from '@material-ui/core';
 import { multiStepContext } from './StepContext';
 import { makeStyles } from '@material-ui/core/styles';
-import Shape from './Shape.png';
-import wow_you_made_it from './wow_you_made_it.png';
-import './css/Business_Setup.css';
+import Shape from '../assets/Shape.png';
+import wow_you_made_it from '../assets/wow_you_made_it.png';
+import '../css/Business_Setup.css';
 import axios from 'axios';
 
 export default function Business_Policies() {
