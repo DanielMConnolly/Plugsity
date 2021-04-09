@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'typeface-dm-sans'
-import StepContext from "./StepContext.js"
+import StepContext from "./BusinessSetup/StepContext.js"
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

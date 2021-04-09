@@ -2,9 +2,9 @@ import { React, useContext } from 'react';
 import {Button, TextField, Select, MenuItem, InputLabel} from '@material-ui/core';
 import { multiStepContext } from './StepContext';
 import { makeStyles } from '@material-ui/core/styles';
-import Shape from './Shape.png';
-import hy from './Heythere.png';
-import './css/Business_Setup.css';
+import Shape from '../assets/Shape.png';
+import hy from '../assets/Heythere.png';
+import '../css/Business_Setup.css';
 
 export default function Bus_Identification_2() {
     const { setStep, userData, setUserData } = useContext(multiStepContext);
