@@ -163,7 +163,7 @@ const addReview = (video_name, user_id, review_rating, product_id) => {
 }
 
 const getAllReviews = async (callback) => {
-    const query = "SELECT product_video_link FROM ProductMediaReview WHERE processing_status = 'Ready' ";
+    const query = "SELECT product_video_link FROM ProductMediaReview,  WHERE processing_status = 'Ready' ";
     return new Promise((resolve, reject) => {
         queryDatabase(query).then(result => {
             resolve(result);
