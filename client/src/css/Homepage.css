@@ -25,11 +25,33 @@
 .homepage .tab-list{
     width: fit-content;
 }
+.homepage-carousel{
+    width: 100%;
+    height: 500px;
+}
 
 .products-list{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.popular-reviews-container{
+    background-color: #32313D;
+    padding: 50px 50px;
+}
+
+.popular-reviews-label{
+    color: white;
+    font-size: 42px;
+    padding-bottom: 20px;
+}
+
+.popular-reviews{
+    display: flex;
+
+    justify-content: space-evenly;
+
 }
 
 .services{
