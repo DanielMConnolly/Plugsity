@@ -68,14 +68,6 @@ function tokenVarification(user_id, token) {
         });
     });
 }
-/*
-tokenVarification(result[0].user_id,tokenRes).then(function(){//resolve
-    console.log("token varified");
-}, function(){//reject
-    console.log("token no varified");
-});
-*/
-
 //used for signin
 const addUser = (res, firstname, lastname, email, password) => {
     con.connect(function (err) {
@@ -136,21 +128,21 @@ const logout = (res, token, user_id) => {
     con.connect(function (err) {
         con.query('USE Plugsity');
         const query = `SELECT dummyToken FROM dummyUserToken WHERE dummyid = '${user_id}'`;
-        con.query(query, function(err,result,fields){
-            if (err) {console.log(err); res.send(err);}
+        con.query(query, function (err, result, fields) {
+            if (err) { console.log(err); res.send(err); }
             if (result.length > 0) {
-                tokenVarification(user_id,token).then(function(){//correct token
+                tokenVarification(user_id, token).then(function () {//correct token
                     //delete entry
                     const queryDelete = `DELETE FROM dummyUserToken WHERE dummyid = '${user_id}'`;
                     con.query(query, function (err, resultDelete, fieldsDelete) {
                         if (err) {
                             console.log(err); res.send(err);
-                        }else{
-                            
+                        } else {
+
                             res.sendStatus(200);
                         }
                     });
-                },function (){//wrong token
+                }, function () {//wrong token
                     res.sendStatus(409);
                 });
             } else {
@@ -162,180 +154,121 @@ const logout = (res, token, user_id) => {
 }
 
 const addReview = (video_name, user_id, review_rating, product_id) => {
-    con.connect(function (err) {
-        con.query('USE Plugsity');
-        const query = `INSERT INTO ProductMediaReview (user_id, review_rating, product_video_link, product_id) VALUES (${user_id}, ${review_rating}, '${video_name}', ${product_id})`;
-        con.query(query, function (err, result, fields) {
-            if (err) { console.log(err) }
-            else if (result) {
-                console.log(result);
-            }
-        }
-        );
-
-    });
+    const query = `INSERT INTO ProductMediaReview (user_id, review_rating, product_video_link, product_id) VALUES (${user_id}, ${review_rating}, '${video_name}', ${product_id})`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query).then(result => {
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
 }
 
 const getAllReviews = async (callback) => {
+    const query = "SELECT product_video_link FROM ProductMediaReview WHERE processing_status = 'Ready' ";
     return new Promise((resolve, reject) => {
-        con.connect(function (err) {
-            con.query('USE Plugsity');
-            const query = "SELECT product_video_link FROM ProductMediaReview WHERE processing_status = 'Ready' ";
-            let videos_to_render = [];
-            let x = con.query(query, function (err, result, fields) {
-                if (err) { console.log(err) }
-                else if (result) {
-                    resolve(result);
-                }
-            }
-            );
-        });
+        queryDatabase(query).then(result => {
+            resolve(result);
+        }).catch(err => console.log(err));
     })
-
 }
 
 const setVideoComplete = (id) => {
-    con.connect(function (err) {
-        con.query('USE Plugsity');
-        const query = `UPDATE ProductMediaReview SET processing_status = 'Ready' WHERE product_video_link = "${id}"`;
-        con.query(query, function (err, result, fields) {
-            if (err) { console.log(err) }
-            else if (result) {
-                console.log(result);
-            }
-        }
-        );
-
-    });
-
+    const query = `UPDATE ProductMediaReview SET processing_status = 'Ready' WHERE product_video_link = "${id}"`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query).then(result => {
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
 }
-
-
 
 const likeReview = (user_id, review_id) => {
-    con.connect(function (err) {
-        con.query('USE Plugsity');
-        const check_query = `SELECT * FROM ProductReviewLikes WHERE review_id = ${review_id} AND user_id=${user_id}`;
-        const add_query = `INSERT INTO ProductReviewLikes (user_id, review_id) VALUES (${user_id}, ${review_id})`
-        const remove_query = `DELETE FROM  ProductReviewLikes WHERE review_id = ${review_id} AND user_id=${user_id}`
-        con.query(check_query, function (err, result, fields) {
-            if (err) { console.log(err) }
-            else if (result) {
-                if (result.length == 0) {
-                    con.query(add_query, (err, result, fields) => { })
-                }
-                else{
-                    con.query(remove_query, (err, result, fields)=> {})
-                }
-            }
-        }
-        );
-    });
-}
-
-const getAllLikes = (review_id) => {
-    return new Promise((resolve, reject) => {
-        con.connect(function (err) {
-            con.query('USE Plugsity');
-            const check_query = `SELECT COUNT(*) as likes FROM ProductReviewLikes WHERE review_id = ${review_id}`;
-            con.query(check_query, function (err, result, fields) {
-                if (err) { console.log(err) }
-                else if (result) {
-                    resolve(result);
-                }
-            }
-            );
-        });
-    })
-
+    const check_query = `SELECT * FROM ProductReviewLikes WHERE review_id = ${review_id} AND user_id=${user_id}`;
+    const add_query = `INSERT INTO ProductReviewLikes (user_id, review_id) VALUES (${user_id}, ${review_id})`
+    const remove_query = `DELETE FROM  ProductReviewLikes WHERE review_id = ${review_id} AND user_id=${user_id}`
+    queryDatabase(check_query).then(result => {
+        if (result.length == 0) queryDatabase(add_query)
+        else queryDatabase(remove_query)
+    }).catch(err => console.log(err));
 }
 
 const didUserLike = (user_id, review_id) => {
+    const query = `SELECT * FROM ProductReviewLikes WHERE review_id = ${review_id} AND user_id=${user_id}`;
     return new Promise((resolve, reject) => {
-        con.connect(function (err) {
-            con.query('USE Plugsity');
-            const query = `SELECT * FROM ProductReviewLikes WHERE review_id = ${review_id} AND user_id=${user_id}`;
-            con.query(query, function (err, result, fields) {
-                if (err) { console.log(err) }
-                else if (result) {
-                    if(result.length==0){
-                        resolve(false);
-                    }
-                    else{
-                        resolve(true);
-                    }
-                }
-            }
-            );
-        });
+        queryDatabase(query)
+            .then(result =>{resolve(result.length != 0)})
+            .catch(err => console.log(err));
+
     })
-
-}
-const getReview = (review_id, user_id) => {
-    return new Promise((resolve, reject) => {
-        con.connect(function (err) {
-            con.query('USE Plugsity');
-            const query = `SELECT * FROM ProductMediaReview WHERE review_id = "${review_id}"`;
-            con.query(query, function (err, result, fields) {
-                if (err) { console.log(err) }
-                else if (result) {
-                    resolve(result);
-                }
-            }
-            );
-        });
-
-    });
-
 }
 
 const addReviewView = (id) => {
-    con.connect(function (err) {
-        con.query('USE Plugsity');
-        const query = `UPDATE ProductMediaReview  SET review_views = review_views + 1 WHERE review_id= "${id}"`;
-        con.query(query, function (err, result, fields) {
-            if (err) { console.log(err) }
-            else if (result) {
+    const query = `UPDATE ProductMediaReview  SET review_views = review_views + 1 WHERE review_id= "${id}"`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query).then(result => {
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
 
-            }
+const getAllLikes = (review_id) => {
+    const query = `SELECT COUNT(*) as likes FROM ProductReviewLikes WHERE review_id = ${review_id}`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query).then(result => {
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
+
+const getReview = (review_id, user_id) => {
+    const query = `SELECT * FROM ProductMediaReview WHERE review_id = "${review_id}"`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query).then(result => {
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
+
+
+const getUserProfile = (id) => {
+    const query = `SELECT first_name, last_name, profile_photo_link FROM Users, UserProfile WHERE Users.user_id = UserProfile.user_id AND  Users.user_id = "${id}"`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query).then(result => {
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
+
+const getProduct = (id) => {
+    const query = `SELECT ProductUpload.*, BusinessPage.legal_business_name FROM ProductUpload, BusinessPage WHERE product_id="${id} AND Product_Upload.business_id = BusinessPage.business_id"`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query).then(result => {
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
+
+const isUserABusiness = (id) => {
+    const query = `SELECT user_id FROM BusinessPage WHERE user_id="${id}"`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query).then(result => {
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
+
+const queryDatabase = (query) => {
+    return new Promise((resolve, reject) => {
+        con.connect(function (err) {
+            con.query('USE Plugsity');
+            con.query(query, function (err, result, fields) {
+                if (err) {
+                    console.log(err);
+                    reject()
+                }
+                resolve(result);
+            })
         }
         );
     });
-
-
-
-}
-
-const getUserProfile = (id)=>{
-    return new Promise((resolve, reject)=>
-    con.connect(function (err){
-        con.query('USE Plugsity');
-        const query =  `SELECT first_name, last_name, profile_photo_link FROM Users, UserProfile WHERE Users.user_id = UserProfile.user_id AND  Users.user_id = "${id}"`;
-        con.query(query, function(err, result, fields){
-            if(err){console.log(err)}
-                    console.log(result);
-                    resolve(result);
-                })
-                
-            }
-       
-    ));
-}
-
-const getProduct = (id)=> {
-    return new Promise((resolve, reject)=>
-    con.connect(function (err){
-        con.query('USE Plugsity');
-        const query =  `SELECT ProductUpload.*, BusinessPage.legal_business_name FROM ProductUpload, BusinessPage WHERE product_id="${id} AND Product_Upload.business_id = BusinessPage.business_id"`;
-        con.query(query, function(err, result, fields){
-            if(err){console.log(err)}
-                    console.log(result);
-                    resolve(result);
-                })
-                
-            }
-       
-    ));
 }
 
 
@@ -353,4 +286,5 @@ exports.likeReview = likeReview;
 exports.getAllLikes = getAllLikes;
 exports.addReviewView = addReviewView;
 exports.didUserLike = didUserLike;
+exports.isUserABusiness = isUserABusiness;
 exports.connection = con;
