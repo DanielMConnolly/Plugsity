@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SignupLogin from "./SignupLogin";
 import Review from "./Review/Review";
-import ReviewDetails from "./Review/ReviewDetails"
+import ReviewDetails from "./Review/ReviewDetails";
 import ReviewList from "./Review/ReviewList";
 import SignupLogin_Bus from "./SignupLogin_Bus";
 import Search from "./Search";
@@ -15,6 +15,7 @@ import UserProfile from "./ProfilePages/UserProfile";
 import Footer from "./Footer";
 import AllProducts from "./ProductsAll";
 import Business_Setup from "./BusinessSetup/Business_Setup";
+import ProductEditForm from "./ProductEditForm";
 
 function App() {
     return (
@@ -65,6 +66,10 @@ function App() {
                     <Route path='/products/show/'>
                         <AllProducts />
                     </Route>
+                    <Route
+                        path='/products/editProduct/:productID'
+                        component={ProductEditForm}
+                    ></Route>
                 </Switch>
             </Router>
         </div>

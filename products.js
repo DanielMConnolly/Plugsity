@@ -1,5 +1,5 @@
 const express = require("express");
-const { connection, getProduct} = require("./db");
+const { connection, getProduct } = require("./db");
 const router = express.Router();
 
 /*
@@ -85,15 +85,69 @@ router.get("/search", async (req, res) => {
 router.get("/:id", async (req, res) => {
     connection.query("USE Plugsity");
     const product_id = req.params.id;
-    const product = await getProduct(product_id);
-    res.json(product);
+    const query = `SELECT * FROM ProductUpload WHERE product_id=${product_id}`;
+    // const product = await getProduct(product_id);
+    connection.query(query, (error, result) => {
+        if (error) res.send(error);
+        if (result) res.send(result);
+    });
+    // res.json(product);
 });
 
+// get request
+// @path = /api/getProduct/:business_id
+// @desc = use this path to view products of a particular business.
 router.get("/getProduct/:business_id", async (req, res) => {
     connection.query("USE Plugsity");
     const business_id = req.params.business_id;
 
     const query = `SELECT * from ProductUpload WHERE business_id=${business_id}`;
+
+    connection.query(query, (error, result) => {
+        if (error) res.send(error);
+        if (result) res.json(result);
+    });
+});
+
+// put request
+// @path = /api/editProduct/:product_id
+// @desc = use this path to edit a product associated with the business
+// there would be a middleware here that authenticates the business
+router.put("/editProduct/:product_id", async (req, res) => {
+    connection.query("USE Plugsity");
+    const product_id = req.params.product_id;
+
+    const {
+        product_name,
+        product_description,
+        category,
+        product_category,
+        product_subcategory,
+        product_tags,
+        product_listing,
+        product_cost,
+        product_image_link,
+        product_video_link,
+    } = req.body;
+
+    const query = `UPDATE ProductUpload SET product_name='${product_name}', product_description='${product_description}', category='${category}', product_category='${product_category}', product_subcategory='${product_subcategory}', product_tags='${product_tags}', product_listing='${product_listing}', product_cost='${product_cost}', product_image_link='${product_image_link}', product_video_link='${product_video_link}' WHERE product_id=${product_id}`;
+
+    connection.query(query, (error, result) => {
+        if (error) res.send(error);
+        if (result) res.json(result);
+    });
+});
+
+// delete request
+// @path = /api/deleteProduct/:product_id
+// @desc = use this path to delete a product associated with the business by the business
+// there would be a middleware here that authenticates the business
+router.delete("/deleteProduct/:product_id", async (req, res) => {
+    connection.query("USE Plugsity");
+
+    const product_id = req.params.product_id;
+
+    const query = `DELETE From ProductUpload WHERE product_id=${product_id}`;
 
     connection.query(query, (error, result) => {
         if (error) res.send(error);
