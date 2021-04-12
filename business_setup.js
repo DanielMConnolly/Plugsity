@@ -38,7 +38,7 @@ language, country, currency, business_type, business_description) VALUES('${user
 })
 
 router.get("/business/:business_id", async (req, res) => {
-    const business_id = req.params.business_id
+    const business_id = req.params.business_id;
     const query = `SELECT * FROM Plugsity.BusinessPage WHERE business_id = '${business_id}'`;
     connection.query(query, (error, results) => {
         if (error) res.send(error)
