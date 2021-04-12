@@ -51,7 +51,7 @@ export default class Signup extends Component {
       return (<Redirect to="/homepage"></Redirect>)
     }
     return (
-      <div className="Login">
+      <div className="Signup">
       <form onSubmit={this.onSubmit}>
         <input
           type="email"
