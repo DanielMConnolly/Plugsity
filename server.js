@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 const auth = require('./auth.js')
 const review = require('./review.js')
 const user = require('./user.js')
+const business = require('./business.js');
 const businessSetup = require('./business_setup.js')
 //const customer = require('./customer_db.js')
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 app.use('/auth', auth);
 app.use('/review', review);
 app.use('/user', user);
+app.use('/business', business);
 //app.use('/customer_db', customer);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());

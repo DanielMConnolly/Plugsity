@@ -15,44 +15,27 @@ const con = mysql.createConnection({
 //return a promise of a token
 // resolve is only implemented and returns a callback token
 function createToken(user_id) {
+    let token_to_be_returned = require('crypto').randomBytes(10).toString('hex')
+    const update_query =  `UPDATE dummyUserToken SET dummyToken = '${token_to_be_returned}' WHERE dummyid = '${user_id}'`
+    const insert_query = `INSERT INTO dummyUserToken (dummyid, dummyToken) VALUES ('${user_id}', '${token_to_be_returned}')`;
     return new Promise((resolve, reject) => {
-        let token_to_be_returned = 0;
-        con.connect(function (err) {
-            con.query('USE Plugsity');
-            let did_find = true;
-            //const queryFind = `SELECT user_token FROM UserToken WHERE user_id = '${user_id}'`;
-            const queryFind = `SELECT dummyid FROM dummyUserToken WHERE dummyid = '${user_id}'`;
-            con.query(queryFind, function (err, result, fields) {
-                if (err) console.log(err);
-                if (result.length > 0) {
-                    did_find = true;
-                } else {
-                    did_find = false;
-                }
-                //TODO: fix tokenizer
-                //token_to_be_returned = Math.floor(Math.random() * 2^20);
-                token_to_be_returned = require('crypto').randomBytes(10).toString('hex')
-                let queryUpdate = "";
-                if (did_find == true) {
-                    //queryUpdate = `UPDATE UserToken SET user_token = '${token_to_be_returned}' WHERE user_id = '${user_id}'`
-                    queryUpdate = `UPDATE dummyUserToken SET dummyToken = '${token_to_be_returned}' WHERE dummyid = '${user_id}'`;
-                } else {
-                    //queryUpdate = `INSER INTO user_token (user_token, user_id) VALUES ('${token_to_be_returned}', '${user_id}')`
-                    queryUpdate = `INSERT INTO dummyUserToken (dummyid, dummyToken) VALUES ('${user_id}', '${token_to_be_returned}')`;
-                }
-                con.query(queryUpdate, function (err, result, feilds) {
-                    if (err) console.log(err);
+        queryDatabase(update_query).then(result=>{
+            if(result.length==0){
+                queryDatabase(insert_query).then(result=>{
                     resolve(token_to_be_returned);
-                });
-            });
-        });
+                }).catch(err=>console.log(err));
+            }
+            else{
+                resolve(token_to_be_returned)
+            }
+        }).catch(err => console.log(err));
     });
 }
 
 //returns a promise for when the token is correct
 //resolve is when token is varified
 //reject is when token is 
-function tokenVarification(user_id, token) {
+function tokenVerification(user_id, token) {
     return new Promise((resolve, reject) => {
         con.connect(function (err) {
             con.query('USE Plugsity');
@@ -89,6 +72,7 @@ const addUser = (res, firstname, lastname, email, password) => {
                             if (err) {
                                 console.log(err); res.send(err);
                             } else if (result) {
+                            
                                 createToken(result[0].user_id).then(function (tokenRes) {
                                     res.send({ firstName: firstname, lastName: lastname, email: email, password: password, token: tokenRes, user_id: result[0].user_id });
                                 });//end of create token
@@ -112,11 +96,9 @@ const authenticateUser = (res, email, password) => {
             if (err) { console.log(err); res.send(err); }
             if (result.length > 0) {
                 createToken(result[0].user_id).then(function (tokenRes) {
-
                     res.send({ token: tokenRes, user_id: result[0].user_id });
                 });//end of create token
             } else {
-                //passwords are different or email is noneexistant
                 console.log("there does not exist a query")
                 res.sendStatus(409);
             }
@@ -131,7 +113,7 @@ const logout = (res, token, user_id) => {
         con.query(query, function (err, result, fields) {
             if (err) { console.log(err); res.send(err); }
             if (result.length > 0) {
-                tokenVarification(user_id, token).then(function () {//correct token
+                tokenVerification(user_id, token).then(function () {//correct token
                     //delete entry
                     const queryDelete = `DELETE FROM dummyUserToken WHERE dummyid = '${user_id}'`;
                     con.query(query, function (err, resultDelete, fieldsDelete) {
@@ -255,6 +237,25 @@ const isUserABusiness = (id) => {
     })
 }
 
+const getBusinessIdFromUserId = (user_id)=>{
+    console.log(user_id);
+    const query = `SELECT business_id FROM BusinessPage WHERE user_id=${user_id}`;
+    return new Promise((resolve, reject)=>{
+        queryDatabase(query).then(result=>{
+            resolve(result[0]);
+        }).catch(err => console.log(err));
+    })
+}
+
+const getAllBusinesses = ()=>{
+    const query = "SELECT * FROM BusinessPage";
+    return new Promise((resolve, reject)=>{
+        queryDatabase(query).then(result=>{
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
+
 const queryDatabase = (query) => {
     return new Promise((resolve, reject) => {
         con.connect(function (err) {
@@ -272,7 +273,7 @@ const queryDatabase = (query) => {
 }
 
 
-
+exports.getBusinessIdFromUserId = getBusinessIdFromUserId;
 exports.addUser = addUser;
 exports.getUserProfile = getUserProfile;
 exports.authenticateUser = authenticateUser;
@@ -286,5 +287,7 @@ exports.likeReview = likeReview;
 exports.getAllLikes = getAllLikes;
 exports.addReviewView = addReviewView;
 exports.didUserLike = didUserLike;
+exports.getAllBusinesses = getAllBusinesses;
 exports.isUserABusiness = isUserABusiness;
+
 exports.connection = con;

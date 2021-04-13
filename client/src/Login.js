@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom'
 import './css/Signup.css'
+import { getBusinessId, isUserABusiness } from './ApiCalls';
 import axios from 'axios';
 export default class Signup extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class Signup extends Component {
     event.preventDefault();
     axios({
       method: 'post',
-      url: 'http://3.138.232.158:5000/auth/login',
+      url: '/auth/login',
       headers: {
         "Accept": 'application/json'
       },
@@ -32,19 +33,25 @@ export default class Signup extends Component {
       }
 
     }).then((response) => {
-      console.log("successfully logging in:",response.data)
-      localStorage.setItem('token',response.data.token);
-      localStorage.setItem('user_id',response.data.user_id);
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user_id', response.data.user_id);
+      isUserABusiness(response.data.user_id).then(result => {
+        if (result) {
+          getBusinessId(response.data.user_id).then(res => localStorage.setItem('business_id', response.data.user_id));
+        }
+
+      });
+
       if (response.status == 200) {
         this.setState({ loggedIn: true })
       }
-    }, (error)=>{
+    }, (error) => {
       //password or username is incorrect
       this.setState({
         passwordWrong: true
       });
     });
-    
+
   }
   render() {
     if (this.state.loggedIn) {
@@ -52,28 +59,28 @@ export default class Signup extends Component {
     }
     return (
       <div className="Signup">
-      <form onSubmit={this.onSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={this.state.email}
-          onChange={this.handleInputChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleInputChange}
-          required
-        />
-        {this.state.passwordWrong && <div className="error">Password or Username is incorrect</div>}
-        <input className={Object.values(this.state).includes("")?"button":"Login"} type="submit" value="Login" />
-      </form>
-      <hr/>
-      <div className="disclaimer">By signing in, you agree to Plugsity's terms of use and privacy policy</div>
+        <form onSubmit={this.onSubmit}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={this.state.email}
+            onChange={this.handleInputChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={this.state.password}
+            onChange={this.handleInputChange}
+            required
+          />
+          {this.state.passwordWrong && <div className="error">Password or Username is incorrect</div>}
+          <input className={Object.values(this.state).includes("") ? "button" : "Login"} type="submit" value="Login" />
+        </form>
+        <hr />
+        <div className="disclaimer">By signing in, you agree to Plugsity's terms of use and privacy policy</div>
       </div>
     );
   }

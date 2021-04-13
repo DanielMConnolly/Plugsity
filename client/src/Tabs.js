@@ -31,7 +31,6 @@ class Tabs extends Component {
             activeTab,
           }
         } = this;
-        console.log(this.props);
     
         return (
           <div className="tabs">

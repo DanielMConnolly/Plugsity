@@ -11,6 +11,7 @@ import Search from "./Search";
 import HomePage from "./Homepage";
 import ProductForm from "./ProductForm";
 import ProductDetails from "./ProductDetails";
+import Dashboard from './Business/BusinessDashboard';
 import UserProfile from "./ProfilePages/UserProfile";
 import Footer from "./Footer";
 import AllProducts from "./ProductsAll";
@@ -49,6 +50,9 @@ function App() {
                     </Route>
                     <Route path='/footer'>
                         <Footer />
+                    </Route>
+                    <Route path='/dashboard'>
+                        <Dashboard/>
                     </Route>
                     <Route path='/business_setup'>
                         <Business_Setup />
