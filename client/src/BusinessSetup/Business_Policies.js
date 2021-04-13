@@ -10,7 +10,7 @@ import axios from 'axios';
 
 export default function Business_Policies() {
     const { setStep, userData, setUserData, submitData, finalData } = useContext(multiStepContext);
-    const [submitted, setSubmitted] = useState(false);
+    
     const useStyles = makeStyles((theme) => ({
         root: {
             '& > *': {
@@ -23,9 +23,7 @@ export default function Business_Policies() {
     }));
 
     const classes = useStyles();
-    if(submitted){
-        return (<Redirect to="/homepage"/>)
-    }
+    
     return (
         <div style={{ width: '60%' }}>
 
@@ -100,40 +98,11 @@ export default function Business_Policies() {
                 <Button id="btn_back" style={{ marginLeft: '5.5%', width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => setStep(4)} color="primary">Back</Button>
                 <Button id="btn_save_submit" style={{ marginLeft: '3.5%', width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
                 <Button id="btn_bus_setup_submit" style={{ marginLeft: '25%', width: '160px', height: '32px', borderRadius: '15px', marginLeft: '23%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained"
-                    color="primary" onClick={()=> uploadData(userData, ()=>setSubmitted(true))}>Submit</Button>
+                    color="primary" onClick={() => setStep(6)}>Next</Button>
             </footer>
         </div>
     );
 }
 
 
-let uploadData = (userData, callback) => {
-    const user_id= localStorage.getItem('user_id');
-    axios
-        .post("/api/businessSetup/business", {
-            legal_business_name: userData.bus_lgl_name,
-            legal_business_address: userData.bus_address,
-            legal_business_phone: userData.bus_phone_num,
-            legal_business_email: userData.bus_email,
-            business_link: "buslink",
-            shipping_policy: userData.ship_pol,
-            tax_id: userData.bus_tax_id_num,
-            business_form: userData.bus_form,
-            business_license_link: "liclink",
-            business_permit_link: "permlink",
-            language: userData.language,
-            country: userData.bus_country,
-            currency: userData.currency,
-            business_type: userData.bus_type,
-            business_description: "desc",
-            user_id: user_id
 
-        })
-        .then((response) => {
-            callback();
-            
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-}
