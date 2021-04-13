@@ -19,6 +19,7 @@ import '../css/Business_Setup.css';
 function App() {
 
     const [reponse, setResponse] = useState(null);
+    const [userData, setUserData] = useState({});
      const getResponse = async() => {
       const response = await fetch('/api/hello');
       const body = await response.json();

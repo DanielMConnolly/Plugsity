@@ -20,8 +20,8 @@ router.post("/business", async (req, res) => {
         country,
         currency,
         business_type,
-        business_description } = req.body;
-        const user_id = 53;
+        business_description, 
+        user_id } = req.body;
         
     const query = `INSERT INTO Plugsity.BusinessPage (user_id, legal_business_name,legal_business_address,legal_business_phone,
 legal_business_email,business_link,shipping_policy,return_policy, tax_id, business_form, business_license_link, business_permit_link,

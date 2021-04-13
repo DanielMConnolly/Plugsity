@@ -5,7 +5,7 @@ import Shape from '../assets/Shape.png';
 import hy from '../assets/Heythere.png';
 import '../css/Business_Setup.css';
 
-export default function Bus_Identification_1() {
+export default function Bus_Identification_1(props) {
     const { setStep, userData, setUserData } = useContext(multiStepContext);
     const [state, setState] = useState();
 
