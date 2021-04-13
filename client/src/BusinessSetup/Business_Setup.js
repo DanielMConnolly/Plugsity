@@ -48,11 +48,12 @@ function App() {
             case 4:
                 return <Point_Of_Contact_2 />
             case 5:
-                return <Payment_Methods_1 />
+                return <Business_Policies />
+                
             case 6:
                 return <Payment_Methods_3 />
-            case 7:
-                return <Business_Policies />
+           
+                
             
         }
 
@@ -92,9 +93,7 @@ function App() {
                 <Step>
                     <StepLabel></StepLabel>
                 </Step>
-                <Step>
-                    <StepLabel></StepLabel>
-                </Step>
+                
                 
                
                 
