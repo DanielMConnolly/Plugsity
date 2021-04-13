@@ -19,6 +19,7 @@ app.use('/auth', auth);
 app.use('/review', review);
 app.use('/user', user);
 app.use('/business', business);
+app.use('/business_setup', businessSetup);
 //app.use('/customer_db', customer);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -95,6 +96,5 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
-app.use("/api/businessSetup", businessSetup);
 
 app.listen(port, () => console.log(`listening on port ${port}`));

@@ -10,12 +10,7 @@ router.get('/check_if_business/:user_id', async (req, res, next) => {
     }
     else {
         await con.isUserABusiness(user_id).then(result => {
-            if (result) {
-                res.send("true")
-            }
-            else {
-                res.send("false");
-            }
+           res.send(result);
         }
         ).catch(err => console.log(err)
         );

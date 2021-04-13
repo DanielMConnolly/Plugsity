@@ -5,8 +5,9 @@ const con = require('./db.js')
 router.post('/signup', (req, res, next) => {
   if (!req.body) return res.sendStatus(400);
   const {email, password, firstName, lastName} = req.body;
-  con.addUser(res, firstName, lastName, email, password);
-
+  con.addUser(firstName, lastName, email, password).then(result=>{
+    res.send(result);
+  }).catch(error=>{ res.status(409); res.send()});
 });
 
 router.post('/login', (req, res, next) => {

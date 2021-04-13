@@ -1,7 +1,7 @@
 import axios from "axios"
 
 
-let getBusinessId = async (user_id) => {
+let getBusinessDataFromUser = async (user_id) => {
     let res = await axios({
         method: 'get',
         url: `/business/business_id/${user_id}`,
@@ -9,8 +9,10 @@ let getBusinessId = async (user_id) => {
             "Accept": 'application/json'
         },
     })
-    return res.data["business_id"];
+    return res.data;
 }
+
+
 
 let isUserABusiness = async (user_id) => {
     return axios({
@@ -21,5 +23,18 @@ let isUserABusiness = async (user_id) => {
     });
 }
 
+let createOrUpdateBusiness = async (business_data) =>{
+    return axios({
+        method: 'post', 
+        url: `/business_setup/business`,
+        data: {
+            ...business_data
+        }
+    }).then((response)=>{
+        console.log(response);
+        return response.data["business_id"];
+    })
 
-export { getBusinessId, isUserABusiness };
+}
+
+export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness };
