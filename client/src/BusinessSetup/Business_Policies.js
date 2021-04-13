@@ -97,7 +97,7 @@ export default function Business_Policies() {
                 height: '10%', bottom: '0px',
                 position: 'absolute', display: 'flex', width: '100%'
             }}>
-                <Button id="btn_back" style={{ marginLeft: '5.5%', width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => setStep(6)} color="primary">Back</Button>
+                <Button id="btn_back" style={{ marginLeft: '5.5%', width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => setStep(4)} color="primary">Back</Button>
                 <Button id="btn_save_submit" style={{ marginLeft: '3.5%', width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
                 <Button id="btn_bus_setup_submit" style={{ marginLeft: '25%', width: '160px', height: '32px', borderRadius: '15px', marginLeft: '23%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained"
                     color="primary" onClick={()=> uploadData(userData, ()=>setSubmitted(true))}>Submit</Button>
