@@ -21,7 +21,7 @@ class Business_Setup extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userData: {},
+            userData: {'user_id': localStorage.getItem('user_id')},
             currentStep: 1,
             redirectToLogin: false
         }

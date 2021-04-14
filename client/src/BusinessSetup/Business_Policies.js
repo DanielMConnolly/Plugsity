@@ -23,7 +23,9 @@ export default function Business_Policies(props) {
 
 
     const handleNext = ()=> {
+    console.log(props.userData);
      createOrUpdateBusiness(props.userData);
+
      setSubmitted(true);
 
     }
