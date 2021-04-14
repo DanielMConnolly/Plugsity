@@ -1,12 +1,10 @@
 import { React, useContext } from 'react';
 import { Button, TextField, Select, MenuItem, InputLabel, FormLabel, FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
-import { multiStepContext } from './StepContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Shape from '../assets/Shape.png';
 import '../css/Business_Setup.css';
 
-export default function Payment_Methods_1() {
-    const { setStep, userData, setUserData } = useContext(multiStepContext);
+export default function Payment_Methods_1(props) {
     const useStyles = makeStyles((theme) => ({
         root: {
             '& > *': {
@@ -39,7 +37,7 @@ export default function Payment_Methods_1() {
                     <div id="pt_cntct_3_div_1" style={{ display: 'flex', width: '95%', marginLeft: '6%', marginTop: '2%'}}>
                         <FormControl component="fieldset">
                             <FormLabel component="legend" style={{fontWeight: '700', fontFamily : 'DM Sans', fontSize : '14px', lineHeight: '16px'}} >Billing method</FormLabel>
-                            <RadioGroup aria-label="billing_method" value={userData['bill_method']} onChange={(e) => setUserData({ ...userData, "bill_method": e.target.value })} name="billing_method" row>
+                            <RadioGroup aria-label="billing_method" value={props.userData['bill_method']} onChange={(e) => props.userData({ ...props.userData, "bill_method": e.target.value })} name="billing_method" row>
                                 <FormControlLabel value="bank_account" control={<Radio />} label="Bank Account" />
                                 <FormControlLabel value="cc_db" control={<Radio />} label="Credit Card /Debit Card" />
                             </RadioGroup>
@@ -47,28 +45,28 @@ export default function Payment_Methods_1() {
                     </div>
 
                     <div id="pt_cntct_3_div_2" style={{ width: '95%', display: 'flex', marginLeft: '6%' }} >
-                        <TextField style={{ height: '8%', width: '93%' }} value={userData['bank_name']} onChange={(e) => setUserData({ ...userData, "bank_name": e.target.value })} placeholder="Bank name"  variant="outlined" color="secondary" />
+                        <TextField style={{ height: '8%', width: '93%' }} value={props.userData['bank_name']} onChange={(e) => props.userData({ ...props.userData, "bank_name": e.target.value })} placeholder="Bank name"  variant="outlined" color="secondary" />
                     </div>
                     <div id="pt_cntct_3_div_3" style={{ width: '95%', display: 'flex', marginLeft: '6%', marginBottom: '1%' }} >
-                        <TextField style={{ height: '8%', width: '93%' }} value={userData['bank_ac_no']} onChange={(e) => setUserData({ ...userData, "bank_ac_no": e.target.value })} placeholder="Bank account No." margin="normal" variant="outlined" color="secondary" />
+                        <TextField style={{ height: '8%', width: '93%' }} value={props.userData['bank_ac_no']} onChange={(e) => props.userData({ ...props.userData, "bank_ac_no": e.target.value })} placeholder="Bank account No." margin="normal" variant="outlined" color="secondary" />
                     </div>
                     <div id="pt_cntct_3_div_4" style={{ width: '95%', display: 'flex', marginLeft: '6%' }} >
-                        <TextField style={{ height: '8%', width: '93%' }} value={userData['bank_addr']} onChange={(e) => setUserData({ ...userData, "bank_addr": e.target.value })} placeholder="Bank Address"  variant="outlined" color="secondary" />
+                        <TextField style={{ height: '8%', width: '93%' }} value={props.userData['bank_addr']} onChange={(e) => props.userData({ ...props.userData, "bank_addr": e.target.value })} placeholder="Bank Address"  variant="outlined" color="secondary" />
                     </div>
 
                     <div id="pt_cntct_3_div_5" style={{ width: '95%', display: 'flex' }} >
-                        <Select id="drpdwn_city" value={userData['bank_city']} onChange={(e) => setUserData({ ...userData, "bank_city": e.target.value })}  place holder="City" variant="outlined" color="secondary" style={{
+                        <Select id="drpdwn_city" value={props.userData['bank_city']} onChange={(e) => props.userData({ ...props.userData, "bank_city": e.target.value })}  place holder="City" variant="outlined" color="secondary" style={{
                             marginLeft: '6.4%', width: '50%', height: '8%', marginTop: '2.3%'
                         }}>
                             <MenuItem value="1">Buffalo </MenuItem>
                             <MenuItem value="2">NYC</MenuItem>
                         </Select>
-                        <TextField style={{ height: '8%', width: '50%', marginLeft: '5%', marginRight: '1%', marginTop: '2.4%' }} value={userData['bank_state']} onChange={(e) => setUserData({ ...userData, "bank_state": e.target.value })} placeholder="State"  variant="outlined" color="secondary" />
+                        <TextField style={{ height: '8%', width: '50%', marginLeft: '5%', marginRight: '1%', marginTop: '2.4%' }} value={props.userData['bank_state']} onChange={(e) => props.userData({ ...props.userData, "bank_state": e.target.value })} placeholder="State"  variant="outlined" color="secondary" />
                     </div>
 
                     <div id="pt_cntct_3_div_6" style={{ marginLeft: '6%', marginBottom: '2%' }}>
                         
-                        <TextField style={{ height: '8%', width: '94.5%' }} value={userData['routing_mthod']} onChange={(e) => setUserData({ ...userData, "routing_mthod": e.target.value })}  placeholder="ABA Routing No." margin="normal" variant="outlined" color="secondary" />
+                        <TextField style={{ height: '8%', width: '94.5%' }} value={props.userData['routing_mthod']} onChange={(e) => props.userData({ ...props.userData, "routing_mthod": e.target.value })}  placeholder="ABA Routing No." margin="normal" variant="outlined" color="secondary" />
                     </div>
 
                 </div>
@@ -80,9 +78,9 @@ export default function Payment_Methods_1() {
                 height: '10%', bottom: '0px',
                 position: 'absolute', display: 'flex', width: '100%'
             }}>
-                <Button id="btn_back" style={{ width: '160px', height: '32px', marginLeft: '5.5%', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => setStep(4)} color="primary">Back</Button>
+                <Button id="btn_back" style={{ width: '160px', height: '32px', marginLeft: '5.5%', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep(4)} color="primary">Back</Button>
                 <Button id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3.5%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
-                <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '25%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => setStep(6)} color="primary">Next</Button>
+                <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '25%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep(6)} color="primary">Next</Button>
 
             </footer>
         </div>

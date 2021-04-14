@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom'
 import './css/Signup.css'
-import { getBusinessId, isUserABusiness } from './ApiCalls';
+import { getBusinessDataFromUser, isUserABusiness } from './ApiCalls';
 import axios from 'axios';
 export default class Signup extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ export default class Signup extends Component {
       localStorage.setItem('user_id', response.data.user_id);
       isUserABusiness(response.data.user_id).then(result => {
         if (result) {
-          getBusinessId(response.data.user_id).then(res => localStorage.setItem('business_id', response.data.user_id));
+          getBusinessDataFromUser(response.data.user_id).then(res => localStorage.setItem('business_id', response.data.user_id));
         }
 
       });

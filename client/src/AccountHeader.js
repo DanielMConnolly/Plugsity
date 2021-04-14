@@ -59,6 +59,7 @@ class AccountHeader extends Component {
     }).then((response) => {
       localStorage.removeItem('token');
       localStorage.removeItem('user_id');
+      localStorage.removeItem('business_id');
       this.setState({ logout: true });
     }, (error) => {
       //do not logout

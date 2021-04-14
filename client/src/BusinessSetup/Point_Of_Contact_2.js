@@ -1,13 +1,12 @@
 import { React, useContext } from 'react';
 import { Button, TextField, Select, MenuItem, InputLabel } from '@material-ui/core';
-import { multiStepContext } from './StepContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Shape from '../assets/Shape.png';
+import {createOrUpdateBusiness} from '../ApiCalls';
 import off_to_the_next_step from '../assets/Off_to_next_step.png';
 import '../css/Business_Setup.css';
 
-export default function Point_Of_Contact_2() {
-    const { setStep, userData, setUserData } = useContext(multiStepContext);
+export default function Point_Of_Contact_2(props) {
     const useStyles = makeStyles((theme) => ({
         root: {
             '& > *': {
@@ -18,6 +17,13 @@ export default function Point_Of_Contact_2() {
             display: 'none',
         },
     }));
+
+   
+    const handleNext =  ()=> {
+        createOrUpdateBusiness(props.userData);
+        props.setStep(4);
+        
+    }
 
     const classes = useStyles();
     return (
@@ -40,7 +46,7 @@ export default function Point_Of_Contact_2() {
                     <div id="pt_cntct_2_div_1" style={{ display: 'flex', width: '95%'}}>
                         <div style={{ marginLeft: '6.5%', width: '93%'}}>
                             <InputLabel id="label_bus_name" style={{  width : '100%', marginTop: '10px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Business Address *</InputLabel>
-                            <TextField value={userData['bus_address']} onChange={(e) => setUserData({ ...userData, "bus_address": e.target.value })} style={{ height: '8%', width : '100%'}} placeholder="Address" margin="normal" variant="outlined" color="secondary" />
+                            <TextField value={props.userData['legal_business_address']} onChange={(e) => props.setUserData({ ...props.userData, "legal_business_address": e.target.value })} style={{ height: '8%', width : '100%'}} placeholder="Address" margin="normal" variant="outlined" color="secondary" />
                         </div>
                         
                     </div>
@@ -48,7 +54,7 @@ export default function Point_Of_Contact_2() {
                     <div id="pt_cntct_2_div_2" style={{ width: '95%', display: 'flex', marginLeft: '4.5%' }} >
                         <div style={{ width: '29%' }}>
                             <InputLabel id="label" style={{ marginTop: '3%', width: '100%', marginBottom: '3%', marginLeft: '6%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Location Type</InputLabel>
-                            <Select id="drpdwn_loc" value={userData['bus_location_type']} onChange={(e) => setUserData({ ...userData, "bus_location_type": e.target.value })} place holder="Location Type" variant="outlined" color="secondary" style={{
+                            <Select id="drpdwn_loc" value={props.userData['country']} onChange={(e) => props.setUserData({ ...props.userData, "country": e.target.value })} place holder="Location Type" variant="outlined" color="secondary" style={{
                                 marginLeft: '6%', width : '100%'
                             }}>
                                 <MenuItem value="1">USA </MenuItem>
@@ -57,20 +63,20 @@ export default function Point_Of_Contact_2() {
                         </div>
                         <div style={{ width: '29%',marginLeft: '1%' }}>
                             <InputLabel id="label" style={{ marginLeft: '10%', marginTop: '3%', marginBottom: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>City</InputLabel>
-                            <Select id="drpdwn_city" value={userData['city']} onChange={(e) => setUserData({ ...userData, "city": e.target.value })}   style={{
+                            <Select id="drpdwn_city" value={props.userData['city']} onChange={(e) => props.setUserData({ ...props.userData, "city": e.target.value })}   style={{
                                 marginLeft: '13%',width : '100%'
                             }} place holder="City" variant="outlined" color="secondary">
-                                <MenuItem value="1">Buffalo</MenuItem>
-                                <MenuItem value="2">NYC</MenuItem>
+                                <MenuItem value="Buffalo">Buffalo</MenuItem>
+                                <MenuItem value="NYC">NYC</MenuItem>
                             </Select>
                         </div>
                         <div style={{ width: '29%', marginLeft: '3%' }}>
                             <InputLabel id="label" style={{ marginLeft: '10%', marginTop: '3%', marginBottom: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>State</InputLabel>
-                            <Select id="drpdwn_state" value={userData['state']} onChange={(e) => setUserData({ ...userData, "state": e.target.value })}  style={{
+                            <Select id="drpdwn_state" value={props.userData['state']} onChange={(e) => props.setUserData({ ...props.userData, "state": e.target.value })}  style={{
                                 marginLeft: '13%', width: '100%'
                             }} place holder="State" variant="outlined" color="secondary">
-                                <MenuItem value="1">NY</MenuItem>
-                                <MenuItem value="2">VA</MenuItem>
+                                <MenuItem value="NY">NY</MenuItem>
+                                <MenuItem value="VA">VA</MenuItem>
                             </Select>
                         </div>
                     </div>
@@ -99,9 +105,9 @@ export default function Point_Of_Contact_2() {
                 height: '10%', bottom: '0px',
                 position: 'absolute', display: 'flex', width: '100%'
             }}>
-                <Button id="btn_back" style={{ width: '160px', height: '32px', marginLeft: '5.5%',borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => setStep(3)} color="primary">Back</Button>
+                <Button id="btn_back" style={{ width: '160px', height: '32px', marginLeft: '5.5%',borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep(4)} color="primary">Back</Button>
                 <Button id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3.5%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
-                <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '25%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => setStep(5)} color="primary">Next</Button>
+                <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '25%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => handleNext()} color="primary">Next</Button>
 
             </footer>
         </div>

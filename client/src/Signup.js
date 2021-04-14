@@ -31,9 +31,10 @@ export default class Signup extends Component {
       })
     }
     else {
+      console.log(this.state);
       axios({
         method: 'post',
-        url: 'http://3.138.232.158:5000/auth/signup',
+        url: '/auth/signup',
         headers: {
           "Accept": 'application/json'
         },
@@ -45,14 +46,14 @@ export default class Signup extends Component {
         }
 
       })
-        .then((res => {
-
+        .then(res => {
+          console.log(res);
           localStorage.setItem('token',res.data.token);
           localStorage.setItem('user_id',res.data.user_id);
           if (res.status == 200) {
             this.setState({ loggedIn: true })
           }
-        })).catch(error => {
+        }).catch(error => {
           console.log(error);
           this.setState({
             emailtaken: true

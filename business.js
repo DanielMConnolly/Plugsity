@@ -10,7 +10,7 @@ router.get('/business', function (req, res) {
 
 router.get('/business_id/:user_id', (req, res) => {
     let user_id = req.params.user_id;
-    con.getBusinessIdFromUserId(user_id).then(result=>{
+    con.getBusinessDataFromUserId(user_id).then(result=>{
         res.send(result);
     })
 

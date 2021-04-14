@@ -1,16 +1,15 @@
 import { React, useContext, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom'
 import { Button, TextField, Select, MenuItem, InputLabel } from '@material-ui/core';
-import { multiStepContext } from './StepContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Shape from '../assets/Shape.png';
 import wow_you_made_it from '../assets/wow_you_made_it.png';
 import '../css/Business_Setup.css';
 import axios from 'axios';
+import { createOrUpdateBusiness } from '../ApiCalls';
 
-export default function Business_Policies() {
-    const { setStep, userData, setUserData, submitData, finalData } = useContext(multiStepContext);
-    
+export default function Business_Policies(props) {
+    const [submitted, setSubmitted] = useState(false);
     const useStyles = makeStyles((theme) => ({
         root: {
             '& > *': {
@@ -22,6 +21,14 @@ export default function Business_Policies() {
         },
     }));
 
+
+    const handleNext = ()=> {
+    console.log(props.userData);
+     createOrUpdateBusiness(props.userData);
+
+     setSubmitted(true);
+
+    }
     const classes = useStyles();
     
     return (
@@ -45,17 +52,16 @@ export default function Business_Policies() {
                     <div id="bus_pol_div_1" style={{ display: 'flex', width: '95%' }}>
                         <div style={{ marginLeft: '5%' }}>
                             <InputLabel id="label_bus_pol" style={{ width: '100%', marginTop: '10px', fontSize: '12px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 400 }}>This step can be filled later</InputLabel>
-
                         </div>
 
                     </div>
                     <div id="bus_pol_div_2" style={{ display: 'block', width: '95%', marginLeft: '5%' }}>
                         <InputLabel id="label" style={{ marginTop: '2%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Shipping Policies</InputLabel>
-                        <TextField multiline style={{ height: '80%', width: '95%' }} value={userData['ship_pol']} onChange={(e) => setUserData({ ...userData, "ship_pol": e.target.value })} placeholder="Clarify to customers how you operate when it comes to shipping." margin="normal" variant="outlined" color="secondary" />
+                        <TextField multiline style={{ height: '80%', width: '95%' }} value={props.userData['shipping_policy']} onChange={(e) => props.setUserData({ ...props.userData, "shipping_policy": e.target.value })} placeholder="Clarify to customers how you operate when it comes to shipping." margin="normal" variant="outlined" color="secondary" />
                     </div>
 
                     <div id="bus_pol_2_div_3" style={{ display: 'block', width: '95%', marginLeft: '6%', width: '95%' }}>
-                        <InputLabel id="label" value={userData['ret_pol']} onChange={(e) => setUserData({ ...userData, "ret_pol": e.target.value })} style={{ width: '95%', marginTop: '2%', marginBottom: '1%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Returns & Policies</InputLabel>
+                        <InputLabel id="label" value={props.userData['ret_pol']} onChange={(e) => props.setUserData({ ...props.userData, "ret_pol": e.target.value })} style={{ width: '95%', marginTop: '2%', marginBottom: '1%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Returns & Policies</InputLabel>
                         <input
                             accept="image/*"
                             className={classes.input}
@@ -95,14 +101,13 @@ export default function Business_Policies() {
                 height: '10%', bottom: '0px',
                 position: 'absolute', display: 'flex', width: '100%'
             }}>
-                <Button id="btn_back" style={{ marginLeft: '5.5%', width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => setStep(4)} color="primary">Back</Button>
+                <Button id="btn_back" style={{ marginLeft: '5.5%', width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep(4)} color="primary">Back</Button>
                 <Button id="btn_save_submit" style={{ marginLeft: '3.5%', width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
                 <Button id="btn_bus_setup_submit" style={{ marginLeft: '25%', width: '160px', height: '32px', borderRadius: '15px', marginLeft: '23%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained"
-                    color="primary" onClick={() => setStep(6)}>Next</Button>
+                    color="primary" onClick={()=> handleNext()}>Submit</Button>
             </footer>
         </div>
     );
 }
-
 
 

@@ -52,41 +52,25 @@ function tokenVerification(user_id, token) {
     });
 }
 //used for signin
-const addUser = (res, firstname, lastname, email, password) => {
-    con.connect(function (err) {
-        con.query('USE Plugsity');
-        let email_ok = true;
-        const query = `SELECT email_address FROM Users WHERE email_address = '${email}'`;
-        con.query(query, function (err, result, fields) {
-            if (err) console.log(err);
-            if (result.length > 0) {
-                email_ok = false;
-                res.status(409);
+const addUser = (firstname, lastname, email, password) => {
+    const query = `INSERT INTO Users (email_address, first_name, last_name, user_password) VALUES ('${email}', '${firstname}', '${lastname}', '${password}')`;
+    return new Promise((resolve, reject)=>{
+        checkIfEmailExists(email).then((emailExists)=>{
+            if(emailExists){
+                reject("email");
             }
-            if (email_ok) {
-                con.query(`INSERT INTO Users (email_address, first_name, last_name, user_password) VALUES ('${email}', '${firstname}', '${lastname}', '${password}')`, function (err, r, fields) {
-                    if (err) {
-                        console.log(err); res.send(err);
-                    } else if (r) {
-                        con.query(`SELECT user_id FROM Users WHERE email_address = '${email}';`, function (err, result, fields) {
-                            if (err) {
-                                console.log(err); res.send(err);
-                            } else if (result) {
-                            
-                                createToken(result[0].user_id).then(function (tokenRes) {
-                                    res.send({ firstName: firstname, lastName: lastname, email: email, password: password, token: tokenRes, user_id: result[0].user_id });
-                                });//end of create token
-                            }
-                            if (fields) console.log(fields);
-                        });
-                    }
-                    if (fields) console.log(fields);
-                });
+            else{
+                queryDatabase(query).then(result=>{
+                    let user_id = result.insertId;
+                    createToken(user_id).then(result=>{
+                        resolve({"user_id": user_id, "token": result})
+                    });
+                })
             }
-        });
+        })
     });
 }
-
+    
 //used for login
 const authenticateUser = (res, email, password) => {
     con.connect(function (err) {
@@ -95,8 +79,9 @@ const authenticateUser = (res, email, password) => {
         con.query(query, function (err, result, fields) {
             if (err) { console.log(err); res.send(err); }
             if (result.length > 0) {
-                createToken(result[0].user_id).then(function (tokenRes) {
-                    res.send({ token: tokenRes, user_id: result[0].user_id });
+                let user_id = JSON.parse(JSON.stringify(result))[0].user_id;
+                createToken(user_id).then(function (tokenRes) {
+                    res.send({ token: tokenRes, user_id: user_id });
                 });//end of create token
             } else {
                 console.log("there does not exist a query")
@@ -207,7 +192,7 @@ const getReview = (review_id, user_id) => {
             resolve(result);
         }).catch(err => console.log(err));
     })
-}
+} 
 
 
 const getUserProfile = (id) => {
@@ -232,14 +217,14 @@ const isUserABusiness = (id) => {
     const query = `SELECT user_id FROM BusinessPage WHERE user_id="${id}"`;
     return new Promise((resolve, reject) => {
         queryDatabase(query).then(result => {
-            resolve(result);
+            resolve(result.length>0);
         }).catch(err => console.log(err));
     })
 }
 
-const getBusinessIdFromUserId = (user_id)=>{
+const getBusinessDataFromUserId = (user_id)=>{
     console.log(user_id);
-    const query = `SELECT business_id FROM BusinessPage WHERE user_id=${user_id}`;
+    const query = `SELECT * FROM BusinessPage WHERE user_id=${user_id}`;
     return new Promise((resolve, reject)=>{
         queryDatabase(query).then(result=>{
             resolve(result[0]);
@@ -247,11 +232,45 @@ const getBusinessIdFromUserId = (user_id)=>{
     })
 }
 
+const checkIfEmailExists = (email) => {
+    const query = `SELECT email_address FROM Users WHERE email_address = '${email}'`;
+    return new Promise((resolve, reject)=>{
+        queryDatabase(query).then(result=>{
+            resolve(result.length>0);
+        }).catch(err => console.log(err));
+    })
+
+}
+
 const getAllBusinesses = ()=>{
     const query = "SELECT * FROM BusinessPage";
     return new Promise((resolve, reject)=>{
         queryDatabase(query).then(result=>{
             resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
+
+const updateBusiness = (business_id, insert_data)=>{
+    let data = [];
+    for (const [key, value] of Object.entries(insert_data)) {
+        data.push(key + ' = ' + `'${value}'`)
+    }
+    data.join(', ')
+
+    const query = `UPDATE BusinessPage SET ${data} WHERE business_id = ${business_id}`;
+    return new Promise((resolve, reject)=>{
+        queryDatabase(query).then(result=>{
+            resolve(result.insertId);
+        }).catch(err => console.log(err));
+    })
+}
+
+const createBusiness = (insert_cols, insert_vals)=>{
+    const query = `INSERT INTO BusinessPage (${insert_cols}) VALUES (${insert_vals})`
+    return new Promise((resolve, reject)=>{
+        queryDatabase(query).then(result=>{
+            resolve(result.insertId);
         }).catch(err => console.log(err));
     })
 }
@@ -273,7 +292,7 @@ const queryDatabase = (query) => {
 }
 
 
-exports.getBusinessIdFromUserId = getBusinessIdFromUserId;
+exports.getBusinessDataFromUserId = getBusinessDataFromUserId;
 exports.addUser = addUser;
 exports.getUserProfile = getUserProfile;
 exports.authenticateUser = authenticateUser;
@@ -289,5 +308,8 @@ exports.addReviewView = addReviewView;
 exports.didUserLike = didUserLike;
 exports.getAllBusinesses = getAllBusinesses;
 exports.isUserABusiness = isUserABusiness;
+exports.checkIfEmailExists = checkIfEmailExists;
+exports.createBusiness = createBusiness;
+exports.updateBusiness = updateBusiness;
 
 exports.connection = con;
