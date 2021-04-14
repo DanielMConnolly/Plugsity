@@ -14,11 +14,10 @@ export default function Bus_Identification_1(props) {
         }
         else{
             createOrUpdateBusiness(props.userData).then(business_id=> {
-                console.log('fucks sake');
-                localStorage.setItem('business_id', business_id);
-                console.log('right');
-                props.setUserData({...props.userData, "business_id": business_id})
-                console.log('onwards');
+                if(!localStorage.hasOwnProperty('business_id')){
+                    localStorage.setItem('business_id', business_id);
+                    props.setUserData({...props.userData, "business_id": business_id})
+                }
                 props.setStep(2);
 
             })

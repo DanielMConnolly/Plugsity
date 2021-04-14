@@ -43,6 +43,7 @@ class Business_Setup extends Component {
             if(is_user_a_business){
                 getBusinessDataFromUser(user_id).then((data)=> {
                     this.setState({userData: data})
+                    localStorage.setItem('business_id', data.business_id)
                 })
             }
         });
@@ -59,12 +60,12 @@ class Business_Setup extends Component {
             case 2:
                 return <Bus_Identification_2 userData={this.state.userData} setUserData={this.setUserData.bind(this)} setStep={this.setStep.bind(this)}/>
             case 3:
-                return <PaymentMethods userData={this.userData} setUserData={this.setUserData.bind(this)} setStep={this.setStep.bind(this)}/>
+                return <PaymentMethods userData={this.state.userData} setUserData={this.setUserData.bind(this)} setStep={this.setStep.bind(this)}/>
             case 4:
-                return <Business_Policies userData={this.userData} setUserData={this.setUserData.bind(this)} setStep={this.setStep.bind(this)}/>
+                return <Business_Policies userData={this.state.userData} setUserData={this.setUserData.bind(this)} setStep={this.setStep.bind(this)}/>
                 
             case 5:           
-                return <Point_Of_Contact_2 userData={this.userData} setUserData={this.setUserData.bind(this)} setStep={this.setStep.bind(this)}/>
+                return <Point_Of_Contact_2 userData={this.state.userData} setUserData={this.setUserData.bind(this)} setStep={this.setStep.bind(this)}/>
             
         }
 

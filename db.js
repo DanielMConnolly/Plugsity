@@ -259,7 +259,6 @@ const updateBusiness = (business_id, insert_data)=>{
     data.join(', ')
 
     const query = `UPDATE BusinessPage SET ${data} WHERE business_id = ${business_id}`;
-    console.log(query);
     return new Promise((resolve, reject)=>{
         queryDatabase(query).then(result=>{
             resolve(result.insertId);

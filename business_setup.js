@@ -4,12 +4,15 @@ const router = express.Router();
 
 router.post("/business", async (req, res) => {
     console.log(req.body);
-    if(Object.keys(req.body).includes("business_id")){
+    if (Object.keys(req.body).includes("business_id")) {
         let business_id = req.body["business_id"]
         delete req.body["business_id"]
-        con.updateBusiness(business_id, req.body);
+        con.updateBusiness(business_id, req.body).then(result => {
+            res.send({ 'business_id': result })
+        });
+
     }
-    else{
+    else {
         let keys = Object.keys(req.body);
         let values = Object.values(req.body).map(item => `'${item}'`);
         let insert_columns = keys.join(', ')
@@ -19,7 +22,7 @@ router.post("/business", async (req, res) => {
                 res.send({ 'business_id': result })
             });
     }
-   
+
 })
 
 module.exports = router;
