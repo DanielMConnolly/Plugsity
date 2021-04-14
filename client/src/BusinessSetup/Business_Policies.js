@@ -30,9 +30,7 @@ export default function Business_Policies(props) {
 
     }
     const classes = useStyles();
-    if(submitted){
-        return (<Redirect to="/homepage"/>)
-    }
+    
     return (
         <div style={{ width: '60%' }}>
 
