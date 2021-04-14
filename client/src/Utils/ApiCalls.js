@@ -12,8 +12,6 @@ let getBusinessDataFromUser = async (user_id) => {
     return res.data;
 }
 
-
-
 let isUserABusiness = async (user_id) => {
     return axios({
         method: 'get',
@@ -34,7 +32,16 @@ let createOrUpdateBusiness = async (business_data) =>{
         console.log(response);
         return response.data["business_id"];
     })
+}
+
+let getProductsOfBusiness = async (business_id) => {
+    return axios({
+        method: 'get', 
+        url: `/business/getAllProducts/${business_id}`
+    }).then(response=> {
+        return response.data;
+    });
 
 }
 
-export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness };
+export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness };

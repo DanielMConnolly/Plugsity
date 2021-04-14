@@ -1,5 +1,6 @@
 const express = require("express");
-const { connection, getProduct } = require("./db");
+const { connection} = require("./db");
+const con = require('./db.js');
 const router = express.Router();
 
 /*
@@ -41,27 +42,13 @@ router.get("/", async (req, res) => {
  * product_listing, product_cost, product_image_link, product_video_link
  */
 router.post("/createProduct", async (req, res) => {
-    connection.query("USE Plugsity");
-    const {
-        product_name,
-        product_description,
-        category,
-        product_category,
-        product_subcategory,
-        product_tags,
-        product_listing,
-        product_cost,
-        product_image_link,
-        product_video_link,
-    } = req.body;
-    const user_id = 10;
-    const business_id = 1;
-    const query = `INSERT INTO ProductUpload (user_id, business_id, product_name, product_description, category, product_category, product_subcategory, product_tags, product_listing, product_cost, product_image_link, product_video_link) VALUES('${user_id}', '${business_id}','${product_name}', '${product_description}', '${category}', '${product_category}', '${product_subcategory}', '${product_tags}', '${product_listing}', '${product_cost}', '${product_image_link}', '${product_video_link}')`;
-
-    connection.query(query, (error, result, fields) => {
-        if (error) res.send(error);
-        if (result) res.json(result);
-        if (fields) console.log(fields);
+    let keys = Object.keys(req.body);
+    let values = Object.values(req.body).map(item => `'${item}'`);
+    let insert_columns = keys.join(', ')
+    let insert_values = values.join(', ');
+    con.createProduct(insert_columns, insert_values)
+    .then(result => {
+        res.send({ 'product_id': result })
     });
 });
 

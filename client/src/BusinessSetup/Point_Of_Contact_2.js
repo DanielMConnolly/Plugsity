@@ -2,7 +2,7 @@ import { React, useContext } from 'react';
 import { Button, TextField, Select, MenuItem, InputLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Shape from '../assets/Shape.png';
-import {createOrUpdateBusiness} from '../ApiCalls';
+import {createOrUpdateBusiness} from '../Utils/ApiCalls';
 import off_to_the_next_step from '../assets/Off_to_next_step.png';
 import '../css/Business_Setup.css';
 
