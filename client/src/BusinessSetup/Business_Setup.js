@@ -14,7 +14,7 @@ import { Stepper, StepLabel, Step } from '@material-ui/core';
 import '../css/Stepper.css';
 import '../css/Business_Setup.css';
 import { Redirect } from 'react-router-dom';
-import { getBusinessDataFromUser, isUserABusiness } from '../ApiCalls';
+import { getBusinessDataFromUser, isUserABusiness } from '../Utils/ApiCalls';
 
 class Business_Setup extends Component {
 

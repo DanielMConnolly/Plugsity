@@ -1,6 +1,6 @@
 import { React, useContext, useState } from 'react';
 import {Button, TextField, Select, MenuItem, InputLabel} from '@material-ui/core';
-import {createOrUpdateBusiness} from '../ApiCalls';
+import {createOrUpdateBusiness} from '../Utils/ApiCalls';
 import Shape from '../assets/Shape.png';
 import hy from '../assets/Heythere.png';
 import '../css/Business_Setup.css';

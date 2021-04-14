@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios';
 import './css/header.css';
 import FontAwesome from 'react-fontawesome'
-import {isUserABusiness} from './ApiCalls';
+import {isUserABusiness} from './Utils/ApiCalls';
 import Dropdown from './Dropdown';
 
 class AccountHeader extends Component {
@@ -23,7 +23,7 @@ class AccountHeader extends Component {
     let user_id = localStorage.getItem('user_id');
     isUserABusiness(user_id).then(response=>{
       this.setState({
-        isUserABusiness: response.data
+        isUserABusiness: response
       })
     });
   }
@@ -75,8 +75,11 @@ class AccountHeader extends Component {
         if(this.state.isUserABusiness && !this.props.dashboard){
           dropdown_list.push({title: "Dashboard", id: 3, "selected": false, onClick: ()=>this.redirectToDashboard()})
         }
-        else if(!this.state.isUserABusiness){
-          dropdown_list.push({title: "Sell on Plugsity", id: 3, "selected": false, onClick: ()=>this.redirectToBusinessSignup()})
+        if(!this.state.isUserABusiness){
+          dropdown_list.push({title: "Sell on Plugsity", id: 4, "selected": false, onClick: ()=>this.redirectToBusinessSignup()})
+        }
+        else{
+          dropdown_list.push({title: "Edit Business Details", id: 4, "selected": false, onClick: ()=>this.redirectToBusinessSignup()})
         }
     }
     if (this.state.logout) {

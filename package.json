@@ -8,6 +8,7 @@
     },
     "dependencies": {
         "@reach/slider": "^0.13.2",
+        "aws-sdk": "^2.887.0",
         "body-parser": "^1.18.3",
         "config": "^3.3.6",
         "cors": "^2.8.5",

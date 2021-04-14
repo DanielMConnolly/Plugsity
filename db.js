@@ -275,6 +275,24 @@ const createBusiness = (insert_cols, insert_vals)=>{
     })
 }
 
+const getProductsOfBusiness = (business_id) => {
+    const query = `SELECT * FROM ProductUpload WHERE business_id = '${business_id}'`;
+    return new Promise((resolve, reject)=>{
+        queryDatabase(query).then(result=>{
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
+
+const createProduct = (insert_cols, insert_vals) => {
+    const query = `INSERT INTO ProductUpload (${insert_cols}) VALUES (${insert_vals})`;
+    return new Promise((resolve, reject)=>{
+        queryDatabase(query).then(result=>{
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
+
 const queryDatabase = (query) => {
     return new Promise((resolve, reject) => {
         con.connect(function (err) {
@@ -311,5 +329,7 @@ exports.isUserABusiness = isUserABusiness;
 exports.checkIfEmailExists = checkIfEmailExists;
 exports.createBusiness = createBusiness;
 exports.updateBusiness = updateBusiness;
+exports.getProductsOfBusiness = getProductsOfBusiness;
+exports.createProduct = createProduct
 
 exports.connection = con;

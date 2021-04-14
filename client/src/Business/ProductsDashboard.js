@@ -1,21 +1,45 @@
-import {Component} from 'react';
+import { Component } from 'react';
+import { getProductsOfBusiness } from '../Utils/ApiCalls';
 import "../css/businessDashboard.css";
+import AddProductCard from '../Product/AddProductCard';
+import ProductCard from '../Product/ProductCard';
 
-export default class ProductsDashboard extends Component{
+export default class ProductsDashboard extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
+        this.state = {
+            products: []
+        }
     }
-    // componentDidMount(){
-    //     axios.get("/product/getProduct/")
-    // }
+    componentDidMount(){
+        let business_id = localStorage.getItem('business_id');
+        getProductsOfBusiness(business_id).then(products=> {
+            this.setState({
+                products: products
+            })
+        })
+    }
 
-    render(){
+    render() {
         return (
-        <div>
-            
-            <h1> Products</h1>
-        </div>
+            <div>
+
+                <h1 className="products-dashboard-header"> Products</h1>
+                <div className="products-dashboard-container">
+                    <AddProductCard />
+                    {this.state.products.map(product => {
+                        return (
+                            <div>
+                                <ProductCard productData={product} />
+                            </div>
+                        )
+                    })}
+
+                </div>
+
+
+            </div>
         )
     }
 

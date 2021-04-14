@@ -6,7 +6,7 @@ import Shape from '../assets/Shape.png';
 import wow_you_made_it from '../assets/wow_you_made_it.png';
 import '../css/Business_Setup.css';
 import axios from 'axios';
-import { createOrUpdateBusiness } from '../ApiCalls';
+import { createOrUpdateBusiness } from '../Utils/ApiCalls';
 
 export default function Business_Policies(props) {
     const [submitted, setSubmitted] = useState(false);
@@ -84,6 +84,7 @@ export default function Business_Policies(props) {
                             id="contained-button-file"
                             multiple
                             type="file"
+                        
                         />
                         <label htmlFor="contained-button-file">
                             <Button variant="contained" color="primary" component="span" style={{ marginBottom: '3%' }}> Add</Button>

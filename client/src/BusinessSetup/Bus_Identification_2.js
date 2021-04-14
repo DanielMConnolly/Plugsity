@@ -1,10 +1,11 @@
-import { React, useContext } from 'react';
+import { React, useState } from 'react';
 import {Button, TextField, Select, MenuItem, InputLabel} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Shape from '../assets/Shape.png';
-import {createOrUpdateBusiness} from '../ApiCalls';
+import {createOrUpdateBusiness} from '../Utils/ApiCalls';
 import hy from '../assets/Heythere.png';
 import '../css/Business_Setup.css';
+import {createFile, uploadFile} from '../Utils/Upload';
 
 export default function Bus_Identification_2(props) {
     const useStyles = makeStyles((theme) => ({
@@ -24,6 +25,9 @@ export default function Bus_Identification_2(props) {
         props.setStep(3);
         
     }
+
+    const [licenseImage, setLicenseImage] = useState();
+    const [permitImage, setPermitImage] = useState();
 
     const classes = useStyles();
     return (
@@ -91,8 +95,12 @@ export default function Bus_Identification_2(props) {
                             accept="image/*"
                             className={classes.input}
                             id="contained-button-file"
-                            multiple
                             type="file"
+                            onChange={(e) =>{
+                                createFile(e, (file)=> {
+                                setLicenseImage(file)
+                            })
+                            }}
                         />
                         <label htmlFor="contained-button-file">
                             <Button variant="contained" color="primary" component="span"> Upload</Button>
@@ -106,8 +114,12 @@ export default function Bus_Identification_2(props) {
                             accept="image/*"
                             className={classes.input}
                             id="contained-button-file"
-                            multiple
                             type="file"
+                            onChange={(e) =>{
+                                createFile(e, (file)=> {
+                                    setPermitImage(file)
+                            })
+                            }}
                         />
                         <label htmlFor="contained-button-file">
                             <Button variant="contained" color="primary" component="span" style={{ marginBottom: '3%'}}> Upload</Button>
