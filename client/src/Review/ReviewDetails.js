@@ -76,7 +76,7 @@ class ReviewDetails extends Component {
                 this.setState({
                     loading: true,
                     reviewData: response.data.review,
-                    likes: response.data.review.likes[0].likes
+                    likes: response.data.review.likes
                 });
             })
             .catch((error) => {

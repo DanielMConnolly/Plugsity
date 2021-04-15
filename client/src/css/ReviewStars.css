@@ -1,0 +1,15 @@
+.five-stars{
+    display: inline;
+}
+.five-stars *{
+    margin: 10px;
+}
+.yellow-star {
+    color: gold;
+    margin-left: -5px !important;
+}
+
+
+.star {
+    margin-left: -5px !important;
+}

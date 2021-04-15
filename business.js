@@ -1,46 +1,27 @@
 const express = require('express');
-const app = express();
-const mysql = require('mysql');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const router = express.Router();
+const con = require('./db.js');
 
-app.use(bodyParser.json());
-app.use(cors());
-
-const db = mysql.createConnection({
-    host : 'plugsity-dev.cuxrersyaold.us-east-2.rds.amazonaws.com',
-    user : 'plugsityadmin',
-    password : 'cse611devs',
-    database : 'Plugsity'
+router.get('/business', function (req, res) {
+    con.getAllBusinesses().then(result => {
+        res.send(result);
+    })
 });
 
-db.connect();
+router.get('/business_id/:user_id', (req, res) => {
+    let user_id = req.params.user_id;
+    con.getBusinessDataFromUserId(user_id).then(result=>{
+        res.send(result);
+    })
 
-app.get('/business', function(req,res){
-var sql = 'SELECT * FROM BusinessPage';
-db.query(sql, (err, result)=>{
-    if(err) throw err;
-    console.log(result);
-    res.send(result);
-});
 });
 
-app.post('/business', function(req, res){
-	console.log(req.body); 
-    var data = {user_id:req.body.user_id, legal_business_name:req.body.legal_business_name};
-    var sql = 'INSERT INTO BusinessPage SET ?';
-    db.query(sql, data, (err, result)=>{
-    if(err) throw err;
-    console.log(result);
-    res.send({
-        status: 'success',
-        no: null,
-		user_id:req.body.user_id, 
-        legal_business_name:req.body.legal_business_name
-	});
-});
-});
+router.get('/getAllProducts/:business_id', (req, res)=> {
+    let business_id = req.params.business_id;
+    con.getProductsOfBusiness(business_id).then(result=>{
+        res.send(result);
+    })
 
-app.listen(2000, ()=>{
-    console.log('Server listening on 2000')
-});
+})
+
+module.exports = router;

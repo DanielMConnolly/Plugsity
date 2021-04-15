@@ -30,6 +30,9 @@ class AltHeader extends Component{
 		if(this.props.handleOnSearch){
             this.props.handleOnSearch(e, this.state.query);
         }
+        else{
+            this.toSearch(this.state.query);
+        }
 	}
 
     toSearch(query){
@@ -61,7 +64,7 @@ class AltHeader extends Component{
         <img src={Icon} className="plugsity-icon" />
         </div>
         <Searchbar query={this.state.query} handleOnSearch={e=>this.handleOnSearch(e)} onHandleChange={e=>this.onHandleChange(e)} />
-        <AccountHeader/>
+        <AccountHeader dashboard={this.props.dashboard}/>
         </div>
         );
         

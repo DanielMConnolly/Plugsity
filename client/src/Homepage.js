@@ -3,16 +3,29 @@ import './css/Homepage.css'
 import axios from 'axios';
 import ProductCard from './Product/ProductCard'
 import Header from './Header';
+import SeeMoreCard from './SeeMoreCard'
+import Footer from './Footer';
+import ReviewCard from './Review/ReviewCard';
 import Tabs from './Tabs'
-import ReviewDetails from './Review/ReviewDetails';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 class HomePage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             active: "Products",
-            popularProducts: []
+            popularProducts: [],
         }
+    }
+
+    getReviewCards(){
+        let review_cards = []
+        for(let i=0; i<5; i+=1){
+            review_cards.push(<ReviewCard review={this.state.review}/>)
+        }
+        return review_cards;
+
     }
 
     componentDidMount() {
@@ -24,17 +37,27 @@ class HomePage extends Component {
             },
         }).then(res => {
             this.setState({
-                popularProducts: res.data.slice(0, 10)
+                popularProducts: res.data.slice(0, 7)
+            })
+
+        })
+
+        axios({
+            method: 'get',
+            url: '/review/73',
+        }).then(res=>{
+            this.setState({
+                review: res.data.review
             })
 
         })
     }
     render() {
-        console.log(this.state.popularProducts)
         return (
          
-            <div className="homepage">
+            <div>
                      <Header />
+                     <div className="homepage">
                     <div className="heading">Proudly Supporting <br />
 	     small local businesses
                     </div>
@@ -46,12 +69,13 @@ class HomePage extends Component {
                             })
                         }}>
                             <div label="Products" className="tab" >
-                              <div class="products-list" >
+                              <div className="products-list" >
                               { this.state.popularProducts.map(result => {
                                     return (	
                                         <ProductCard productData={result}/>		
                                     )
                                 })}
+                                <SeeMoreCard/>
                               </div>
                             </div>
                             <div label="Services" style="{width 100%}">  
@@ -63,7 +87,16 @@ class HomePage extends Component {
                                </div>
                         </Tabs>
                     </div>
-           
+                <div className="popular-reviews-container">
+                    <div className="popular-reviews-label">Top Video Reviews </div>
+                    <div className="popular-reviews">
+                        {this.state.review && 
+                         this.getReviewCards()
+                         }  
+                    </div>
+                    </div>
+                </div>
+                <Footer/>
 
             </div>
 

@@ -1,8 +1,6 @@
 .header{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 90%;
+    margin: auto;
     padding-bottom: 30px;
 }
 .header-row{

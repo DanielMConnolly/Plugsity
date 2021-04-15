@@ -1,0 +1,17 @@
+.dashboard-menu-item{
+    display:  inline;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+
+.products-dashboard-header{
+    text-align: center;
+}
+
+.products-dashboard-container{
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    margin: 30px;
+}

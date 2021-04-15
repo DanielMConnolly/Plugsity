@@ -4,16 +4,19 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SignupLogin from "./SignupLogin";
 import Review from "./Review/Review";
-import ReviewDetails from "./Review/ReviewDetails"
+import ReviewDetails from "./Review/ReviewDetails";
 import ReviewList from "./Review/ReviewList";
 import SignupLogin_Bus from "./SignupLogin_Bus";
 import Search from "./Search";
 import HomePage from "./Homepage";
 import ProductForm from "./ProductForm";
 import ProductDetails from "./ProductDetails";
+import Dashboard from './Business/BusinessDashboard';
 import UserProfile from "./ProfilePages/UserProfile";
 import Footer from "./Footer";
 import AllProducts from "./ProductsAll";
+import Business_Setup from "./BusinessSetup/Business_Setup";
+import ProductEditForm from "./ProductEditForm";
 
 function App() {
     return (
@@ -34,7 +37,7 @@ function App() {
                         path='/reviews/show/:reviewID'
                         component={ReviewDetails}
                     ></Route>
-                    <Route exact path='/review/upload'>
+                    <Route exact path='/reviews/upload'>
                         <Review />
                     </Route>
                     <Route path='/reviewlist'>
@@ -49,6 +52,12 @@ function App() {
                     <Route path='/footer'>
                         <Footer />
                     </Route>
+                    <Route path='/dashboard'>
+                        <Dashboard/>
+                    </Route>
+                    <Route path='/business_setup'>
+                        <Business_Setup />
+                    </Route>
                     <Route
                         exact
                         path='/products/show/:productID'
@@ -61,6 +70,10 @@ function App() {
                     <Route path='/products/show/'>
                         <AllProducts />
                     </Route>
+                    <Route
+                        path='/products/editProduct/:productID'
+                        component={ProductEditForm}
+                    ></Route>
                 </Switch>
             </Router>
         </div>

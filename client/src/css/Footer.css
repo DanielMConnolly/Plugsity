@@ -101,7 +101,7 @@
     display: flex;
 }
 
-.fa {
+.column-6-left .fa {
     padding: 6px;
     font-size: 28px;
     width: 28px;
