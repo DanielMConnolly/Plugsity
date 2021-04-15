@@ -142,4 +142,19 @@ router.delete("/deleteProduct/:product_id", async (req, res) => {
     });
 });
 
+// get request
+// @route - /api/products/stripe/:id
+// @desc - use this to get the stripe account id associated with the business ID
+router.get("/stripe/:id", async (req, res) => {
+    const business_id = req.params.id;
+    const queryStripeAcct = `SELECT stripe_acct_id from Plugsity.BusinessPage WHERE business_id=${business_id}`;
+    connection.query(queryStripeAcct, (error, results) => {
+        if (error) console.error("Error:", error);
+        if (results) {
+            console.log(results[0].stripe_acct_id);
+            res.json({ stripe_acct_id: results[0].stripe_acct_id });
+        }
+    });
+});
+
 module.exports = router;

@@ -4,7 +4,9 @@
 node_modules/
 /.pnp
 .pnp.js
-
+todo.txt
+config/*
+client/src/keys.json
 # testing
 /coverage
 
