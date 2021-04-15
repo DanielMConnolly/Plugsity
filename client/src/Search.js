@@ -61,7 +61,7 @@ class Search extends React.Component {
 			return;
 		}
 		const pageNumber = updatedPageNo ? `&page=${updatedPageNo}` : '';
-		const searchUrl = `http://3.138.232.158:5000/api/products/search?searchTerm=${query}`;
+		const searchUrl = `/api/products/search?searchTerm=${query}`;
 
 		// To cancel the request if it has already made
 		if (this.cancel) {

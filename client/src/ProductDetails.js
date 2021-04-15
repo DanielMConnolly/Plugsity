@@ -20,7 +20,6 @@ export default class ProductDetails extends Component {
         axios
             .get(`/api/products/${productID}`)
             .then((response) => {
-                console.log("API RESPONSE: ", response.data);
                 if (response.data.length > 0) {
                     this.setState({
                         loading: true,
