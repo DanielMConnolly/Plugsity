@@ -50,14 +50,3 @@
     display: flex;
     align-items: baseline;
 }
-.five-stars{
-    display: inline;
-}
-.yellow-star {
-    color: yellow;
-    margin-left: -5px !important;
-}
-
-.star {
-    margin-left: -5px !important;
-}

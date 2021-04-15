@@ -30,6 +30,9 @@ class AltHeader extends Component{
 		if(this.props.handleOnSearch){
             this.props.handleOnSearch(e, this.state.query);
         }
+        else{
+            this.toSearch(this.state.query);
+        }
 	}
 
     toSearch(query){

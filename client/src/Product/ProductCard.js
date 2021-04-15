@@ -12,7 +12,6 @@ class ProductCard extends Component {
 
     render() {
         let product = this.props.productData;
-        console.log(product);
         return (
             <Link to={'/products/show/' + product.product_id} className="result-item">
                 <div className="image-wrapper">

@@ -20,14 +20,11 @@ export default class ProductDetails extends Component {
         axios
             .get(`/api/products/${productID}`)
             .then((response) => {
-                if (response.data.length > 0) {
+                console.log(response);
                     this.setState({
                         loading: true,
-                        response: response.data[0],
+                        response: response.data,
                     });
-                } else {
-                    console.log("Something went wrong!", this.state);
-                }
             })
             .catch((error) => {
                 console.log(error);
@@ -59,11 +56,11 @@ export default class ProductDetails extends Component {
                     <div>
                         <div className='product-container'>
                             <ProductDetailsLeft
-                                imageURL={
-                                    this.state.response.product_image_link
-                                }
+                             
+                                productData={this.state.response}
                             />
-                            <ProductDetailsRight {...this.state.response} />
+                            <ProductDetailsRight {...this.state.response}
+                        />
                         </div>
                         <div>
                             <h3 id='header'>More Products Like This</h3>
