@@ -33,7 +33,7 @@ router.post("/create-checkout-session", async (req, res) => {
 
     // For development purposes ONLY
     if (origin.includes("localhost")) {
-        origin = "http://localhost:3000/";
+        origin = "http://localhost:3000";
     }
     console.log(origin);
 
@@ -64,8 +64,8 @@ router.post("/create-checkout-session", async (req, res) => {
             },
         },
         mode: "payment",
-        success_url: `${origin}order?success=true`,
-        cancel_url: `${origin}order?canceled=true`,
+        success_url: `${origin}/order?success=true`,
+        cancel_url: `${origin}/order?canceled=true`,
     });
     console.log(session);
     res.json({
@@ -108,14 +108,14 @@ router.post("/onboard-user", async (req, res) => {
 
         // For development purposes ONLY
         if (origin.includes("localhost")) {
-            origin = "http://localhost:3000/";
+            origin = "http://localhost:3000";
         }
         console.log(origin);
 
         const accountLink = await stripe.accountLinks.create({
             account: account.id,
-            refresh_url: `${origin}business_setup`,
-            return_url: `${origin}business_setup?step=4`,
+            refresh_url: `${origin}/business_setup`,
+            return_url: `${origin}/business_setup?step=4`,
             type: "account_onboarding",
         });
         // var accountLink = await stripe.accountLinks.create({
