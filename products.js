@@ -69,8 +69,14 @@ router.get("/search", async (req, res) => {
 // @desc = use this path to view a particular product based on ID.
 router.get("/:id", async (req, res) => {
     const product_id = req.params.id;
-    con.getProduct(product_id).then(response => {
-        res.send(response);
+    con.getProduct(product_id).then(async response => {
+        let productData = JSON.parse(JSON.stringify(response))[0]
+        await con.getProductReviewAverage(product_id).then(rating=>{
+            let parsed_rating = JSON.parse(JSON.stringify(rating))[0]['rating'];
+            productData['rating'] = parsed_rating;
+            res.send(productData);
+            
+        })
     })
 });
 

@@ -23,11 +23,10 @@ export default class ProductDetailsRight extends Component {
 
     render() {
         return (
-            <div className='column'>
+            <div className='column product-details-right'>
                 <div className='row'>
-                    <div className='business-attrs'>Business name</div>
-                    <div className='business-attrs'>Sales</div>
-                    <div className='business-attrs'>Reviews</div>
+                    <div className='business-attrs'> By {this.props.legal_business_name}</div>
+    
                 </div>
                 <div className='row'>
                     <h3>{this.props.product_name}</h3>

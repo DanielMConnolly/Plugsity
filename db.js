@@ -205,7 +205,7 @@ const getUserProfile = (id) => {
 }
 
 const getProduct = (id) => {
-    const query = `SELECT ProductUpload.*, BusinessPage.legal_business_name FROM ProductUpload, BusinessPage WHERE product_id="${id} AND Product_Upload.business_id = BusinessPage.business_id"`;
+    const query = `SELECT * FROM (SELECT ProductUpload.* FROM ProductUpload  WHERE product_id="${id}") as products, BusinessPage WHERE products.business_id = BusinessPage.business_id`;
     return new Promise((resolve, reject) => {
         queryDatabase(query).then(result => {
             resolve(result);
@@ -223,7 +223,6 @@ const isUserABusiness = (id) => {
 }
 
 const getBusinessDataFromUserId = (user_id)=>{
-    console.log(user_id);
     const query = `SELECT * FROM BusinessPage WHERE user_id=${user_id}`;
     return new Promise((resolve, reject)=>{
         queryDatabase(query).then(result=>{
@@ -294,6 +293,16 @@ const createProduct = (insert_cols, insert_vals) => {
     })
 }
 
+const getProductReviewAverage = (product_id) => {
+    const query = `SELECT AVG(review_rating) AS rating FROM ProductMediaReview WHERE product_id=${product_id}`;
+    return new Promise((resolve, reject)=>{
+        queryDatabase(query).then(result=>{
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+
+}
+
 const searchForProducts = (searchTerm) => {
     const query = `SELECT ProductUpload.*, BusinessPage.legal_business_name FROM ProductUpload, BusinessPage ` + 
     `WHERE concat(product_name, product_description, product_subcategory, product_category, product_tags) LIKE '%${searchTerm}%'`
@@ -341,6 +350,7 @@ exports.searchForProducts = searchForProducts;
 exports.isUserABusiness = isUserABusiness;
 exports.checkIfEmailExists = checkIfEmailExists;
 exports.createBusiness = createBusiness;
+exports.getProductReviewAverage = getProductReviewAverage; 
 exports.updateBusiness = updateBusiness;
 exports.getProductsOfBusiness = getProductsOfBusiness;
 exports.createProduct = createProduct
