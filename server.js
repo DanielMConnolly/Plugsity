@@ -3,28 +3,35 @@ const bodyParser = require("body-parser");
 const path = require("path");
 var cors = require("cors");
 const mysql = require("mysql");
+const session = require("express-session");
 
 const app = express();
 const port = process.env.PORT || 5000;
-const auth = require('./auth.js')
-const review = require('./review.js')
-const user = require('./user.js')
-const business = require('./business.js');
-const businessSetup = require('./business_setup.js')
+const auth = require("./auth.js");
+const review = require("./review.js");
+const user = require("./user.js");
+const business = require("./business.js");
+const businessSetup = require("./business_setup.js");
 //const customer = require('./customer_db.js')
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/auth', auth);
-app.use('/review', review);
-app.use('/user', user);
-app.use('/business', business);
-app.use('/business_setup', businessSetup);
+app.use("/auth", auth);
+app.use("/review", review);
+app.use("/user", user);
+app.use("/business", business);
+app.use("/business_setup", businessSetup);
 //app.use('/customer_db', customer);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client", "build")));
-
+app.use(
+    session({
+        secret: "Stupid Fat Hobbit",
+        resave: false,
+        saveUninitialized: true,
+    })
+);
 // Setting up a route for our API
 app.get("/api/", (req, res) => {
     console.log("hello there");
@@ -91,10 +98,12 @@ app.post("/business", function (req, res) {
 //products route
 app.use("/api/products", require("./products"));
 
+//stripe route
+app.use("/api/stripe", require("./stripe"));
+
 // // Redirect back to index.html if urls do not match
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
-
 
 app.listen(port, () => console.log(`listening on port ${port}`));
