@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios";
+
 import "./css/ProductDetails.css";
 import Button from "./ProductButton";
 import Tabs from "./Tabs";
-import { loadStripe } from "@stripe/stripe-js";
-import keys from "./keys.json";
-const stripePromise = loadStripe(keys.stripeTestPublic);
 
 export default class ProductDetailsRight extends Component {
     constructor(props) {
@@ -14,11 +11,6 @@ export default class ProductDetailsRight extends Component {
         this.state = {
             count: 1,
             active: "Description",
-            product_id: this.props.product_id,
-            product_name: this.props.product_name,
-            image_link: this.props.product_image_link,
-            product_cost: this.props.product_cost,
-            business_id: this.props.business_id,
         };
         this.descriptionBlurb = "Product Description";
         this.shippingBlurb = "Shipping Details";
@@ -28,46 +20,6 @@ export default class ProductDetailsRight extends Component {
     handleCount(value) {
         this.setState((prevState) => ({ count: prevState.count + value }));
     }
-
-    handleClick = async (event) => {
-        // get stripe instance
-        const stripe = await stripePromise;
-
-        console.log("inside handleclick stripe");
-        console.log(this.state);
-        // console.log(this.state);
-        // call backend here
-        // hackity hack
-        const acctResponse = await axios.get(
-            `/api/products/stripe/${this.state.business_id}`
-        );
-        console.log(acctResponse.data);
-        // can't find a better way to do this.
-        const stripe_acct_id = acctResponse.data.stripe_acct_id;
-
-        const response = await axios.post(
-            `/api/stripe/create-checkout-session`,
-            {
-                product_id: this.state.product_id,
-                product_name: this.state.product_name,
-                image_link: this.state.image_link,
-                quantity: 1,
-                product_cost: this.state.product_cost,
-                business_id: this.state.business_id,
-                stripe_acct_id: stripe_acct_id,
-            }
-        );
-        console.log(response);
-        const session = response.data;
-        console.log(session.sessionId);
-        const result = await stripe.redirectToCheckout({
-            sessionId: session.sessionId,
-        });
-        await axios.post("/api/stripe/result-info", { result });
-        if (result.error) {
-            return <div>{result.error.message}</div>;
-        }
-    };
 
     render() {
         return (
@@ -106,13 +58,9 @@ export default class ProductDetailsRight extends Component {
                         {" "}
                         Add to Cart{" "}
                     </button>
-                    <button
-                        role='link'
-                        className='btn btn-border-blue'
-                        onClick={this.handleClick}
-                    >
+                    <button type='submit' className='btn btn-border-blue'>
                         {" "}
-                        Checkout With Stripe{" "}
+                        Buy Now{" "}
                     </button>
                 </div>
 
