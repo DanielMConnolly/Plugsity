@@ -31,7 +31,7 @@ export default class ProductsDashboard extends Component {
                     {this.state.products.map(product => {
                         return (
                             <div>
-                                <ProductCard productData={product} />
+                                <ProductCard productData={product} editable />
                             </div>
                         )
                     })}
