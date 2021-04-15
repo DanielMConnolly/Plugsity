@@ -456,6 +456,11 @@
     margin-left: 1100px;
 }
 
+.preferences:hover {
+    background-color: gray;
+    color: #F8F8F8;
+}
+
 .preferences1{
     font-family: DM Sans;
     font-style: normal;
