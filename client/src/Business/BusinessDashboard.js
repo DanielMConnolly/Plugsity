@@ -8,6 +8,7 @@ export default class BusinessDashboard extends Component{
 
     constructor(props){
         super(props)
+        console.log(this.props.history)
         this.state = {
             "dashboard_name": "home"
         }
