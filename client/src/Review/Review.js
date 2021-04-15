@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import { Component } from 'react';
 import load from 'little-loader';
 import {createFile, uploadFile} from '../Utils/Upload.js'
+import { Redirect } from 'react-router-dom'
 import '../css/Review.css';
 import plugsity_logo from '../Plugsity_logo.png';
 
@@ -16,7 +17,8 @@ export default class Review extends Component {
         super(props);
         let reviewData = {"productID": props.match.params.productID}
         this.state = {
-            reviewData: reviewData
+            reviewData: reviewData,
+            submitted: false
         }
     }
 
@@ -55,28 +57,26 @@ export default class Review extends Component {
     onSubmit = (event) => {
         event.preventDefault();
         var url = '/review/upload';
-        uploadFile(this.state.image, "video").then(response=>{
-            axios.post(url, {
-                review_headline: this.state.review_headline,
-                review_description: this.state.review_description,
-                review_rating: this.state.review_rating,
-                review_tag: this.state.review_tag,
-                product_video_link: response,
-                user_id: localStorage.getItem('user_id'),
-                product_id: this.state.productID
-            })
-                .then(function (response) {
-                    console.log(response);
+        uploadFile(this.state.image,(key)=> {
+            axios.post(url, this.state.reviewData)
+                .then(()=> {
+                   this.setState({
+                       submitted: true
+                   })
                 })
                 .catch(function (error) {
                     console.log(error);
-                });
+                })
+           
+        }, "video");
 
-        })
     }
 
     
     render() {
+        if(this.state.submitted){
+            return <Redirect to="/homepage"/>
+        }
         return (
             <div>
                 <form onSubmit={this.onSubmit}>

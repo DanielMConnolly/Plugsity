@@ -266,7 +266,7 @@ const createBusiness = (insert_cols, insert_vals)=>{
 }
 
 const addReview = (insert_cols, insert_vals) => {
-    const query = `INSERT INTO ProductMediaReview (${insert_cols}) VALUES (${insert_vals}))`;
+    const query = `INSERT INTO ProductMediaReview (${insert_cols}) VALUES (${insert_vals})`;
     return new Promise((resolve, reject) => {
         queryDatabase(query).then(result => {
             resolve(result);

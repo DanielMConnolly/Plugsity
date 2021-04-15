@@ -9,6 +9,7 @@ router.post('/upload', (req, res, next) => {
     let insert_columns = keys.join(', ')
     let insert_values = values.join(', ');
     con.addReview(insert_columns, insert_values);
+    res.send();
 });
 
 router.post('/process_video', (req, res, next) => {
