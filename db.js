@@ -120,15 +120,6 @@ const logout = (res, token, user_id) => {
     });
 }
 
-const addReview = (video_name, user_id, review_rating, product_id) => {
-    const query = `INSERT INTO ProductMediaReview (user_id, review_rating, product_video_link, product_id) VALUES (${user_id}, ${review_rating}, '${video_name}', ${product_id})`;
-    return new Promise((resolve, reject) => {
-        queryDatabase(query).then(result => {
-            resolve(result);
-        }).catch(err => console.log(err));
-    })
-}
-
 const getAllReviews = async (callback) => {
     const query = "SELECT product_video_link FROM ProductMediaReview,  WHERE processing_status = 'Ready' ";
     return new Promise((resolve, reject) => {
@@ -270,6 +261,15 @@ const createBusiness = (insert_cols, insert_vals)=>{
     return new Promise((resolve, reject)=>{
         queryDatabase(query).then(result=>{
             resolve(result.insertId);
+        }).catch(err => console.log(err));
+    })
+}
+
+const addReview = (insert_cols, insert_vals) => {
+    const query = `INSERT INTO ProductMediaReview (${insert_cols}) VALUES (${insert_vals}))`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query).then(result => {
+            resolve(result);
         }).catch(err => console.log(err));
     })
 }

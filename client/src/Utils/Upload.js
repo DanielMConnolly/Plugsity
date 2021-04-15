@@ -1,14 +1,9 @@
 import axios from 'axios';
 
-let createFile = (e, setState)=> {
-        console.log("ayyy");
+let createFile = (e, setState, allowedExtensions=/(\.jpg|\.jpeg|\.png)$/i)=> {
         let files = e.target.files || e.dataTransfer.files
         if (!files.length) return
         let file = files[0]
-
-        // Allowing file type 
-        var allowedExtensions =
-            /(\.jpg|\.jpeg|\.png)$/i;
 
         if (!allowedExtensions.exec(file.name)) {
             alert('Invalid file type');
@@ -23,9 +18,9 @@ let createFile = (e, setState)=> {
     
 }
 
-let  uploadFile= async (image) => {
+let  uploadFile= async (image, filetype="image") => {
 
-    const API_ENDPOINT = 'https://kx1fso77o5.execute-api.us-east-1.amazonaws.com/handle-image-upload'
+    const API_ENDPOINT = filetype=="image"?'https://kx1fso77o5.execute-api.us-east-1.amazonaws.com/handle-image-upload':'https://hizg8qqb08.execute-api.us-east-1.amazonaws.com/uploads';
 
     const response = await axios({
         method: 'GET',

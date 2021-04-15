@@ -1,0 +1,217 @@
+.center1{
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .center1 .stars{
+    height: 100px;
+    width: 700px;
+    text-align: left;
+    margin-left: -510px;
+  }
+  .stars input{
+    display: none;
+  }
+  .stars label{
+    float: right;
+    font-size: 30px;
+    color: lightgrey;
+    margin: 0 4px;
+    text-shadow: 1px 1px #bbb;
+  }
+  .stars label:before{
+    content: '★';
+  }
+  .stars input:checked ~ label{
+    color: gold;
+    text-shadow: 1px 1px #c60;
+  }
+  .stars:not(:checked) > label:hover,
+  .stars:not(:checked) > label:hover ~ label{
+    color: gold;
+  }
+  .stars input:checked > label:hover,
+  .stars input:checked > label:hover ~ label{
+    color: gold;
+    text-shadow: 1px 1px goldenrod;
+  }
+  .stars .result:before{
+    position: absolute;
+    content: "";
+    width: 50%;
+    left: 25%;
+    transform: translateX(-47%);
+    bottom: 80px;
+    font-size: 20px;
+    font-weight: 500;
+    color: burlywood;
+    font-family: 'Poppins', sans-serif;
+    display: none;
+  }
+  .stars input:checked ~ .result:before{
+    display: block;
+  }
+  .stars #five:checked ~ .result:before{
+    content: "I love it 😍";
+    font-family: DM Sans;
+    font-size: 15px;
+    font-style: normal;
+    color: green;
+  }
+  .stars #four:checked ~ .result:before{
+    content: "I like it 😎";
+    font-family: DM Sans;
+    font-size: 15px;
+    font-style: normal;
+    color: green;
+  }
+  .stars #three:checked ~ .result:before{
+    content: "It's good 😄";
+    font-family: DM Sans;
+    font-size: 15px;
+    font-style: normal;
+    color: goldenrod;
+  }
+  .stars #two:checked ~ .result:before{
+    content: "I don't like it 😒";
+    font-family: DM Sans;
+    font-size: 15px;
+    font-style: normal;
+    color: red;
+  }
+  .stars #one:checked ~ .result:before{
+    content: "I hate it 😠";
+    font-family: DM Sans;
+    font-size: 15px;
+    font-style: normal;
+    color: maroon;
+  }
+
+  .review-title{
+    width: 860px;
+    height: 38px;
+    border: 1px solid rgba(50, 49, 61, 0.2);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    font-family: DM Sans;
+    font-style: normal;
+    font-size: 13px;
+    padding-left: 10px;
+  }
+
+  .review-textarea{
+    background: #FFFFFF;
+    border: 1px solid rgba(50, 49, 61, 0.2);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    font-family: DM Sans;
+    font-style: normal;
+    font-size: 14px;
+    margin-top: 20px;
+    padding-left: 10px;
+  }
+
+  .review-upload-button{
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    position: static;
+    cursor:pointer;
+    border: 1px solid;
+    border-radius: 17px;
+    height: 44px;
+    margin-left: 0px;
+    background-color: rgb(95, 81, 81);
+    color: #FFFFFF;
+  }
+
+  .review-select-file{
+    font-family: DM Sans;
+    font-size: 14px; 
+    height: 44px;
+    cursor:pointer;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+    position: static;
+    background-color: #FFFFFF;
+  }
+
+  .review-options{
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .review-options1{
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 80px;
+  }
+
+  .my-column1{
+    float: left;
+    width: 16%;
+    padding-bottom: 25px;
+  }
+
+  .review-suboptions{
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    text-align: center;
+    position: static;
+    cursor:pointer;
+    border: 1px solid;
+    border-radius: 17px;
+    margin-left: 0px;
+    height: 30px;
+    width: 120px;
+    background-color: #FFFFFF;
+  }
+
+  .review-suboptions-highlighted{
+      background-color: green;
+      color: white;
+  }
+
+  .review-suboptions:hover {
+    background-color: #4CAF50;
+  }
+
+  .review-submit-button{
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    position: static;
+    cursor:pointer;
+    border: 1px solid;
+    border-radius: 17px;
+    height: 44px;
+    margin-top: 600px;
+    width: 700px;
+    background-color: blue;
+    color: #FFFFFF;
+  }
+
+  .review-header{
+    font-family: DM Sans;
+    font-style: normal;
+    text-align: center; 
+    padding-top: 30px;
+    font-weight: 700;
+  }
+
+  .logo-style{
+      margin-top: 50px;
+      margin-left: -250px;
+      margin-bottom: -70px;
+  }
