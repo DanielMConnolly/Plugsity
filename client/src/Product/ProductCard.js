@@ -12,6 +12,7 @@ class ProductCard extends Component {
 
     render() {
         let product = this.props.productData;
+        console.log(product);
         return (
             <Link to={'/products/show/' + product.product_id} className="result-item">
                 <div className="image-wrapper">
@@ -19,14 +20,10 @@ class ProductCard extends Component {
                 </div>
                 <div className="product-data">
                     <span className="product-data-name">{product.product_name}</span>
-                    <span className="product-data-price">By {product.product_name}</span>
+                    <span className="product-data-price">By {product.legal_business_name}</span>
                     <span className="product-data-price">${product.product_cost}</span>
 
                 </div>
-
-
-
-
             </Link>
         )
     }

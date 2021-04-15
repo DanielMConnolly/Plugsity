@@ -8,16 +8,7 @@ import '../css/Business_Setup.css';
 import {createFile, uploadFile} from '../Utils/Upload';
 
 export default function Bus_Identification_2(props) {
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            '& > *': {
-                margin: theme.spacing(1),
-            },
-        },
-        input: {
-            display: 'none',
-        },
-    }));
+ 
 
 
     const handleNext =  ()=> {
@@ -29,7 +20,6 @@ export default function Bus_Identification_2(props) {
     const [licenseImage, setLicenseImage] = useState();
     const [permitImage, setPermitImage] = useState();
 
-    const classes = useStyles();
     return (
         <div>
         
@@ -89,11 +79,10 @@ export default function Bus_Identification_2(props) {
                         </div>
                 </div>
 
-                    <div id="bus_iden2_div_3" style={{ marginLeft: '4%' }} className={classes.root}>
+                    <div id="bus_iden2_div_3" style={{ marginLeft: '4%' }}>
                         <InputLabel id="label" style={{ marginTop: '3%', marginBottom: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Business License *</InputLabel>
                         <input
                             accept="image/*"
-                            className={classes.input}
                             id="contained-button-file"
                             type="file"
                             onChange={(e) =>{
@@ -101,18 +90,14 @@ export default function Bus_Identification_2(props) {
                                 setLicenseImage(file)
                             })
                             }}
-                        />
-                        <label htmlFor="contained-button-file">
-                            <Button variant="contained" color="primary" component="span"> Upload</Button>
-                        </label>
-                               
+                        />                               
                     </div>
 
                     <div id="bus_iden2_div_4" style={{ marginLeft: '6%' }}>
                         <InputLabel id="label" style={{ marginTop: '3%', marginBottom: '3%',fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Business Permit *</InputLabel>
                         <input
                             accept="image/*"
-                            className={classes.input}
+                        
                             id="contained-button-file"
                             type="file"
                             onChange={(e) =>{
@@ -121,10 +106,6 @@ export default function Bus_Identification_2(props) {
                             })
                             }}
                         />
-                        <label htmlFor="contained-button-file">
-                            <Button variant="contained" color="primary" component="span" style={{ marginBottom: '3%'}}> Upload</Button>
-                        </label>
-
                     </div>
                
                 </div>

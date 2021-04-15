@@ -1,5 +1,5 @@
 const express = require("express");
-const { connection} = require("./db");
+const { connection } = require("./db");
 const con = require('./db.js');
 const router = express.Router();
 
@@ -47,9 +47,9 @@ router.post("/createProduct", async (req, res) => {
     let insert_columns = keys.join(', ')
     let insert_values = values.join(', ');
     con.createProduct(insert_columns, insert_values)
-    .then(result => {
-        res.send({ 'product_id': result })
-    });
+        .then(result => {
+            res.send({ 'product_id': result })
+        });
 });
 
 // get request
@@ -57,28 +57,21 @@ router.post("/createProduct", async (req, res) => {
 // @desc = use this path to pass a query for searching th DB based on that query
 router.get("/search", async (req, res) => {
     connection.query("USE Plugsity");
-    const searchTerm = req.query.searchTerm;
-
-    const query = `SELECT * FROM ProductUpload WHERE concat(product_name, product_description, product_subcategory, product_category, product_tags) LIKE '%${searchTerm}%'`;
-    connection.query(query, (error, result) => {
-        if (error) res.send(error);
-        if (result) res.json(result);
-    });
+    const searchTerm = req.query.searchTerm
+    con.searchForProducts(searchTerm).then(result=>{
+        res.send(result);
+    })
+    
 });
 
 // get request
 // @path = /api/products/:id
 // @desc = use this path to view a particular product based on ID.
 router.get("/:id", async (req, res) => {
-    connection.query("USE Plugsity");
     const product_id = req.params.id;
-    const query = `SELECT * FROM ProductUpload WHERE product_id=${product_id}`;
-    // const product = await getProduct(product_id);
-    connection.query(query, (error, result) => {
-        if (error) res.send(error);
-        if (result) res.send(result);
-    });
-    // res.json(product);
+    con.getProduct(product_id).then(response => {
+        res.send(response);
+    })
 });
 
 // get request
@@ -87,13 +80,9 @@ router.get("/:id", async (req, res) => {
 router.get("/getProduct/:business_id", async (req, res) => {
     connection.query("USE Plugsity");
     const business_id = req.params.business_id;
-
-    const query = `SELECT * from ProductUpload WHERE business_id=${business_id}`;
-
-    connection.query(query, (error, result) => {
-        if (error) res.send(error);
-        if (result) res.json(result);
-    });
+    con.getProductsOfBusiness(business_id).then(result=>{
+        res.send(result);
+    })
 });
 
 // put request

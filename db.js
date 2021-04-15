@@ -276,7 +276,8 @@ const createBusiness = (insert_cols, insert_vals)=>{
 }
 
 const getProductsOfBusiness = (business_id) => {
-    const query = `SELECT * FROM ProductUpload WHERE business_id = '${business_id}'`;
+    const query = `SELECT ProductUpload.*,  BusinessPage.legal_business_name FROM ProductUpload, BusinessPage WHERE ProductUpload.business_id = BusinessPage.` + 
+        `business_id AND ProductUpload.business_id = '${business_id}'`;
     return new Promise((resolve, reject)=>{
         queryDatabase(query).then(result=>{
             resolve(result);
@@ -286,6 +287,17 @@ const getProductsOfBusiness = (business_id) => {
 
 const createProduct = (insert_cols, insert_vals) => {
     const query = `INSERT INTO ProductUpload (${insert_cols}) VALUES (${insert_vals})`;
+    return new Promise((resolve, reject)=>{
+        queryDatabase(query).then(result=>{
+            resolve(result);
+        }).catch(err => console.log(err));
+    })
+}
+
+const searchForProducts = (searchTerm) => {
+    const query = `SELECT ProductUpload.*, BusinessPage.legal_business_name FROM ProductUpload, BusinessPage ` + 
+    `WHERE concat(product_name, product_description, product_subcategory, product_category, product_tags) LIKE '%${searchTerm}%'`
+    + `AND BusinessPage.business_id = ProductUpload.business_id`;
     return new Promise((resolve, reject)=>{
         queryDatabase(query).then(result=>{
             resolve(result);
@@ -325,6 +337,7 @@ exports.getAllLikes = getAllLikes;
 exports.addReviewView = addReviewView;
 exports.didUserLike = didUserLike;
 exports.getAllBusinesses = getAllBusinesses;
+exports.searchForProducts = searchForProducts;
 exports.isUserABusiness = isUserABusiness;
 exports.checkIfEmailExists = checkIfEmailExists;
 exports.createBusiness = createBusiness;
