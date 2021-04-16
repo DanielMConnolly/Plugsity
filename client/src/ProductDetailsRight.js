@@ -5,6 +5,7 @@ import Button from "./ProductButton";
 import Tabs from "./Tabs";
 import { loadStripe } from "@stripe/stripe-js";
 import keys from "./keys.json";
+import { Redirect } from "react-router";
 const stripePromise = loadStripe(keys.stripeTestPublic);
 
 export default class ProductDetailsRight extends Component {
@@ -12,6 +13,8 @@ export default class ProductDetailsRight extends Component {
         super(props);
         console.log(this.props);
         this.state = {
+            user_id: localStorage.hasOwnProperty("user_id"),
+            redirectToLogin: false,
             count: 1,
             active: "Description",
             product_id: this.props.product_id,
@@ -31,6 +34,11 @@ export default class ProductDetailsRight extends Component {
 
     handleClick = async (event) => {
         // get stripe instance
+        if (!localStorage.hasOwnProperty("user_id")) {
+            console.log("Not logged in");
+            this.setState({ redirectToLogin: true });
+            return;
+        }
         const stripe = await stripePromise;
 
         console.log("inside handleclick stripe");
@@ -70,77 +78,81 @@ export default class ProductDetailsRight extends Component {
     };
 
     render() {
-        return (
-            <div className='column product-details-right'>
-                <div className='row'>
-                    <div className='business-attrs'>
-                        {" "}
-                        By {this.props.legal_business_name}
+        if (this.state.redirectToLogin) {
+            return <Redirect to='/' />;
+        } else {
+            return (
+                <div className='column product-details-right'>
+                    <div className='row'>
+                        <div className='business-attrs'>
+                            {" "}
+                            By {this.props.legal_business_name}
+                        </div>
                     </div>
-                </div>
-                <div className='row'>
-                    <h3>{this.props.product_name}</h3>
-                </div>
-                <div className='row'>
-                    <h3>$ {this.props.product_cost}</h3>
-                </div>
+                    <div className='row'>
+                        <h3>{this.props.product_name}</h3>
+                    </div>
+                    <div className='row'>
+                        <h3>$ {this.props.product_cost}</h3>
+                    </div>
 
-                <hr />
-                <div className='row'>
-                    <Button
-                        btnClass='btn-minus'
-                        className='btn'
-                        sign='-'
-                        count={this.state.count}
-                        updateCount={this.handleCount.bind(this)}
-                    />
-                    {this.state.count}
-                    <Button
-                        btnClass='btn-plus'
-                        sign='+'
-                        count={this.state.count}
-                        updateCount={this.handleCount.bind(this)}
-                    />
-                </div>
-                <div className='row'>
-                    <button type='submit' className='btn btn-blue'>
-                        {" "}
-                        Add to Cart{" "}
-                    </button>
-                    <button
-                        role='link'
-                        className='btn btn-border-blue'
-                        onClick={this.handleClick}
+                    <hr />
+                    <div className='row'>
+                        <Button
+                            btnClass='btn-minus'
+                            className='btn'
+                            sign='-'
+                            count={this.state.count}
+                            updateCount={this.handleCount.bind(this)}
+                        />
+                        {this.state.count}
+                        <Button
+                            btnClass='btn-plus'
+                            sign='+'
+                            count={this.state.count}
+                            updateCount={this.handleCount.bind(this)}
+                        />
+                    </div>
+                    <div className='row'>
+                        <button type='submit' className='btn btn-blue'>
+                            {" "}
+                            Add to Cart{" "}
+                        </button>
+                        <button
+                            role='link'
+                            className='btn btn-border-blue'
+                            onClick={this.handleClick}
+                        >
+                            {" "}
+                            Checkout With Stripe{" "}
+                        </button>
+                    </div>
+
+                    <div>
+                        {this.state.active === "Description"
+                            ? this.descriptionBlurb
+                            : this.state.active === "Shipping"
+                            ? this.shippingBlurb
+                            : this.returnsBlurb}
+                    </div>
+                    <Tabs
+                        active={this.state.active}
+                        onClick={(label) => {
+                            this.setState({ active: label });
+                        }}
                     >
-                        {" "}
-                        Checkout With Stripe{" "}
-                    </button>
+                        <div label='Description' className='row'>
+                            {this.props.product_description}
+                        </div>
+                        <div label='Shipping' className='row'>
+                            Shipping Info
+                        </div>
+                        <div label='Returns' className='row'>
+                            Return info
+                        </div>
+                    </Tabs>
                 </div>
-
-                <div>
-                    {this.state.active === "Description"
-                        ? this.descriptionBlurb
-                        : this.state.active === "Shipping"
-                        ? this.shippingBlurb
-                        : this.returnsBlurb}
-                </div>
-                <Tabs
-                    active={this.state.active}
-                    onClick={(label) => {
-                        this.setState({ active: label });
-                    }}
-                >
-                    <div label='Description' className='row'>
-                        {this.props.product_description}
-                    </div>
-                    <div label='Shipping' className='row'>
-                        Shipping Info
-                    </div>
-                    <div label='Returns' className='row'>
-                        Return info
-                    </div>
-                </Tabs>
-            </div>
-        );
+            );
+        }
     }
 }
