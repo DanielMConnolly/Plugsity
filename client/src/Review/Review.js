@@ -15,7 +15,7 @@ load('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=sw
 export default class Review extends Component {
     constructor(props) {
         super(props);
-        let reviewData = {"productID": props.match.params.productID}
+        let reviewData = {"product_id": props.match.params.productID}
         this.state = {
             reviewData: reviewData,
             submitted: false
@@ -58,7 +58,8 @@ export default class Review extends Component {
         event.preventDefault();
         var url = '/review/upload';
         uploadFile(this.state.image,(key)=> {
-            axios.post(url, this.state.reviewData)
+            let reviewData = {... this.state.reviewData, product_video_link: key}
+            axios.post(url, reviewData)
                 .then(()=> {
                    this.setState({
                        submitted: true
@@ -106,8 +107,10 @@ export default class Review extends Component {
                             })
                         }, /(\.mp4|\.mov)$/i)} accept="video/*" />
 
+           
                     </div>
                     <button className="review-submit-button" type="submit" onSubmit={this.onSubmit}> Submit your review!</button>
+                    
                 </form>
             </div>
         )
