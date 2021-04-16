@@ -4,8 +4,12 @@ const con = require('./db.js');
 
 
 router.post('/upload', (req, res, next) => {
-    const { user_id, review_rating, video_name, product_id } = req.body;
-    con.addReview(video_name, user_id, review_rating, product_id);
+    let keys = Object.keys(req.body);
+    let values = Object.values(req.body).map(item => `'${item}'`);
+    let insert_columns = keys.join(', ')
+    let insert_values = values.join(', ');
+    con.addReview(insert_columns, insert_values);
+    res.send();
 });
 
 router.post('/process_video', (req, res, next) => {
