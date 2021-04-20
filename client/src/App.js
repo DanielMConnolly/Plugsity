@@ -11,12 +11,13 @@ import Search from "./Search";
 import HomePage from "./Homepage";
 import ProductForm from "./ProductForm";
 import ProductDetails from "./ProductDetails";
-import Dashboard from './Business/BusinessDashboard';
+import Dashboard from "./Business/BusinessDashboard";
 import UserProfile from "./ProfilePages/UserProfile";
 import Footer from "./Footer";
 import AllProducts from "./ProductsAll";
 import Business_Setup from "./BusinessSetup/Business_Setup";
 import ProductEditForm from "./ProductEditForm";
+import OrderSuccess from "./OrderSuccess";
 
 function App() {
     return (
@@ -37,9 +38,11 @@ function App() {
                         path='/reviews/show/:reviewID'
                         component={ReviewDetails}
                     ></Route>
-                    <Route exact path='/reviews/upload'>
-                        <Review />
-                    </Route>
+                        <Route
+                        exact
+                        path='/reviews/upload/:productID'
+                        component={Review}
+                    ></Route>
                     <Route path='/reviewlist'>
                         <ReviewList />
                     </Route>
@@ -53,7 +56,7 @@ function App() {
                         <Footer />
                     </Route>
                     <Route path='/dashboard'>
-                        <Dashboard/>
+                        <Dashboard />
                     </Route>
                     <Route path='/business_setup'>
                         <Business_Setup />
@@ -74,6 +77,7 @@ function App() {
                         path='/products/editProduct/:productID'
                         component={ProductEditForm}
                     ></Route>
+                    <Route path='/order' component={OrderSuccess}></Route>
                 </Switch>
             </Router>
         </div>

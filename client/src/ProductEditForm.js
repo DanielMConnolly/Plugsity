@@ -32,7 +32,7 @@ export default class ProductEditForm extends Component {
         // get product details mand then set them as state
         const { product_id } = this.state;
         const response = await axios.get(`/api/products/${product_id}`);
-        const productDetails = response.data[0];
+        const productDetails = response.data;
         const {
             product_name,
             product_description,
@@ -57,7 +57,6 @@ export default class ProductEditForm extends Component {
             product_image_link,
             product_video_link,
         });
-        console.log(this.state);
     }
 
     handleClick = () =>
@@ -95,23 +94,12 @@ export default class ProductEditForm extends Component {
             })
             .then((response) => {
                 console.log(response);
-                console.log("Successfully Updated the product");
+                this.props.history.push('/dashboard')
             })
             .catch((error) => {
                 console.log(error);
             });
-        this.setState({
-            product_name: "",
-            product_description: "",
-            category: "",
-            product_category: "",
-            product_subcategory: "",
-            product_tags: "",
-            product_listing: "",
-            product_cost: "",
-            product_image_link: "",
-            product_video_link: "",
-        });
+
     };
 
     render() {

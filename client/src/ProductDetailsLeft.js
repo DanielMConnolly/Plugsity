@@ -1,13 +1,13 @@
-import React, {useHistory } from "react";
+import React, {useHistory } from "react-router-dom";
 import placeholder from './assets/placeholder.jpg';
 
 import "./css/ProductDetails.css";
 import ReviewStars from "./Review/ReviewStars";
 
 const ProductDetailsLeft = ({ productData }) => {
-    // let history = useHistory();
+    let history = useHistory();
     let redirectToReviewForm = ()=>{
-        //history.push('/')
+        history.push(`/reviews/upload/${productData.product_id}`)
     }
     return(
     <div className='product-details-left'>
