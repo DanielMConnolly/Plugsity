@@ -228,7 +228,7 @@ const getUserProfile = (id) => {
 };
 
 const getProduct = (id) => {
-    const query = `SELECT * FROM (SELECT ProductUpload.* FROM ProductUpload  WHERE product_id="${id}") as products, BusinessPage WHERE products.business_id = BusinessPage.business_id`;
+    const query = `SELECT * FROM BusinessPage JOIN (SELECT ProductUpload.* FROM ProductUpload  WHERE product_id="${id}") as products ON products.business_id = BusinessPage.business_id INNER JOIN ProductMediaReview ON ProductMediaReview.product_id = products.product_id` ;
     return new Promise((resolve, reject) => {
         queryDatabase(query)
             .then((result) => {
