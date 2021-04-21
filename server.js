@@ -95,6 +95,37 @@ app.post("/business", function (req, res) {
     });
 });
 
+//Review Upload
+app.post("/reviews/upload", function (req, res) {
+    console.log(req.body);
+    var data = {
+        review_headline: req.body.review_headline,
+        review_description: req.body.review_description,
+        review_rating: req.body.review_rating,
+        review_tag: req.body.review_tag,
+    };
+    var sql = "INSERT INTO ProductMediaReview SET ?";
+    db.query(sql, data, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send({
+            status: "success",
+            no: null,
+            review_headline: req.body.review_headline,
+            review_description: req.body.review_description,
+            review_rating: req.body.review_rating,
+            review_tag: req.body.review_tag,
+            product_image_link: "",
+            product_video_link: "",           
+            processing_status: "",
+            product_id: 5009,
+            business_id: 1,
+            user_id: 10,
+            review_views:""
+        });
+    });
+});
+
 //products route
 app.use("/api/products", require("./products"));
 
