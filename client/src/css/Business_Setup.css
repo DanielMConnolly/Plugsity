@@ -23,10 +23,6 @@
     width: 100%;
 }
 
-#bus_iden2_div_3 .MuiButton-containedPrimary, #bus_iden2_div_4 .MuiButton-containedPrimary, #pt_cntct_div_4 .MuiButton-containedPrimary, #pt_cntct_2_div_3 .MuiButton-containedPrimary {
-	background-color: #DAE5F3 !important;
-	width : 92%;
-}
 
 .MuiStepIcon-root.MuiStepIcon-completed, .MuiStepIcon-root.MuiStepIcon-active {
 	color: #2E23FB!important;
@@ -40,4 +36,15 @@ font-style : normal;
 font-size : 14px;
 line-height: 16px;
 align:center;
+}
+
+.hidden{
+	display: none;
+}
+
+.select-file-button{
+	border: 1px solid black;
+	margin: 5px;
+	padding: 5px;
+	cursor: pointer;
 }
