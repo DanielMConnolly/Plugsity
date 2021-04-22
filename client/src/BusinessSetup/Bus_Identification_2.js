@@ -9,11 +9,6 @@ import '../css/Business_Setup.css';
 import { createFile, uploadFile } from '../Utils/Upload';
 
 export default function Bus_Identification_2(props) {
-
-
-
-
-
     const handleNext = async () => {
         if (licenseImage) {
             await uploadFile(licenseImage, (key) => {
@@ -53,12 +48,11 @@ export default function Bus_Identification_2(props) {
 
     const showPermitModalButton = props.userData["business_permit_link"] != 'null' || permitImage
     const showLicenseModalButton = props.userData["business_license_link"] !='null'|| licenseImage
-
+    console.log(licenseImage);
     return (
         <div>
-
-            <DocumentModal open={license_open} handleClose={toggleLicense} image={getLicenseImage()} />
-            <DocumentModal open={permit_open} handleClose={togglePermit} image={getPermitImage()} />
+            <DocumentModal open={license_open} handleClose={toggleLicense} image={licenseImage} />
+            <DocumentModal open={permit_open} handleClose={togglePermit} image={permitImage} />
 
             <div id="bus_iden2_div_main" style={{ display: 'flex', marginTop: '2%' }}>
                 <div style={{ float: 'left', width: '30%', height: '30%', fontFamily: 'DM Sans', border: '1px solid rgba(0, 0, 0, 0.07)', backgroundColor: '#F8F8F8' }}>

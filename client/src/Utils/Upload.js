@@ -1,11 +1,18 @@
 import axios from 'axios';
 
+
+
+
 let createFile = (e, setState, allowedExtensions=/(\.jpg|\.jpeg|\.png|\.pdf)$/i, filetype="image")=> {
     
         let files = e.target.files || e.dataTransfer.files
         if (!files.length) return
         let file = files[0]
         let file_extension = file.name.split(".").pop()
+        if(file_extension=="pdf"){
+            setState(file);
+            return true;
+        }
 
         if (!allowedExtensions.exec(file.name)) {
             alert('Invalid file type');
