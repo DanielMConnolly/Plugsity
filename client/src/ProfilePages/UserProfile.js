@@ -6,9 +6,46 @@ import AddressPage from "./AddressPage";
 import Contact from "./Contact";
 import AccountSettings from "./AccountSettings";
 import Footer from "../Footer.js";
+import axios from 'axios';
 
 
 class UserProfile extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            firstname: "",
+            lastname: "",
+            user_id: -1,
+            joined: ""
+        };
+
+    }
+    getAccountInfo(){
+        axios({
+            method: 'post',
+            url: '/user/myprofile',
+            headers: {
+              "Accept": 'application/json'
+            },
+            data: {
+                user_id: localStorage.getItem("user_id")
+            }
+      
+        }).then((response) => {
+            console.log("how is this happening?")
+            console.log(response)
+            this.setState({
+                firstname: response.data.first_name,
+                lastname: response.data.last_name,
+                user_id: localStorage.getItem("user_id"),
+                joined: response.data.created_at
+            })
+        });
+        
+    }
+    componentDidMount(){
+        this.getAccountInfo();
+    }
     render(){
         return(
             <Router>
@@ -24,10 +61,10 @@ class UserProfile extends React.Component{
                     <div className="col-md-6">
                         <div className="profile-head">
                                     <h5 className="h5-style">
-                                        Carlota Monteiro
+                                        {this.state.firstname} {this.state.lastname}
                                     </h5>
                                     <h5 className="sub-title">
-                                        Joined Feb 20, 2021
+                                        Joined {this.state.joined}
                                     </h5>
                                     <p className="proile-rating"><span className="followers">10 reviews</span>      <span>200 followers</span></p>
                             <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -66,7 +103,7 @@ class UserProfile extends React.Component{
                     <div className="col-md-4">
                         <div className="profile-work">           
                             <div className="userprofile-box">
-                                <a href="http://localhost:3000/Orders" className="box-text">Orders</a><br/>
+                                <a href="/Orders" className="box-text">Orders</a><br/>
                             </div>
                             <div className="userprofile-box">
                                 <a href="" className="box-text">Returns & Refunds</a><br/>
