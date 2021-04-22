@@ -22,7 +22,7 @@ export default function DocumentModal(props) {
             aria-describedby="simple-modal-description"
         >   
             <div className="pdf-display">
-            {pageNumber>0 && 
+            {pageNumber>1 && 
             <FontAwesome name="arrow-left" size="2x" onClick={()=>{setPageNumber(pageNumber-1)}}/>}
             <Document
                 file={props.image}
