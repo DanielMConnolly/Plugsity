@@ -20,7 +20,7 @@ export default class BusinessDashboard extends Component{
              <Dropdown title="Orders" list={[]} 
              />
             <Dropdown title="Products" list={[]} handleClick={()=>this.props.renderDashboard("products")} />
-            <Dropdown title="Services" list={[]} />
+            <Dropdown title="Images" list={[]} handleClick={()=>this.props.renderDashboard("images")} />
             <Dropdown title="Events" list={[]} />
             <Dropdown title="Customers" list={[]} />
             <Dropdown title="Discounts" list={[]} />
