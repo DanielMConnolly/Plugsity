@@ -13,7 +13,8 @@ class AltHeader extends Component{
         super(props);
         this.state= {
             searchActivated: false,
-            query: props.initQuery||''
+            query: props.initQuery||'',
+            homeisPressed: false
         }
     }
 
@@ -43,11 +44,9 @@ class AltHeader extends Component{
             this.setState({
                 searchActivated: true
             })
-
         }
-       
-
     }
+
     render(){
         if(this.state.searchActivated){
             return(<Redirect
@@ -60,8 +59,9 @@ class AltHeader extends Component{
         return(
         <div class="alt-header-row">
         <div className="alt-header-left">
-        <FontAwesome className="hamburger-menu" name="bars" size='2x'/>
-        <img src={Icon} className="plugsity-icon" />
+        <a href="/homepage">
+            <img src={Icon} className="plugsity-icon" />
+        </a>
         </div>
         <Searchbar query={this.state.query} handleOnSearch={e=>this.handleOnSearch(e)} onHandleChange={e=>this.onHandleChange(e)} />
         <AccountHeader dashboard={this.props.dashboard}/>
