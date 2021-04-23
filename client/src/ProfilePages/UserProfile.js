@@ -64,7 +64,7 @@ class UserProfile extends React.Component{
                                         {this.state.firstname} {this.state.lastname}
                                     </h5>
                                     <h5 className="sub-title">
-                                        Joined {this.state.joined}
+                                        Joined {new Date(this.state.joined).toDateString()}
                                     </h5>
                                     <p className="proile-rating"><span className="followers">10 reviews</span>      <span>200 followers</span></p>
                             <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -80,23 +80,8 @@ class UserProfile extends React.Component{
                             </ul>
                             
                         </div>
-                        <div className="row">
-                            <div className="col-md-2">
-                                <button className="user-button">All</button>                    
-                            </div>
-                            <div className="col-md-2">
-                                <button className="user-product-button">Products</button>
-                            </div>
-                            <div className="col-md-2">
-                                <button className="user-service-button">Booked services</button>
-                            </div> 
-                            <div className="col-md-2">
-                                <button className="user-ticket-button">Booked Tickets</button>
-                            </div>
-                            <div className="col-md-2">
-                                <button className="user-prevorder-button">Previous Orders</button>
-                            </div>
-                        </div>
+
+                        
                     </div>    
                 </div>
                 <div className="row">

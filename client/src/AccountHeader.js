@@ -15,6 +15,7 @@ class AccountHeader extends Component {
       user_id: '',
       isUserABusiness: false,
       redirectToDashboard: false,
+      redirectToMyAccount: false,
       logout: false
     };
   }
@@ -23,7 +24,12 @@ class AccountHeader extends Component {
     let user_id = localStorage.getItem('user_id');
     isUserABusiness(user_id).then(response=>{
       this.setState({
-        isUserABusiness: response
+        isUserABusiness: response,
+        redirectToMyAccount: false
+      })
+    }, (reject) => {
+      this.setState({
+        redirectToMyAccount: false
       })
     });
   }
@@ -33,6 +39,14 @@ class AccountHeader extends Component {
       redirectToBusinessSignup: true
     });
   }
+  redirectToMyAccount(){
+    if(!this.state.isUserABusiness){
+      this.setState({
+        redirectToMyAccount: true
+      });
+    }
+  }
+
   redirectToLogin(){
     this.setState({
       logout: true
@@ -70,7 +84,7 @@ class AccountHeader extends Component {
     let dropdown_list = [{title: "Log In", "id": 1, onClick: ()=>this.redirectToLogin()}];
     if(this.state.logged_in){
       dropdown_list = [
-        { title: `Hello User ${this.state.user_id}`, "id": 1 }, 
+        { title: `My account`, "id": 1,"selected": false, onClick: ()=>this.redirectToMyAccount()  }, 
         { title: "Log Out", "id": 2, selected: false, "onClick": this.logoutUser },]
         if(this.state.isUserABusiness && !this.props.dashboard){
           dropdown_list.push({title: "Dashboard", id: 3, "selected": false, onClick: ()=>this.redirectToDashboard()})
@@ -90,6 +104,8 @@ class AccountHeader extends Component {
     }
     else if(this.state.redirectToBusinessSignup){
       return(<Redirect to="/business_setup"></Redirect>)
+    }else if(this.state.redirectToMyAccount){
+      return(<Redirect to="/myprofile"></Redirect>)
     }
     return (
       <div className="header-row">
