@@ -10,7 +10,7 @@ import Tabs from './Tabs'
 import { Redirect } from 'react-router-dom';
 
 function SignupLogin() {
-    const [active, setActive] = useState("Signup");
+    const [active, setActive] = useState("Login");
     const signupBlurb = "Sign up for a new account to submit your own video reviews to products you love, submit orders, book service and events"
     const loginBlurb = signupBlurb
 

@@ -2,41 +2,65 @@ import { React, useState } from 'react';
 import { Button, TextField, Select, MenuItem, InputLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Shape from '../assets/Shape.png';
-import DocumentModal from '../DocumentModal'
+import PDFModal from '../PDFModal'
+import axios from 'axios';
 import { createOrUpdateBusiness } from '../Utils/ApiCalls';
 import hy from '../assets/Heythere.png';
 import '../css/Business_Setup.css';
-import { createFile, uploadFile } from '../Utils/Upload';
+import { createFile, uploadPDF } from '../Utils/Upload';
 
 export default function Bus_Identification_2(props) {
     const handleNext = async () => {
-        if (licenseImage) {
-            await uploadFile(licenseImage, (key) => {
-                props.setUserData({ ...props.userData, "business_license_link": key })
-
-            });
-        }
-        if (permitImage) {
-            await uploadFile(permitImage, (key) => {
-                props.setUserData({ ...props.userData, "business_permit_link": key })
-            });
-
-        }
-        createOrUpdateBusiness(props.userData);
         props.setStep(3);
+        const uploadLicense =new Promise((resolve, reject)=>{
+            if (licenseImage) {
+                  uploadPDF(licenseImage, (key) => {
+                    props.setUserData({ ...props.userData, "business_license_link": key })
+                    
+                });
+            }
+            else{
+                resolve()
+            }
+        });
+
+        const uploadPermit = new Promise((resolve, reject)=>{
+            console.log("upload permit");
+            if (permitImage) {
+                 uploadPDF(permitImage, (key) => {
+                    props.setUserData({ ...props.userData, "business_permit_link": key })
+                });
+
+            }
+            else{
+                resolve()
+            }
+            
+        });
+
+        Promise.all([uploadLicense, uploadPermit]).then(()=>{
+                console.log(props.userData)
+                createOrUpdateBusiness(props.userData)
+        })
+
+
+
 
     }
 
     const getPermitImage = () => {
         if (permitImage) {
-            return URL.createObjectURL(permitImage)
+            return permitImage
         }
         return `https://plugsity-images.s3.amazonaws.com/${props.userData["business_permit_link"]}`
+
     }
 
-    const getLicenseImage = ()=>{
-        if(licenseImage){
-            return URL.createObjectURL(licenseImage)
+
+
+    const getLicenseImage = () => {
+        if (licenseImage) {
+            return licenseImage
         }
         return `https://plugsity-images.s3.amazonaws.com/${props.userData["business_license_link"]}`
     }
@@ -45,14 +69,12 @@ export default function Bus_Identification_2(props) {
     const [license_open, toggleLicense] = useState(false);
     const [licenseImage, setLicenseImage] = useState();
     const [permitImage, setPermitImage] = useState();
-
     const showPermitModalButton = props.userData["business_permit_link"] != 'null' || permitImage
-    const showLicenseModalButton = props.userData["business_license_link"] !='null'|| licenseImage
-    console.log(licenseImage);
+    const showLicenseModalButton = props.userData["business_license_link"] != 'null' || licenseImage
     return (
         <div>
-            <DocumentModal open={license_open} handleClose={toggleLicense} image={licenseImage} />
-            <DocumentModal open={permit_open} handleClose={togglePermit} image={permitImage} />
+            <PDFModal open={license_open} handleClose={toggleLicense} image={getLicenseImage()} />
+            <PDFModal open={permit_open} handleClose={togglePermit} image={getPermitImage()} />
 
             <div id="bus_iden2_div_main" style={{ display: 'flex', marginTop: '2%' }}>
                 <div style={{ float: 'left', width: '30%', height: '30%', fontFamily: 'DM Sans', border: '1px solid rgba(0, 0, 0, 0.07)', backgroundColor: '#F8F8F8' }}>
@@ -123,7 +145,7 @@ export default function Bus_Identification_2(props) {
                             }}
                         />
                         <label for="business-license-input"><div className="select-file-button">Select File</div></label>
-                        {props.userData["business_license_link"] != 'null' &&
+                        {showLicenseModalButton &&
                             <button onClick={() => toggleLicense(!license_open)}>See existing file</button>
                         }
                     </div>

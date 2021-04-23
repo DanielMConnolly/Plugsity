@@ -8,6 +8,7 @@ let createFile = (e, setState, allowedExtensions=/(\.jpg|\.jpeg|\.png|\.pdf)$/i,
         let files = e.target.files || e.dataTransfer.files
         if (!files.length) return
         let file = files[0]
+        console.log(file);
         let file_extension = file.name.split(".").pop()
         if(file_extension=="pdf"){
             setState(file);
@@ -32,11 +33,10 @@ let createFile = (e, setState, allowedExtensions=/(\.jpg|\.jpeg|\.png|\.pdf)$/i,
                 case "mov":
                 case "mp4":
                     type = "video/mp4"
+                    break
                 case "pdf":
                     type="application/pdf"
-            }
-            console.log(type);
-           
+            }  
             let blobData = new Blob([new Uint8Array(array)], {type: type})
             setState(blobData)
         }
@@ -45,9 +45,8 @@ let createFile = (e, setState, allowedExtensions=/(\.jpg|\.jpeg|\.png|\.pdf)$/i,
 }
 
 let  uploadFile= async (image, callback=()=>{},  filetype="image") => {
-    console.log("here");
     const API_ENDPOINT = filetype=="image"?'https://kx1fso77o5.execute-api.us-east-1.amazonaws.com/handle-image-upload':'https://hizg8qqb08.execute-api.us-east-1.amazonaws.com/uploads';
-
+    console.log(API_ENDPOINT)
     const response = await axios({
         method: 'GET',
         url: API_ENDPOINT
@@ -55,14 +54,36 @@ let  uploadFile= async (image, callback=()=>{},  filetype="image") => {
     const key = response.data.Key;
     callback(key);
 
+    console.log(response.data.uploadURL)
 
     await fetch(response.data.uploadURL, {
         method: 'PUT',
         body: image
     }).then(response=>console.log(response))
     .catch(err => console.log(err));
-    console.log("there");
     return key
 }
 
-export {uploadFile, createFile};
+let uploadPDF = async(pdf, callback=()=>{}) => {
+    const API_ENDPOINT = 'https://kx1fso77o5.execute-api.us-east-1.amazonaws.com/handle_pdf_upload';
+    const response = await axios({
+        method: 'GET',
+        url: API_ENDPOINT
+    }).catch(e => console.log(e))
+    console.log(response);
+    const key = response.data.Key;
+    callback(key);
+
+
+    await fetch(response.data.uploadURL, {
+        method: 'PUT',
+        body: pdf
+    }).then(response=>console.log(response))
+    .catch(err => console.log(err));
+    console.log("there");
+    return key
+
+
+}
+
+export {uploadFile, createFile, uploadPDF};
