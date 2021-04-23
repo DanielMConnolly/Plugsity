@@ -40,11 +40,10 @@ class AccountHeader extends Component {
     });
   }
   redirectToMyAccount(){
-    if(!this.state.isUserABusiness){
-      this.setState({
-        redirectToMyAccount: true
-      });
-    }
+    this.setState({
+      redirectToMyAccount: true
+    });
+    
   }
 
   redirectToLogin(){
