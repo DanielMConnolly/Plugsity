@@ -28,7 +28,7 @@ class Searchbar extends Component {
         this.cancel = '';
     }
 
-    createCityList() {
+    /*createCityList() {
         let cities = ["New York", "Seattle", "Los Angeles", "Austin", "Chicago", "Philadelphia", "Dallas"]
         let city_list = []
         cities.forEach((city, index) => city_list.push({ "id": index, "title": city, "selected": false }));
@@ -52,7 +52,7 @@ class Searchbar extends Component {
             selectedToggle: selectedToggle
         })
 
-    }
+    } */
     /**
  * Get the Total Pages count.
  *
@@ -90,7 +90,7 @@ class Searchbar extends Component {
         return (
             <>
                 <div className="searchBar">
-                    {this.createToggleOptions()}
+                    {/*{this.createToggleOptions()} */}
                 <input
                         type="text"
                         name="query"
@@ -105,14 +105,14 @@ class Searchbar extends Component {
                         onFocus={this.onFocus}
                     />
                     <div className="search-button">
-                        <div className="city-dropdown" ref={this.container}>
+                        {/*<div className="city-dropdown" ref={this.container}>
                             <Dropdown className="dropdown" title="City" list={this.createCityList()}
                             />
                         </div>
-                        {/* <Dropdown className='city' options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" /> */}
+                        {/* <Dropdown className='city' options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" /> 
                         <div className="city-dropdown" ref={this.container}>
                             <Dropdown className="dropdown" title="State" list={this.createStateList()} />
-                        </div>
+                    </div> */}
                         <button className="search-button1" onClick={(e)=>{this.props.handleOnSearch(e)}}><i  aria-hidden="true"/>Search</button>
                     </div>
                 </div>
