@@ -33,9 +33,10 @@ let createFile = (e, setState, allowedExtensions=/(\.jpg|\.jpeg|\.png|\.pdf)$/i,
                 case "mov":
                 case "mp4":
                     type = "video/mp4"
+                    break
                 case "pdf":
                     type="application/pdf"
-            }           
+            }  
             let blobData = new Blob([new Uint8Array(array)], {type: type})
             setState(blobData)
         }
@@ -45,7 +46,7 @@ let createFile = (e, setState, allowedExtensions=/(\.jpg|\.jpeg|\.png|\.pdf)$/i,
 
 let  uploadFile= async (image, callback=()=>{},  filetype="image") => {
     const API_ENDPOINT = filetype=="image"?'https://kx1fso77o5.execute-api.us-east-1.amazonaws.com/handle-image-upload':'https://hizg8qqb08.execute-api.us-east-1.amazonaws.com/uploads';
-
+    console.log(API_ENDPOINT)
     const response = await axios({
         method: 'GET',
         url: API_ENDPOINT
@@ -53,6 +54,7 @@ let  uploadFile= async (image, callback=()=>{},  filetype="image") => {
     const key = response.data.Key;
     callback(key);
 
+    console.log(response.data.uploadURL)
 
     await fetch(response.data.uploadURL, {
         method: 'PUT',
