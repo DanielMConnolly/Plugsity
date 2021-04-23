@@ -2,6 +2,7 @@ import {Component} from 'react';
 import AltHeader from '../AltHeader';
 import ProductsDashboard from './ProductsDashboard';
 import DashboardHeader from './DashboardHeader';
+import ImageUploadDashboard from './ImageUploadDashboard';
 
 
 export default class BusinessDashboard extends Component{
@@ -26,6 +27,9 @@ export default class BusinessDashboard extends Component{
         let {dashboard_name} = this.state;
         if(dashboard_name=="products"){
             return(<ProductsDashboard/>)
+        }
+        else if(dashboard_name=="images"){
+            return(<ImageUploadDashboard/>)
         }
         else{
            return( <h1>Overview</h1>)

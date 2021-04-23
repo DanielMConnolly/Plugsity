@@ -5,6 +5,8 @@ import axios from "axios";
 import "./css/Signup.css";
 import "./css/ProductForm.css";
 import PropTypes from "prop-types";
+import {createFile, uploadFile} from './Utils/Upload'
+import ImageModal from './ImageModal';
 import PlugsityLogo from "./assets/plugsity-logo.png";
 
 export default class ProductEditForm extends Component {
@@ -26,6 +28,7 @@ export default class ProductEditForm extends Component {
             product_cost: "",
             product_image_link: "",
             product_video_link: "",
+            modalOpen: false
         };
     }
     async componentDidMount() {
@@ -76,10 +79,27 @@ export default class ProductEditForm extends Component {
         this.setState({ [name]: value });
     };
 
-    onSubmit = (event) => {
+    onSubmit = async (event) => {
         event.preventDefault();
         const { product_id } = this.state;
-        axios
+
+        const uploadImage = new Promise((resolve, reject)=>{
+            if(this.state.image){
+                uploadFile(this.state.image, (key)=>{
+                    this.setState({
+                        product_image_link: key
+                    })
+                    resolve()
+                })
+            }
+            else{
+                resolve()
+            }
+
+        })
+        uploadImage.then(()=>{
+            this.props.history.push('/dashboard')
+            axios
             .put(`/api/products/editProduct/${product_id}`, {
                 product_name: this.state.product_name,
                 product_description: this.state.product_description,
@@ -94,16 +114,31 @@ export default class ProductEditForm extends Component {
             })
             .then((response) => {
                 console.log(response);
-                this.props.history.push('/dashboard')
+
             })
             .catch((error) => {
                 console.log(error);
             });
 
+        })
+        
+
+
     };
+
+    getImage(){
+        if(this.state.image){
+            return URL.createObjectURL(this.state.image)
+        }
+        else{
+            return `https://plugsity-images.s3.amazonaws.com/${this.state.product_image_link}`
+        }
+    }
 
     render() {
         return (
+            <>
+            <ImageModal open={this.state.modalOpen} handleClose={()=>{this.setState({modalOpen: false})}} image={this.getImage()} />
             <div className='Signup'>
                 <img src={PlugsityLogo} alt='' className='logo' />
                 <form onSubmit={this.onSubmit}>
@@ -235,25 +270,34 @@ export default class ProductEditForm extends Component {
                         required
                     />
                     <label>Product Cost $</label>
-                    <input
-                        type='text'
-                        name='product_image_link'
-                        placeholder='Enter Image URL'
-                        value={this.state.product_image_link}
-                        onChange={this.handleInputChange}
-                    />
-                    <label>Product Image Link</label>
-                    <input
-                        type='text'
-                        name='product_video_link'
-                        placeholder='Enter Video URL'
-                        value={this.state.product_video_link}
-                        onChange={this.handleInputChange}
-                    />
-                    <label>Product Video Link</label>
-                    <input type='submit' value='Edit Product' />
+                    
+                        <input
+                            accept="image/*"
+                            id="business-permit-input"
+                            type="file"
+                            className="hidden"
+                            onChange={(e) => {
+                                createFile(e, (file) => {
+                                    this.setState({
+                                        image: file
+                                    })
+                                })
+                            }}
+                        />
+                        <label for="business-permit-input"><div className="select-file-button">Select File</div></label>
+                            <button onClick={() => this.setState({
+                                modalOpen: true
+                            })}
+                            type="button"  
+                            >See existing file</button>
+                        <label>Product Image</label>
+
+
+                   <input type='submit' value='Edit Product' />
+                  
                 </form>
             </div>
+            </>
         );
     }
 }

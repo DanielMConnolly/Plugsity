@@ -138,8 +138,7 @@ const logout = (res, token, user_id) => {
 };
 
 const getAllReviews = async (callback) => {
-    const query =
-        "SELECT product_video_link FROM ProductMediaReview,  WHERE processing_status = 'Ready' ";
+    const query = "SELECT * FROM ProductMediaReview  WHERE processing_status = 'Ready'";
     return new Promise((resolve, reject) => {
         queryDatabase(query)
             .then((result) => {
@@ -228,7 +227,7 @@ const getUserProfile = (id) => {
 };
 
 const getProduct = (id) => {
-    const query = `SELECT * FROM BusinessPage JOIN (SELECT ProductUpload.* FROM ProductUpload  WHERE product_id="${id}") as products ON products.business_id = BusinessPage.business_id INNER JOIN ProductMediaReview ON ProductMediaReview.product_id = products.product_id` ;
+    const query = `SELECT * FROM BusinessPage JOIN (SELECT ProductUpload.* FROM ProductUpload  WHERE product_id="${id}") as products ON products.business_id = BusinessPage.business_id` ;
     return new Promise((resolve, reject) => {
         queryDatabase(query)
             .then((result) => {

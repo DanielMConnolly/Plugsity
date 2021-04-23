@@ -4,6 +4,7 @@ import "./css/ProductDetails.css";
 import Button from "./ProductButton";
 import Tabs from "./Tabs";
 import { loadStripe } from "@stripe/stripe-js";
+import ImageModal from "./ImageModal"
 import keys from "./keys.json";
 import { Redirect } from "react-router";
 const stripePromise = loadStripe(keys.stripeTestPublic);
@@ -11,7 +12,6 @@ const stripePromise = loadStripe(keys.stripeTestPublic);
 export default class ProductDetailsRight extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
         this.state = {
             user_id: localStorage.hasOwnProperty("user_id"),
             redirectToLogin: false,
@@ -82,6 +82,8 @@ export default class ProductDetailsRight extends Component {
             return <Redirect to='/' />;
         } else {
             return (
+
+               
                 <div className='column product-details-right'>
                     <div className='row'>
                         <div className='business-attrs'>
