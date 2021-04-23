@@ -117,10 +117,15 @@ class Search extends React.Component {
 
 	handleOnInputSearch = (Event, query) => {
 		if ( query ) {	
-		  this.setState({ query: query, loading: true, message: '' }, () => {
+		  this.setState({ query: query, loading: true, message: 'Searching!' }, () => {
 			this.fetchSearchResults(1, query);
   
 		  });
+		}
+		else{
+			this.setState({ loading: false, message: 'Please let me know what you are looking for in the search bar! 😊' }, () => {
+	  
+			  });
 		} 
 	}
 
