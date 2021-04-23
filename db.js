@@ -138,8 +138,7 @@ const logout = (res, token, user_id) => {
 };
 
 const getAllReviews = async (callback) => {
-    const query =
-        "SELECT product_video_link FROM ProductMediaReview,  WHERE processing_status = 'Ready' ";
+    const query = "SELECT * FROM ProductMediaReview  WHERE processing_status = 'Ready'";
     return new Promise((resolve, reject) => {
         queryDatabase(query)
             .then((result) => {
