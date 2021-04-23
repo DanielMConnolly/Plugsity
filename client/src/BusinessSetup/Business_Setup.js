@@ -38,13 +38,10 @@ class Business_Setup extends Component {
     queryParams() {
         const query = new URLSearchParams(window.location.search);
         if (query.get("step")) {
-            console.log(query.get("step"));
             let redirectStep = query.get("step");
             if (redirectStep <= 5 && redirectStep > 0) {
-                console.log("In bounds: ", typeof redirectStep);
                 this.setStep(parseInt(redirectStep));
             } else {
-                console.log("Out of bounds: ", redirectStep);
                 this.setStep(1);
             }
         }
