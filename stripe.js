@@ -1,4 +1,4 @@
-const config = require("./config.json");
+const config = require("config.json");
 const stripe = require("stripe")(config.stripeTestSecret);
 const bodyParser = require("body-parser");
 const express = require("express");
@@ -30,14 +30,13 @@ router.post("/create-checkout-session", async (req, res) => {
         stripe_acct_id
     );
     let origin = req.headers.origin;
-    // fix for stripe checkout crash
-    const new_image_link = `https://plugsity-images.s3.amazonaws.com/${image_link}`;
+
     // For development purposes ONLY
     if (origin.includes("localhost")) {
         origin = "http://localhost:3000";
     }
     console.log(origin);
-    console.log(new_image_link);
+
     var plugsityAppFeeAmt =
         (config.plugsityCharge / 100) * (product_cost * 100);
     const session = await stripe.checkout.sessions.create({
@@ -48,7 +47,7 @@ router.post("/create-checkout-session", async (req, res) => {
                     currency: "usd",
                     product_data: {
                         name: product_name,
-                        images: [new_image_link],
+                        images: [image_link],
                     },
                     unit_amount: product_cost * 100,
                     // unit_amount: 10000,
@@ -65,8 +64,8 @@ router.post("/create-checkout-session", async (req, res) => {
             },
         },
         mode: "payment",
-        success_url: `${origin}/order?success=true&productID=${product_id}`,
-        cancel_url: `${origin}/order?cancelled=true`,
+        success_url: `${origin}/order?success=true`,
+        cancel_url: `${origin}/order?canceled=true`,
     });
     console.log(session);
     res.json({
@@ -136,7 +135,7 @@ router.post("/onboard-user", async (req, res) => {
 // get request
 // @route - /api/stripe/onboard-user/refresh
 // @desc - used to redirect a user while onboarding if they need refresh
-router.get("/onboard-user/refresh", async (req, res) => {
+router.get("/onoard-user/refresh", async (req, res) => {
     if (!req.session.accountID) {
         res.redirect("/homepage");
         return;
