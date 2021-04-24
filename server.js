@@ -131,6 +131,10 @@ app.use("/api/products", require("./products"));
 
 //stripe route
 app.use("/api/stripe", require("./stripe"));
+
+//orders route
+app.use("/api/orders", require("./orders"));
+
 // // Redirect back to index.html if urls do not match
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
