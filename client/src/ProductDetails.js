@@ -5,6 +5,7 @@ import ProductDetailsRight from "./ProductDetailsRight";
 import ProductDetailsLeft from "./ProductDetailsLeft";
 import MoreLikeThis from "./ProductLikeThis";
 import Header from "./Header";
+import Footer from "./Footer";
 
 export default class ProductDetails extends Component {
     constructor(props) {
@@ -67,6 +68,11 @@ export default class ProductDetails extends Component {
                             <MoreLikeThis product_id={this.state.productID} />
                         </div>
                     </div>
+                    <br />
+                    <br />
+                    <div>
+                        <Footer />
+                    </div> 
                 </div>
             );
         } else {

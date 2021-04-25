@@ -94,6 +94,7 @@ class HomePage extends Component {
                                </div>
                         </Tabs>
                     </div>
+                    <br />
                 <div className="popular-reviews-container">
                     <div className="popular-reviews-label">Top Video Reviews </div>
                     <div className="popular-reviews">
@@ -103,6 +104,8 @@ class HomePage extends Component {
                     </div>
                     </div>
                 </div>
+                <br />
+                <br />
                 <Footer/>
 
             </div>
