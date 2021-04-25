@@ -5,7 +5,6 @@ import './css/header.css';
 import FontAwesome from 'react-fontawesome'
 import {isUserABusiness} from './Utils/ApiCalls';
 import Dropdown from './Dropdown';
-
 class AccountHeader extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +18,6 @@ class AccountHeader extends Component {
       logout: false
     };
   }
-
   componentDidMount(){
     let user_id = localStorage.getItem('user_id');
     isUserABusiness(user_id).then(response=>{
@@ -33,7 +31,6 @@ class AccountHeader extends Component {
       })
     });
   }
-
   redirectToBusinessSignup(){
     this.setState({
       redirectToBusinessSignup: true
@@ -46,7 +43,6 @@ class AccountHeader extends Component {
       });
     }
   }
-
   redirectToLogin(){
     this.setState({
       logout: true
@@ -57,7 +53,6 @@ class AccountHeader extends Component {
       redirectToDashboard: true
     })
   }
-
   logoutUser = (event) => {
     axios({
       method: 'post',
@@ -69,7 +64,6 @@ class AccountHeader extends Component {
         token: localStorage.getItem('token'),
         user_id: localStorage.getItem('user_id'),
       }
-
     }).then((response) => {
       localStorage.removeItem('token');
       localStorage.removeItem('user_id');
@@ -78,7 +72,6 @@ class AccountHeader extends Component {
     }, (error) => {
       //do not logout
     });
-
   }
   render() {
     let dropdown_list = [{title: "Log In", "id": 1, onClick: ()=>this.redirectToLogin()}];
@@ -110,11 +103,9 @@ class AccountHeader extends Component {
     return (
       <div className="header-row">
         <Dropdown title="My Account" list={dropdown_list} 
-            borderstyle style="account-dropdown" /> <div className="vertical-pipe"></div>
-        <div className="cart-button"><FontAwesome name="shopping-cart" /><div className="cart-label"> CART <div className="cart-items-count"> 0 items</div></div></div>
+            borderstyle style="account-dropdown" /> 
       </div>
     )
   }
 }
-
 export default AccountHeader;

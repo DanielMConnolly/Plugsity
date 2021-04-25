@@ -31,7 +31,6 @@ router.get('/list', async (req, res, next) => {
             review["product"] = product;
             return review
         })).then((reviews)=>{
-            console.log(reviews)
             res.send(reviews)})
     });
 
