@@ -4,8 +4,12 @@ import ProductDetailsRight from "./ProductDetailsRight";
 
 import ProductDetailsLeft from "./ProductDetailsLeft";
 import MoreLikeThis from "./ProductLikeThis";
+<<<<<<< Updated upstream
 import Header from "./Header";
 import Footer from "./Footer";
+=======
+import AltHeader from "./AltHeader";
+>>>>>>> Stashed changes
 
 export default class ProductDetails extends Component {
     constructor(props) {
@@ -22,10 +26,10 @@ export default class ProductDetails extends Component {
             .get(`/api/products/${productID}`)
             .then((response) => {
                 console.log(response);
-                    this.setState({
-                        loading: true,
-                        response: response.data,
-                    });
+                this.setState({
+                    loading: true,
+                    response: response.data,
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -52,16 +56,14 @@ export default class ProductDetails extends Component {
             return (
                 <div>
                     <div>
-                        <Header />
+                        <AltHeader />
                     </div>
                     <div>
                         <div className='product-container'>
                             <ProductDetailsLeft
-                             
                                 productData={this.state.response}
                             />
-                            <ProductDetailsRight {...this.state.response}
-                        />
+                            <ProductDetailsRight {...this.state.response} />
                         </div>
                         <div>
                             <h3 id='header'>More Products Like This</h3>
