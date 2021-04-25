@@ -1,4 +1,4 @@
-const config = require("./stripeConfig.json");
+const config = require("./config/config.json");
 const stripe = require("stripe")(config.stripeTestSecret);
 const bodyParser = require("body-parser");
 const express = require("express");
