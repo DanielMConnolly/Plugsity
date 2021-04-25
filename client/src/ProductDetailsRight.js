@@ -82,6 +82,8 @@ export default class ProductDetailsRight extends Component {
             return <Redirect to='/' />;
         } else {
             return (
+
+               
                 <div className='column product-details-right'>
                     <div className='row'>
                         <div className='business-attrs'>
