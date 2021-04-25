@@ -61,37 +61,54 @@ class AccountHeader extends Component {
         });
     }
 
-  
-  render() {
-    let dropdown_list = [{title: "Log In", "id": 1, onClick: ()=>this.redirectToLogin()}];
-    if(this.state.logged_in){
-      dropdown_list = [
-        { title: `My account`, "id": 1,"selected": false, onClick: ()=>this.redirectToMyAccount()  }, 
-        { title: "Log Out", "id": 2, selected: false, onClick: this.logoutUser },]
-        if(this.state.isUserABusiness && !this.props.dashboard){
-          dropdown_list.push({title: "Dashboard", id: 3, "selected": false, onClick: ()=>this.redirectToDashboard()})
+    render() {
+        let dropdown_list = [
+            { title: "Log In", id: 1, onClick: () => this.redirectToLogin() },
+        ];
+        if (this.state.logged_in) {
+            dropdown_list = [
+                {
+                    title: `My account`,
+                    id: 1,
+                    selected: false,
+                    onClick: () => this.redirectToMyAccount(),
+                },
+                {
+                    title: "Log Out",
+                    id: 2,
+                    selected: false,
+                    onClick: this.logoutUser,
+                },
+            ];
+            if (this.state.isUserABusiness && !this.props.dashboard) {
+                dropdown_list.push({
+                    title: "Dashboard",
+                    id: 3,
+                    selected: false,
+                    onClick: () => this.redirectToDashboard(),
+                });
+            }
+            if (this.state.logout) {
+                return <Redirect to='/'></Redirect>;
+            }
+            if (this.state.redirectToDashboard) {
+                return <Redirect to='/dashboard'></Redirect>;
+            } else if (this.state.redirectToBusinessSignup) {
+                return <Redirect to='/business_setup'></Redirect>;
+            } else if (this.state.redirectToMyAccount) {
+                return <Redirect to='/myprofile'></Redirect>;
+            }
+            return (
+                <div className='header-row'>
+                    <Dropdown
+                        title='My Account'
+                        list={dropdown_list}
+                        borderstyle
+                        style='account-dropdown'
+                    />{" "}
+                </div>
+            );
         }
-        if (this.state.logout) {
-            return <Redirect to='/'></Redirect>;
-        }
-        if (this.state.redirectToDashboard) {
-            return <Redirect to='/dashboard'></Redirect>;
-        } else if (this.state.redirectToBusinessSignup) {
-            return <Redirect to='/business_setup'></Redirect>;
-        } else if (this.state.redirectToMyAccount) {
-            return <Redirect to='/myprofile'></Redirect>;
-        }
-        return (
-            <div className='header-row'>
-                <Dropdown
-                    title='My Account'
-                    list={dropdown_list}
-                    borderstyle
-                    style='account-dropdown'
-                />{" "}
-            </div>
-        );
     }
 }
-
 export default AccountHeader;

@@ -4,12 +4,8 @@ import ProductDetailsRight from "./ProductDetailsRight";
 
 import ProductDetailsLeft from "./ProductDetailsLeft";
 import MoreLikeThis from "./ProductLikeThis";
-<<<<<<< Updated upstream
-import Header from "./Header";
-import Footer from "./Footer";
-=======
 import AltHeader from "./AltHeader";
->>>>>>> Stashed changes
+import Footer from "./Footer";
 
 export default class ProductDetails extends Component {
     constructor(props) {
@@ -74,7 +70,7 @@ export default class ProductDetails extends Component {
                     <br />
                     <div>
                         <Footer />
-                    </div> 
+                    </div>
                 </div>
             );
         } else {

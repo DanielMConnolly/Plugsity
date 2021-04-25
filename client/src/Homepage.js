@@ -99,22 +99,7 @@ class HomePage extends Component {
                             <div label='Events'>Events</div>
                         </Tabs>
                     </div>
-<<<<<<< Updated upstream
                     <br />
-                <div className="popular-reviews-container">
-                    <div className="popular-reviews-label">Top Video Reviews </div>
-                    <div className="popular-reviews">
-                        {this.state.reviews && 
-                         this.getReviewCards()
-                         }  
-                    </div>
-                    </div>
-                </div>
-                <br />
-                <br />
-                <Footer/>
-
-=======
                     <div className='popular-reviews-container'>
                         <div className='popular-reviews-label'>
                             Top Video Reviews{" "}
@@ -124,8 +109,9 @@ class HomePage extends Component {
                         </div>
                     </div>
                 </div>
+                <br />
+                <br />
                 <Footer />
->>>>>>> Stashed changes
             </div>
         );
     }
