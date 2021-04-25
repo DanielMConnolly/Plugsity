@@ -58,7 +58,7 @@ export default class Review extends Component {
         event.preventDefault();
         var url = '/review/upload';
         uploadFile(this.state.image,(key)=> {
-            let reviewData = {... this.state.reviewData, product_video_link: key}
+            let reviewData = {... this.state.reviewData, product_video_link: key, user_id: localStorage.getItem('user_id')}
             axios.post(url, reviewData)
                 .then(()=> {
                    this.setState({
@@ -105,7 +105,7 @@ export default class Review extends Component {
                             this.setState({
                                 image: file
                             })
-                        }, /(\.mp4|\.mov)$/i)} accept="video/*" />
+                        }, /(\.mp4|\.mov)$/i)} filetype="video" />
 
            
                     </div>

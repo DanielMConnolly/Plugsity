@@ -21,9 +21,9 @@ class HomePage extends Component {
 
     getReviewCards(){
         let review_cards = []
-        for(let i=0; i<5; i+=1){
-            review_cards.push(<ReviewCard review={this.state.review}/>)
-        }
+        this.state.reviews.forEach(review=>{
+            review_cards.push(<ReviewCard review={review}/>)
+        })
         return review_cards;
 
     }
@@ -44,11 +44,18 @@ class HomePage extends Component {
 
         axios({
             method: 'get',
-            url: '/review/73',
+            url: '/review/list',
         }).then(res=>{
+            if(res.data.length<5){
+                this.setState({
+                    reviews: []
+                })
+            }
+            else{
             this.setState({
-                review: res.data.review
+                reviews: []
             })
+        }
 
         })
     }
@@ -90,7 +97,7 @@ class HomePage extends Component {
                 <div className="popular-reviews-container">
                     <div className="popular-reviews-label">Top Video Reviews </div>
                     <div className="popular-reviews">
-                        {this.state.review && 
+                        {this.state.reviews && 
                          this.getReviewCards()
                          }  
                     </div>

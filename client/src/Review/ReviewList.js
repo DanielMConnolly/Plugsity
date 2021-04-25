@@ -1,50 +1,37 @@
 import axios from 'axios';
 import { Component } from 'react';
-import dotenv from 'dotenv'
-import ReactPlayer from 'react-player'
+import ReviewCard from './ReviewCard';
+import "../css/ReviewList.css"
 
-dotenv.config()
+
 
 export default class Review extends Component {
 
-    constructor(){
-        super();
-        this.state = {
-            videos: []
-        }
-    }
-    renderVideos() {
-        return this.state.videos.map(item => (<ReactPlayer controls={true} key={item}
-            url={"https://s3-output-bucket-plugsity.s3.amazonaws.com/"+ item} />))
-    }
-
-    componentDidMount() {
-        console.log(process);
-        axios({
-            method: 'GET',
-            url:  "/review/list",
-
-        }).then(response => {
-            console.log(response);
-            response.data.video_links.forEach(element => {
-                console.log(element);
-            });
-            this.setState({
-                videos: response.data.video_links.map(item => item["product_video_link"])
-            });
-            console.log(this.state.videos)
-        });
-    }
-    render() {
-
-        return (
-           <>
-            {this.renderVideos()}
-           </>
-        );
+    constructor(props){
+        super(props);
     }
 
 
+    renderReviews(){
+        let reviewCards = []
+        this.props.reviews.map(review=>{
+            reviewCards.push(<ReviewCard review={review}/>)
+        })
+        return reviewCards;
+    }
+
+
+
+
+    render(){
+        return(
+        <div className="review-list">
+            {this.renderReviews()}
+        </div>
+        )
+    }
+
+   
 
 
 }
