@@ -40,7 +40,7 @@
 }
 
 .dd-list-item{
-    background-color: transparent;
+    background-color:rgba(255, 255, 255, .95);
     display: flex;
     border: none;
     width: 100%;
@@ -50,6 +50,6 @@
    padding: 8px 12px;
 }
 .dd-list-item:hover{
-    background-color: rgba(0, 0, 0, 0.14);
+    background-color: rgba(200,200,200, .90);
     cursor: pointer;
 }
