@@ -10,7 +10,7 @@ const ProductDetailsLeft = ({ productData }) => {
         history.push(`/reviews/upload/${productData.product_id}`)
     }
     let redirectToViewReview = ()=>{
-        history.push(`/reviews/show/${productData.review_id}`)
+        history.push(`/product_reviews/${productData.product_id}`)
     } 
     return(
     <div className='product-details-left'>

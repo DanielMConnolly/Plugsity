@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SignupLogin from "./SignupLogin";
 import Review from "./Review/Review";
+import ProductReviews from './Review/ProductReviews';
 import ReviewDetails from "./Review/ReviewDetails";
 import ReviewList from "./Review/ReviewList";
 import SignupLogin_Bus from "./SignupLogin_Bus";
@@ -44,9 +45,11 @@ function App() {
                         path='/reviews/upload/:productID'
                         component={Review}
                     ></Route>
-                    <Route path='/reviewlist'>
-                        <ReviewList />
-                    </Route>
+                     <Route
+                        exact
+                        path='/product_reviews/:productID'
+                        component={ProductReviews}
+                    ></Route>
                     <Route path='/products/createProduct'>
                         <ProductForm />
                     </Route>

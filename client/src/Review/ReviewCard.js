@@ -11,7 +11,7 @@ export default class ReviewCard extends Component {
         let review = this.props.review;
         console.log(review);
         return (
-            <Link to={"reviews/show/" + review.review_id} className="skinny-card">
+            <Link to={"/reviews/show/" + review.review_id} className="skinny-card">
 
                 <div className="review-card-video">
                     <div className="review-card-video-player" >

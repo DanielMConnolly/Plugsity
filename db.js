@@ -216,7 +216,7 @@ const getReview = (review_id, user_id) => {
 };
 
 const getUserProfile = (id) => {
-    const query = `SELECT first_name, last_name, profile_photo_link FROM Users, UserProfile WHERE Users.user_id = UserProfile.user_id AND  Users.user_id = "${id}"`;
+    const query = `SELECT * FROM Users WHERE Users.user_id = "${id}"`;
     return new Promise((resolve, reject) => {
         queryDatabase(query)
             .then((result) => {
