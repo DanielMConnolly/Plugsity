@@ -51,11 +51,11 @@ class HomePage extends Component {
         }).then((res) => {
             if (res.data.length < 5) {
                 this.setState({
-                    reviews: [],
+                    reviews: res.data,
                 });
             } else {
                 this.setState({
-                    reviews: [],
+                    reviews: res.data.splice(0, 5),
                 });
             }
         });
