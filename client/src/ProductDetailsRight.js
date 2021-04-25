@@ -114,10 +114,10 @@ export default class ProductDetailsRight extends Component {
                         />
                     </div>
                     <div className='row'>
-                        <button type='submit' className='btn btn-blue'>
+                        {/*<button type='submit' className='btn btn-blue'>
                             {" "}
                             Add to Cart{" "}
-                        </button>
+            </button> */}
                         <button
                             role='link'
                             className='btn btn-border-blue'
