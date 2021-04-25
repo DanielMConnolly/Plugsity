@@ -69,8 +69,8 @@ export default function Bus_Identification_2(props) {
     const [license_open, toggleLicense] = useState(false);
     const [licenseImage, setLicenseImage] = useState();
     const [permitImage, setPermitImage] = useState();
-    const showPermitModalButton = props.userData["business_permit_link"] != null || permitImage
-    const showLicenseModalButton = props.userData["business_license_link"] != null || licenseImage
+    const showPermitModalButton = (!["null", null].includes(props.userData["business_permit_link"] )) || permitImage
+    const showLicenseModalButton = (!["null", null].includes(props.userData["business_license_link"] ))|| licenseImage
     return (
         <div>
             <PDFModal open={license_open} handleClose={toggleLicense} image={getLicenseImage()} />
