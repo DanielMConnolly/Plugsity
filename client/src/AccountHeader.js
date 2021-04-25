@@ -85,7 +85,7 @@ class AccountHeader extends Component {
     if(this.state.logged_in){
       dropdown_list = [
         { title: `My account`, "id": 1,"selected": false, onClick: ()=>this.redirectToMyAccount()  }, 
-        { title: "Log Out", "id": 2, selected: false, "onClick": this.logoutUser },]
+        { title: "Log Out", "id": 2, selected: false, onClick: this.logoutUser },]
         if(this.state.isUserABusiness && !this.props.dashboard){
           dropdown_list.push({title: "Dashboard", id: 3, "selected": false, onClick: ()=>this.redirectToDashboard()})
         }
