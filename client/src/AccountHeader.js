@@ -61,71 +61,15 @@ class AccountHeader extends Component {
         });
     }
 
-    logoutUser = (event) => {
-        axios({
-            method: "post",
-            url: "/auth/logout",
-            headers: {
-                Accept: "application/json",
-            },
-            data: {
-                token: localStorage.getItem("token"),
-                user_id: localStorage.getItem("user_id"),
-            },
-        }).then(
-            (response) => {
-                localStorage.removeItem("token");
-                localStorage.removeItem("user_id");
-                localStorage.removeItem("business_id");
-                this.setState({ logout: true });
-            },
-            (error) => {
-                //do not logout
-            }
-        );
-    };
-    render() {
-        let dropdown_list = [
-            { title: "Log In", id: 1, onClick: () => this.redirectToLogin() },
-        ];
-        if (this.state.logged_in) {
-            dropdown_list = [
-                {
-                    title: `My account`,
-                    id: 1,
-                    selected: false,
-                    onClick: () => this.redirectToMyAccount(),
-                },
-                {
-                    title: "Log Out",
-                    id: 2,
-                    selected: false,
-                    onClick: this.logoutUser,
-                },
-            ];
-            if (this.state.isUserABusiness && !this.props.dashboard) {
-                dropdown_list.push({
-                    title: "Dashboard",
-                    id: 3,
-                    selected: false,
-                    onClick: () => this.redirectToDashboard(),
-                });
-            }
-            if (!this.state.isUserABusiness) {
-                dropdown_list.push({
-                    title: "Sell on Plugsity",
-                    id: 4,
-                    selected: false,
-                    onClick: () => this.redirectToBusinessSignup(),
-                });
-            } else {
-                dropdown_list.push({
-                    title: "Edit Business Details",
-                    id: 4,
-                    selected: false,
-                    onClick: () => this.redirectToBusinessSignup(),
-                });
-            }
+  
+  render() {
+    let dropdown_list = [{title: "Log In", "id": 1, onClick: ()=>this.redirectToLogin()}];
+    if(this.state.logged_in){
+      dropdown_list = [
+        { title: `My account`, "id": 1,"selected": false, onClick: ()=>this.redirectToMyAccount()  }, 
+        { title: "Log Out", "id": 2, selected: false, onClick: this.logoutUser },]
+        if(this.state.isUserABusiness && !this.props.dashboard){
+          dropdown_list.push({title: "Dashboard", id: 3, "selected": false, onClick: ()=>this.redirectToDashboard()})
         }
         if (this.state.logout) {
             return <Redirect to='/'></Redirect>;
