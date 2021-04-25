@@ -4,7 +4,7 @@ import ProductDetailsRight from "./ProductDetailsRight";
 
 import ProductDetailsLeft from "./ProductDetailsLeft";
 import MoreLikeThis from "./ProductLikeThis";
-import Header from "./Header";
+import AltHeader from "./AltHeader";
 import Footer from "./Footer";
 
 export default class ProductDetails extends Component {
@@ -22,10 +22,10 @@ export default class ProductDetails extends Component {
             .get(`/api/products/${productID}`)
             .then((response) => {
                 console.log(response);
-                    this.setState({
-                        loading: true,
-                        response: response.data,
-                    });
+                this.setState({
+                    loading: true,
+                    response: response.data,
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -52,16 +52,14 @@ export default class ProductDetails extends Component {
             return (
                 <div>
                     <div>
-                        <Header />
+                        <AltHeader />
                     </div>
                     <div>
                         <div className='product-container'>
                             <ProductDetailsLeft
-                             
                                 productData={this.state.response}
                             />
-                            <ProductDetailsRight {...this.state.response}
-                        />
+                            <ProductDetailsRight {...this.state.response} />
                         </div>
                         <div>
                             <h3 id='header'>More Products Like This</h3>
@@ -72,7 +70,7 @@ export default class ProductDetails extends Component {
                     <br />
                     <div>
                         <Footer />
-                    </div> 
+                    </div>
                 </div>
             );
         } else {

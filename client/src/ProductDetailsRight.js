@@ -99,7 +99,7 @@ export default class ProductDetailsRight extends Component {
                     </div>
 
                     <hr />
-                    <div className='row'>
+                    {/* <div className='row'>
                         <Button
                             btnClass='btn-minus'
                             className='btn'
@@ -114,7 +114,7 @@ export default class ProductDetailsRight extends Component {
                             count={this.state.count}
                             updateCount={this.handleCount.bind(this)}
                         />
-                    </div>
+                    </div> */}
                     <div className='row'>
                         {/*<button type='submit' className='btn btn-blue'>
                             {" "}
