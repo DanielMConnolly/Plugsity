@@ -123,7 +123,7 @@ class Search extends React.Component {
 		  });
 		}
 		else{
-			this.setState({ loading: false, message: 'Please let me know what you are looking for in the search bar! 😊' }, () => {
+			this.setState({ loading: false, message: 'Please let me know what you are looking for in the search bar! Go to Homepage to browse more products.' }, () => {
 	  
 			  });
 		} 
@@ -226,7 +226,7 @@ class Search extends React.Component {
 				{/*	Error Message*/}
 				
 				<div className="search-container">
-					{message && <p className="message">{message}</p>}
+					{message && <a href = "http://3.138.232.158:5000/homepage" className="message">{message}</a>}
 
 					{/*	Loader*/}
 					<img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'}`} alt="loader" />
