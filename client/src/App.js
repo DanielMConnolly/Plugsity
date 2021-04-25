@@ -19,6 +19,7 @@ import AllProducts from "./ProductsAll";
 import Business_Setup from "./BusinessSetup/Business_Setup";
 import ProductEditForm from "./ProductEditForm";
 import OrderSuccess from "./OrderSuccess";
+import UserOrders from "./UserOrders";
 
 function App() {
     return (
@@ -81,6 +82,7 @@ function App() {
                         component={ProductEditForm}
                     ></Route>
                     <Route path='/order' component={OrderSuccess}></Route>
+                    <Route path='/myorders' component={UserOrders}></Route>
                 </Switch>
             </Router>
         </div>

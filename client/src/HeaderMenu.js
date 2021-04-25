@@ -9,20 +9,20 @@ class HeaderMenu extends Component {
 
     render() {
         return (
-            <div className="header-menu">
+                <div className="header-menu">
                 <img src={Logo} alt="logo" width="200" />
-                <div className="header-row">
+                {/*<div className="header-row">
                     <Dropdown title="Categories" list={[]}/>
                     <Dropdown title="Trending" list={[]}/>
                     <a href="#" className="header-link">Top List</a>
                     <a href="#" className="header-link">Video Reviews</a>
 
-                </div>
+                </div> */}
               <AccountHeader/>
-            </div>
+        </div> 
 
      );
-    }
+    } 
 
 
 }

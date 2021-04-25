@@ -4,7 +4,7 @@ import "./css/ProductDetails.css";
 import Button from "./ProductButton";
 import Tabs from "./Tabs";
 import { loadStripe } from "@stripe/stripe-js";
-import ImageModal from "./ImageModal"
+import ImageModal from "./ImageModal";
 import keys from "./keys.json";
 import { Redirect } from "react-router";
 const stripePromise = loadStripe(keys.stripeTestPublic);
@@ -13,7 +13,7 @@ export default class ProductDetailsRight extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user_id: localStorage.hasOwnProperty("user_id"),
+            user_id: localStorage.getItem("user_id"),
             redirectToLogin: false,
             count: 1,
             active: "Description",
@@ -116,10 +116,10 @@ export default class ProductDetailsRight extends Component {
                         />
                     </div>
                     <div className='row'>
-                        <button type='submit' className='btn btn-blue'>
+                        {/*<button type='submit' className='btn btn-blue'>
                             {" "}
                             Add to Cart{" "}
-                        </button>
+            </button> */}
                         <button
                             role='link'
                             className='btn btn-border-blue'
