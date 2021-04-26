@@ -25,4 +25,38 @@ router.post("/business", async (req, res) => {
 
 })
 
+router.get("/business/:business_id", async (req, res) => {
+    const business_id = req.params.business_id;
+    const query = `SELECT * FROM Plugsity.BusinessPage WHERE business_id = '${business_id}'`;
+    con.query(query, (error, results) => {
+        if (error) res.send(error)
+        if (results) res.json(results)
+
+    })
+})
+
+router.get("/:user_id", async (req, res) => {
+    const user_id = req.params.user_id;
+    const query = `SELECT * FROM Plugsity.ProductMediaReview WHERE user_id = '${user_id}'`;
+    con.query(query, (error, results) => {
+        if (error) res.send(error)
+        if (results) res.json(results)
+
+    })
+})
+
+router.get("/reviews/:business_id", async (req, res) => {
+    const business_id = req.params.business_id
+    const query = `SELECT * FROM Plugsity.ProductMediaReview WHERE business_id = '${business_id}'`;
+    con.query(query, (error, results) => {
+        if (error) res.send(error)
+        if (results) res.json(results)
+
+    })
+})
+
+
+
+
+
 module.exports = router;

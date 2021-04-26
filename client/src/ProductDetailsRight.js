@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./css/ProductDetails.css";
 import Button from "./ProductButton";
+import { Link } from "react-router-dom";
 import Tabs from "./Tabs";
 import { loadStripe } from "@stripe/stripe-js";
 import ImageModal from "./ImageModal";
@@ -87,8 +88,16 @@ export default class ProductDetailsRight extends Component {
                 <div className='column product-details-right'>
                     <div className='row'>
                         <div className='business-attrs'>
+                            <Link to={{
+                                pathname: '/business_details',
+                                state: {
+                                    business_id: this.state.business_id
+                                }
+
+                            }}>
                             {" "}
                             By {this.props.legal_business_name}
+                            </Link>
                         </div>
                     </div>
                     <div className='row'>

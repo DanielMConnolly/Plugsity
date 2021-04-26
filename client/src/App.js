@@ -20,6 +20,7 @@ import Business_Setup from "./BusinessSetup/Business_Setup";
 import ProductEditForm from "./ProductEditForm";
 import OrderSuccess from "./OrderSuccess";
 import UserOrders from "./UserOrders";
+import Business_Details from "./Business_Details";
 
 function App() {
     return (
@@ -35,6 +36,9 @@ function App() {
                     <Route path='/homepage'>
                         <HomePage />
                     </Route>
+                    <Route path='/business_details'
+                        render={(props) => <Business_Details {...props} />}
+                    />
                     <Route
                         exact
                         path='/reviews/show/:reviewID'

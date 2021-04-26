@@ -93,10 +93,9 @@ class HomePage extends Component {
                                     <SeeMoreCard />
                                 </div>
                             </div>
-                            <div label='Services' style='{width 100%}'>
-                                Services
+                            <div>   
                             </div>
-                            <div label='Events'>Events</div>
+                            <div></div>
                         </Tabs>
                     </div>
                     <br />
