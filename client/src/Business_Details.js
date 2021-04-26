@@ -122,7 +122,7 @@ class Business_Details extends Component {
                         {/*<img src={vertLine} style={{ margin: '11px', marginTop: "1%" }} alt="logo" />
                         {/*<div style={{ marginTop: "1%" }}><img src={shareimg} alt="logo" onClick={this.togglePop} />Share Business</div>*/}
 
-                        <div>{this.state.seen ? <Bus_PopUp toggle={this.togglePop} /> : null}</div>
+                        
 
                         <img src={vertLine} style={{ margin: '11px', marginTop: "1%" }} alt="logo" /> 
                         <div style={{ marginTop: "1%" }}><img src={combimg} alt="logo" />Contact Business</div>
