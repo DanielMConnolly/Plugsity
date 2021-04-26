@@ -53,7 +53,7 @@ class Business_Details extends Component {
     componentDidMount() {
         axios({
             method: 'get',
-            url: `api/businessSetup/business/${this.props.location.state.business_id}`,
+            url: `api/business_setup/business/${this.props.location.state.business_id}`,
             headers: {
                 "Accept": 'application/json'
             },
@@ -84,7 +84,7 @@ class Business_Details extends Component {
 
         axios({
             method: 'get',
-            url: `api/businessSetup/93`,
+            url: `api/business_setup/93`,
         }).then(res => {
             this.setState({
                 review: res.data
