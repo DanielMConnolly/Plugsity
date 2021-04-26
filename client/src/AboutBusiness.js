@@ -10,8 +10,7 @@ import ReviewDetails from './Review/ReviewDetails';
 import AboutBusiness from './AboutBusiness';
 import Searchbar from './Searchbar';
 import Footer from './Footer';
-import ImgSlider from './ImgSlider';
-import ImgCarouselData from './ImgCarouselData';
+
 import ReviewStars from "./Review/ReviewStars";
 import locimg from './assets/Location_shape.png';
 import shareimg from './assets/Share_shape.png';
