@@ -41,6 +41,10 @@
     padding: 50px 50px;
 }
 
+.popular-products-heading{
+    margin-left: 10%;
+}
+
 .popular-reviews-label{
     color: white;
     font-size: 42px;

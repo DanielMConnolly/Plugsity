@@ -47,7 +47,7 @@ class HomePage extends Component {
 
         axios({
             method: "get",
-            url: "/review/list",
+            url: "/review/get_top_reviews",
         }).then((res) => {
             if (res.data.length < 5) {
                 this.setState({
@@ -70,16 +70,8 @@ class HomePage extends Component {
                         small local businesses
                     </div>
                     <div className='popular-products'>
-                        <h2> Popular</h2>
-                        <Tabs
-                            activeTab={this.state.active}
-                            onClick={(label) => {
-                                this.setState({
-                                    active: label,
-                                });
-                            }}
-                        >
-                            <div label='Products' className='tab'>
+                        <h2 className="popular-products-heading"> Popular Products</h2>
+                    
                                 <div className='products-list'>
                                     {this.state.popularProducts.map(
                                         (result) => {
@@ -92,11 +84,9 @@ class HomePage extends Component {
                                     )}
                                     <SeeMoreCard />
                                 </div>
-                            </div>
                             <div>   
                             </div>
                             <div></div>
-                        </Tabs>
                     </div>
                     <br />
                     <div className='popular-reviews-container'>

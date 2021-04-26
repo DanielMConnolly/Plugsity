@@ -36,6 +36,25 @@ router.get('/list', async (req, res, next) => {
 
 })
 
+router.get('/get_top_reviews', async (req, res, next) => {
+    let reviews = await con.getTopReviews().then((reviews) => {
+        console.log(reviews);
+        Promise.all(reviews.map(async (review)=>{
+             review = JSON.parse(JSON.stringify(review));
+             let likes = JSON.parse(JSON.stringify( await con.getAllLikes(review["review_id"])))[0]["likes"];
+             let user = JSON.parse(JSON.stringify(await con.getUserProfile(review["user_id"])))[0]
+             console.log(user);
+             let product = JSON.parse(JSON.stringify(await con.getProduct(review["product_id"])))[0]
+             review["user"] = user;
+             review["likes"] = likes;
+             review["product"] = product;
+             return review
+         })).then((reviews)=>{
+             res.send(reviews)})
+     });
+ 
+ })
+
 router.get('/:id', async (req, res) => {
     let review = {}
     const id = req.params.id;

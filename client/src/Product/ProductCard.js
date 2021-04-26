@@ -6,9 +6,13 @@ import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 
 export default function ProductCard(props) {
-
-    let product = props.productData;
     let history = useHistory();
+    let product = props.productData;
+    console.log(product);
+
+    if(!product){
+        return <></>
+    }
     return (
         <div className="result-item">
             <div className="image-wrapper" >
