@@ -4,12 +4,18 @@
     align-items: center;
 }
 
+.review-video-product{
+    display: flex;
+    align-items: center;
+}
 .reviewData{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-left: 200px;
 }
+
+
 
 .reviewHeadline{
     align-self: left;
@@ -35,4 +41,8 @@
 }
 .reviewViewsAndLikes{
     opacity: 0.5;
+}
+
+.user-product-bar{
+    display: inline;
 }

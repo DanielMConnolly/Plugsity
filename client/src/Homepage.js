@@ -47,7 +47,7 @@ class HomePage extends Component {
 
         axios({
             method: "get",
-            url: "/review/list",
+            url: "/review/get_top_reviews",
         }).then((res) => {
             if (res.data.length < 5) {
                 this.setState({

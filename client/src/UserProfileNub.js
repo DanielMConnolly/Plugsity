@@ -1,10 +1,19 @@
-import {Component} from 'react';
+import "./css/UserProfileNub.css"
+function UserProfileNub(props){
 
-class UserProfileNub extends Component {
+    
 
-    constructor(props){
-        super(props)
+    let user = props.userData;
+    if(!user){
+        return <></>
     }
+    
+    return(
+        <div className="user-profile-nub">      
+        {user.first_name} {user.last_name}
+
+        </div>
+    )
 
     
 
