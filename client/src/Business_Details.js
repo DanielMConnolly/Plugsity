@@ -11,8 +11,7 @@ import AboutBusiness from './AboutBusiness';
 import ReviewCard from './Review/ReviewCard';
 import Searchbar from './Searchbar';
 import Footer from './Footer';
-import ImgSlider from './ImgSlider';
-import ImgCarouselData from './ImgCarouselData';
+
 import ReviewStars from "./Review/ReviewStars";
 import locimg from './assets/Location_shape.png';
 import shareimg from './assets/Share_shape.png';
@@ -131,9 +130,7 @@ class Business_Details extends Component {
                     </div>
                 </div>
 
-                <div>
-                    <ImgSlider slides={ImgCarouselData} />
-                </div>
+               
                 <div className="popular-products">
 
                     <Tabs activeTab={this.state.active} onClick={(label) => {
