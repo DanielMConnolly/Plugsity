@@ -13,17 +13,9 @@ const router = express.Router();
 // @route = /api/products/
 // @desc lists all products
 router.get("/", async (req, res) => {
-    try {
-        connection.query("USE Plugsity");
-        const query = "SELECT * FROM ProductUpload";
-        connection.query(query, (err, results, fields) => {
-            if (err) throw err;
-            return res.json(results);
-        });
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send("Server error!");
-    }
+    con.getAllProducts().then(products=>{
+        res.send(products);
+    })
 });
 
 // post request

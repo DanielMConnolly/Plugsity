@@ -297,6 +297,18 @@ const getAllBusinesses = () => {
     });
 };
 
+const getAllProducts = () => {
+    const query = `SELECT * FROM BusinessPage JOIN (SELECT ProductUpload.* FROM ProductUpload) as products ON products.business_id = BusinessPage.business_id` ;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((err) => console.log(err));
+    });
+
+}
+
 const updateBusiness = (business_id, insert_data) => {
     let data = [];
     for (const [key, value] of Object.entries(insert_data)) {
@@ -370,7 +382,7 @@ const getProductReviewAverage = (product_id) => {
 };
 
 const getReviewsOfProduct = (product_id) => {
-    const query =  `SELECT * FROM ProductMediaReview where product_id=${product_id}`;
+    const query =  `SELECT * FROM ProductMediaReview where product_id=${product_id} AND ProductMediaReview.processing_status = "ready"`;
     return new Promise((resolve, reject) => {
         queryDatabase(query)
             .then((result) => {
@@ -381,7 +393,7 @@ const getReviewsOfProduct = (product_id) => {
 }
 
 const getReviewsOfBusiness = (business_id) => {
-    const query = `SELECT review.* FROM ProductMediaReview review, ProductUpload product, BusinessPage business WHERE review.product_id = product.product_id AND business.business_id = product.business_id AND review.processing_status="ready" AND business.business_id =102` ;
+    const query = `SELECT review.* FROM ProductMediaReview review, ProductUpload product, BusinessPage business WHERE review.product_id = product.product_id AND business.business_id = product.business_id AND review.processing_status="ready" AND business.business_id =${business_id}` ;
     return new Promise((resolve, reject) => {
         queryDatabase(query)
             .then((result) => {
@@ -444,6 +456,7 @@ exports.getTopReviews = getTopReviews;
 exports.getReviewsOfBusiness = getReviewsOfBusiness;
 exports.getProductReviewAverage = getProductReviewAverage;
 exports.updateBusiness = updateBusiness;
+exports.getAllProducts = getAllProducts
 exports.getProductsOfBusiness = getProductsOfBusiness;
 exports.createProduct = createProduct;
 exports.queryDatabase = queryDatabase;

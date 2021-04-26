@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./css/ProductDetails.css";
-import Button from "./ProductButton";
+import "../css/ProductDetails.css";
+import Button from "../ProductButton";
 import { Link } from "react-router-dom";
-import Tabs from "./Tabs";
+import Tabs from "../Tabs";
 import { loadStripe } from "@stripe/stripe-js";
-import ImageModal from "./ImageModal";
-import keys from "./keys.json";
+import ImageModal from "../ImageModal";
+import keys from "../keys.json";
 import { Redirect } from "react-router";
 const stripePromise = loadStripe(keys.stripeTestPublic);
 

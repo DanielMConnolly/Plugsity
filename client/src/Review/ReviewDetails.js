@@ -100,7 +100,6 @@ class ReviewDetails extends Component {
 
     render() {
         let review = this.state.reviewData;
-        console.log(review.product);
         let likes = this.state.likes;
         return (<div className="reviewContainer">
             <AltHeader />
