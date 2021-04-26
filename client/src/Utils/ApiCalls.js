@@ -54,4 +54,23 @@ let getProductsOfBusiness = async (business_id) => {
 
 }
 
-export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews};
+let getReviewsOfProduct = async (product_id) => {
+    return axios({
+        method: 'get', 
+        url: `/review/reviews_by_product/${product_id}`
+    }).then(response=> {
+        console.log(response);
+        return response.data;
+    });
+}
+
+let getReviewsOfBusiness = async (business_id) => {
+    return axios({
+        method: 'get', 
+        url: `/review/reviews_by_business/${business_id}`
+    }).then(response=> {
+        return response.data;
+    });
+}
+
+export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews, getReviewsOfProduct, getReviewsOfBusiness};

@@ -369,6 +369,28 @@ const getProductReviewAverage = (product_id) => {
     });
 };
 
+const getReviewsOfProduct = (product_id) => {
+    const query =  `SELECT * FROM ProductMediaReview where product_id=${product_id}`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((err) => console.log(err));
+    });
+}
+
+const getReviewsOfBusiness = (business_id) => {
+    const query = `SELECT review.* FROM ProductMediaReview review, ProductUpload product, BusinessPage business WHERE review.product_id = product.product_id AND business.business_id = product.business_id AND review.processing_status="ready" AND business.business_id =102` ;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((err) => console.log(err));
+    });
+}
+
 const searchForProducts = (searchTerm) => {
     const query =
         `SELECT ProductUpload.*, BusinessPage.legal_business_name FROM ProductUpload, BusinessPage ` +
@@ -410,6 +432,7 @@ exports.getReview = getReview;
 exports.setVideoComplete = setVideoComplete;
 exports.likeReview = likeReview;
 exports.getAllLikes = getAllLikes;
+exports.getReviewsOfProduct = getReviewsOfProduct;
 exports.addReviewView = addReviewView;
 exports.didUserLike = didUserLike;
 exports.getAllBusinesses = getAllBusinesses;
@@ -418,6 +441,7 @@ exports.isUserABusiness = isUserABusiness;
 exports.checkIfEmailExists = checkIfEmailExists;
 exports.createBusiness = createBusiness;
 exports.getTopReviews = getTopReviews;
+exports.getReviewsOfBusiness = getReviewsOfBusiness;
 exports.getProductReviewAverage = getProductReviewAverage;
 exports.updateBusiness = updateBusiness;
 exports.getProductsOfBusiness = getProductsOfBusiness;
