@@ -1,8 +1,8 @@
 import React, {useHistory } from "react-router-dom";
-import placeholder from './assets/placeholder.jpg';
+import placeholder from '../assets/placeholder.jpg';
 
-import "./css/ProductDetails.css";
-import ReviewStars from "./Review/ReviewStars";
+import "../css/ProductDetails.css";
+import ReviewStars from "../Review/ReviewStars";
 
 const ProductDetailsLeft = ({ productData }) => {
     let history = useHistory();

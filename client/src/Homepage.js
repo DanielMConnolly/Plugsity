@@ -6,6 +6,7 @@ import AltHeader from "./AltHeader";
 import SeeMoreCard from "./SeeMoreCard";
 import Footer from "./Footer";
 import ReviewCard from "./Review/ReviewCard";
+import {getAllProducts, getTopReviews} from "./Utils/ApiCalls";
 import Tabs from "./Tabs";
 import {
     CarouselProvider,
@@ -27,35 +28,27 @@ class HomePage extends Component {
     getReviewCards() {
         let review_cards = [];
         this.state.reviews.forEach((review) => {
-            review_cards.push(<ReviewCard review={review} />);
+            review_cards.push(<ReviewCard review={review} key={review.review_id} />);
         });
         return review_cards;
     }
 
     componentDidMount() {
-        axios({
-            method: "get",
-            url: "/api/products",
-            headers: {
-                Accept: "application/json",
-            },
-        }).then((res) => {
+        getAllProducts().then((products) => {
+            console.log(products);
             this.setState({
-                popularProducts: res.data.slice(0, 7),
+                popularProducts: products.slice(0, 7),
             });
         });
 
-        axios({
-            method: "get",
-            url: "/review/get_top_reviews",
-        }).then((res) => {
-            if (res.data.length < 5) {
+        getTopReviews().then((reviews) => {
+            if (reviews.length < 5) {
                 this.setState({
-                    reviews: res.data,
+                    reviews: reviews,
                 });
             } else {
                 this.setState({
-                    reviews: res.data.splice(0, 5),
+                    reviews: reviews.splice(0, 5),
                 });
             }
         });

@@ -12,6 +12,13 @@ let getBusinessDataFromUser = async (user_id) => {
     return res.data;
 }
 
+let getAllProducts = async ()=>{
+    return axios({
+        method: "get",
+        url: "/api/products",
+    }).then(response => response.data);
+}
+
 let getAllReviews = async ()=>{
     return axios({
         method: 'get',
@@ -20,6 +27,13 @@ let getAllReviews = async ()=>{
             "Accept": 'application/json'
         },
     }).then(response => response.data);
+}
+
+let getTopReviews = async ()=>{
+    return axios({
+        method: "get",
+        url: "/review/get_top_reviews",
+    }).then(response=>response.data);
 }
 
 let isUserABusiness = async (user_id) => {
@@ -73,4 +87,5 @@ let getReviewsOfBusiness = async (business_id) => {
     });
 }
 
-export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews, getReviewsOfProduct, getReviewsOfBusiness};
+export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews, 
+        getReviewsOfProduct, getReviewsOfBusiness, getAllProducts, getTopReviews};

@@ -8,7 +8,6 @@ import FontAwesome from 'react-fontawesome';
 export default function ProductCard(props) {
     let history = useHistory();
     let product = props.productData;
-    console.log(product);
 
     if(!product){
         return <></>

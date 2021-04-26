@@ -1,11 +1,10 @@
 import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
 import ProductDetailsRight from "./ProductDetailsRight";
-
 import ProductDetailsLeft from "./ProductDetailsLeft";
 import MoreLikeThis from "./ProductLikeThis";
-import AltHeader from "./AltHeader";
-import Footer from "./Footer";
+import AltHeader from "../AltHeader";
+import Footer from "../Footer";
 
 export default class ProductDetails extends Component {
     constructor(props) {
