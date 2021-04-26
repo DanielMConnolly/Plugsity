@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import Header from '../Header';
+import AltHeader from '../AltHeader';
 import ReactPlayer from 'react-player'
 import "../css/ReviewDetails.css"
 import axios from 'axios';
@@ -103,7 +103,7 @@ class ReviewDetails extends Component {
         console.log(review.product);
         let likes = this.state.likes;
         return (<div className="reviewContainer">
-            <Header />
+            <AltHeader />
             <div className="reviewData">
             <div className="review-video-product">
             <ReactPlayer controls={true} width="60% " height="auto"

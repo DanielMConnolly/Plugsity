@@ -1,8 +1,9 @@
 import React, { useState, Component } from 'react';
-import './css/Homepage.css'
+import './css/BusinessDetails.css';
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import axios from 'axios';
 import ProductCard from './Product/ProductCard'
+import ReviewList from './Review/ReviewList';
 import ProductFeed from './Product/ProductFeed'
 import HeaderMenu from './HeaderMenu';
 import Tabs from './Tabs'
@@ -11,7 +12,7 @@ import AboutBusiness from './AboutBusiness';
 import ReviewCard from './Review/ReviewCard';
 import Searchbar from './Searchbar';
 import Footer from './Footer';
-
+import {getReviewsOfBusiness} from './Utils/ApiCalls'
 import ReviewStars from "./Review/ReviewStars";
 import locimg from './assets/Location_shape.png';
 import shareimg from './assets/Share_shape.png';
@@ -51,9 +52,17 @@ class Business_Details extends Component {
 
 
     componentDidMount() {
+        let business_id = this.props.location.state.business_id
+        getReviewsOfBusiness(business_id).then((reviews)=>{
+            console.log(reviews);
+            this.setState({
+                reviews: reviews
+            })
+        })
+
         axios({
             method: 'get',
-            url: `api/business_setup/business/${this.props.location.state.business_id}`,
+            url: `api/business_setup/business/${business_id}`,
             headers: {
                 "Accept": 'application/json'
             },
@@ -151,9 +160,7 @@ class Business_Details extends Component {
                         </div>
                         <div label="Recent Reviews" className="popular-reviews">
                             <div style={{ fontSize: '20px', fontWeight: '700', lineHeight: '24px', fontFamily: 'DM Sans' }}>Video Reviews</div>
-                            {this.state.review &&
-                                this.getReviewCards()
-                            }
+                           <ReviewList reviews={this.state.reviews}/>
                         </div>
                         <div style={{ fontSize: '20px', fontWeight: '700', lineHeight: '24px', fontFamily: 'DM Sans' }}>Feedback from verified purchases</div>
 
