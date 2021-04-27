@@ -18,6 +18,25 @@ router.get("/", async (req, res) => {
     })
 });
 
+// get request based on the page number
+// @route = /api/products/?page=${pageNumber}
+// @desc lists all products based on the page number
+router.get("/?page=${pageNumber}", async (req, res) => {
+    try {
+        connection.query("USE Plugsity");
+        let page_number = req.params.pageNumber;
+        let offset = (page_number-1) * 10
+        const query = `SELECT * FROM ProductUpload LIMIT 10 OFFSET ${offset}`;
+        connection.query(query, (err, results, fields) => {
+            if (err) throw err;
+            return res.json(results);
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Server error!");
+    }
+});
+
 // post request
 // @route = /api/products/createProduct
 // @desc query for creating a product
