@@ -1,7 +1,7 @@
 
 import {Component} from 'react';
 import AltHeader from '../AltHeader';
-import {getAllReviews} from '../Utils/ApiCalls'
+import {getReviewsOfProduct} from '../Utils/ApiCalls'
 import ReviewList from './ReviewList';
 
 export default class ProductReview extends Component{
@@ -17,7 +17,7 @@ export default class ProductReview extends Component{
 
     componentDidMount(){
         let product_id =  this.props.match.params.productID;
-        getAllReviews().then(result=>this.setState({
+        getReviewsOfProduct(product_id).then(result=>this.setState({
             reviews: result
         }))
     }

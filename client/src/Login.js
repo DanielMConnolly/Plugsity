@@ -37,7 +37,7 @@ export default class Signup extends Component {
       localStorage.setItem('user_id', response.data.user_id);
       isUserABusiness(response.data.user_id).then(result => {
         if (result) {
-          getBusinessDataFromUser(response.data.user_id).then(res => localStorage.setItem('business_id', response.data.business_id));
+          getBusinessDataFromUser(response.data.user_id).then(res => localStorage.setItem('business_id', res.business_id));
         }
 
       });

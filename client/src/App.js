@@ -10,16 +10,17 @@ import ReviewList from "./Review/ReviewList";
 import SignupLogin_Bus from "./SignupLogin_Bus";
 import Search from "./Search";
 import HomePage from "./Homepage";
-import ProductForm from "./ProductForm";
-import ProductDetails from "./ProductDetails";
+import ProductForm from "./Product/ProductForm";
+import ProductDetails from "./Product/ProductDetails";
 import Dashboard from "./Business/BusinessDashboard";
 import UserProfile from "./ProfilePages/UserProfile";
 import Footer from "./Footer";
 import AllProducts from "./ProductsAll";
 import Business_Setup from "./BusinessSetup/Business_Setup";
-import ProductEditForm from "./ProductEditForm";
+import ProductEditForm from "./Product/ProductEditForm";
 import OrderSuccess from "./OrderSuccess";
 import UserOrders from "./UserOrders";
+import Business_Details from "./Business_Details";
 
 function App() {
     return (
@@ -35,6 +36,9 @@ function App() {
                     <Route path='/homepage'>
                         <HomePage />
                     </Route>
+                    <Route path='/business_details'
+                        render={(props) => <Business_Details {...props} />}
+                    />
                     <Route
                         exact
                         path='/reviews/show/:reviewID'

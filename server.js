@@ -20,7 +20,7 @@ app.use("/auth", auth);
 app.use("/review", review);
 app.use("/user", user);
 app.use("/business", business);
-app.use("/business_setup", businessSetup);
+app.use("/api/business_setup", businessSetup);
 //app.use('/customer_db', customer);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());

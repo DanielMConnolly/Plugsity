@@ -12,6 +12,13 @@ let getBusinessDataFromUser = async (user_id) => {
     return res.data;
 }
 
+let getAllProducts = async ()=>{
+    return axios({
+        method: "get",
+        url: "/api/products",
+    }).then(response => response.data);
+}
+
 let getAllReviews = async ()=>{
     return axios({
         method: 'get',
@@ -20,6 +27,13 @@ let getAllReviews = async ()=>{
             "Accept": 'application/json'
         },
     }).then(response => response.data);
+}
+
+let getTopReviews = async ()=>{
+    return axios({
+        method: "get",
+        url: "/review/get_top_reviews",
+    }).then(response=>response.data);
 }
 
 let isUserABusiness = async (user_id) => {
@@ -54,4 +68,24 @@ let getProductsOfBusiness = async (business_id) => {
 
 }
 
-export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews};
+let getReviewsOfProduct = async (product_id) => {
+    return axios({
+        method: 'get', 
+        url: `/review/reviews_by_product/${product_id}`
+    }).then(response=> {
+        console.log(response);
+        return response.data;
+    });
+}
+
+let getReviewsOfBusiness = async (business_id) => {
+    return axios({
+        method: 'get', 
+        url: `/review/reviews_by_business/${business_id}`
+    }).then(response=> {
+        return response.data;
+    });
+}
+
+export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews, 
+        getReviewsOfProduct, getReviewsOfBusiness, getAllProducts, getTopReviews};

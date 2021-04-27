@@ -1,9 +1,11 @@
 import { Component } from 'react';
-import Header from '../Header';
+import AltHeader from '../AltHeader';
 import ReactPlayer from 'react-player'
 import "../css/ReviewDetails.css"
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome'
+import UserProfileNub from '../UserProfileNub'
+import ProductCard from '../Product/ProductCard';
 
 
 class ReviewDetails extends Component {
@@ -24,7 +26,6 @@ class ReviewDetails extends Component {
     }
 
     likeReview(){
-        console.log(this.state.user_id)
         let likes = this.state.didUserLike?this.state.likes-1:this.state.likes+1
         this.setState({
             didUserLike: !this.state.didUserLike,
@@ -39,6 +40,7 @@ class ReviewDetails extends Component {
             }
         })
         .then((response) => {
+           
            
         })
         .catch((error) => {
@@ -100,14 +102,21 @@ class ReviewDetails extends Component {
         let review = this.state.reviewData;
         let likes = this.state.likes;
         return (<div className="reviewContainer">
-            <Header />
+            <AltHeader />
             <div className="reviewData">
+            <div className="review-video-product">
             <ReactPlayer controls={true} width="60% " height="auto"
             url={"https://s3-output-bucket-plugsity.s3.amazonaws.com/"+ review.product_video_link} />
+            <ProductCard productData={review.product}/>
+            </div>
             <div className="reviewHeadline">{review.review_headline}</div>
             <div className="likeShareBar">
             <div className="reviewViewsAndLikes">{review.review_views} views/{likes} likes</div>
             <div className={this.state.didUserLike?"liked":"likeButton"}> <FontAwesome name="thumbs-up"  onClick={()=> this.likeReview()} size="2x"></FontAwesome></div>
+ 
+            </div>
+            <div className="user-product-bar">
+            <UserProfileNub userData={review.user}/>
             </div>
             </div>
           </div>
