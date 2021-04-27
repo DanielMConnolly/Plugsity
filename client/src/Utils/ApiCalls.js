@@ -48,10 +48,10 @@ let isUserABusiness = async (user_id) => {
 let createOrUpdateBusiness = async (business_data) =>{
     return axios({
         method: 'post', 
-        url: `/business_setup/business`,
+        url: `api/business_setup/business`,
         data: {
             ...business_data
-        }
+        }   
     }).then((response)=>{
         console.log(response);
         return response.data["business_id"];
