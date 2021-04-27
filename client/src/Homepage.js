@@ -23,6 +23,7 @@ class HomePage extends Component {
         this.state = {
             active: "Products",
             popularProducts: [],
+            allProducts: [],
             totalResults: 0,
 			totalPages: 0,
 			currentPageNo: 1,
@@ -55,11 +56,18 @@ class HomePage extends Component {
     componentDidMount() {
         getAllProducts().then((products) => {
             console.log(products);
+            const total = products.length; 
+            console.log(total);
+            const totalPagesCount = this.getPageCount( total, 10 ); 
+            console.log(totalPagesCount);
             this.setState({
+                allProducts: products,
                 popularProducts: products.slice(0, 10),
+                totalResults: total,
+				totalPages: totalPagesCount,
             });
         });
-
+        
         getTopReviews().then((reviews) => {
             if (reviews.length < 5) {
                 this.setState({
@@ -103,38 +111,23 @@ class HomePage extends Component {
 	 * 
 	 *
 	 */
-	fetchResults = ( updatedPageNo = '' ) => {
-		const pageNumber = updatedPageNo ? `&page=${updatedPageNo}` : '';
-        if( this.cancel ) {
-			this.cancel.cancel();
-		}
-
-		this.cancel = axios.CancelToken.source();
-		axios({
-            method: "get",
-            url: `/api/products/?page=${pageNumber}`,
-            headers: {
-                Accept: "application/json",
-            },
-        }).then( res => {
-				const total = res.data.length;
-				const totalPagesCount = this.getPageCount( total, 10 );
-				this.setState( {
-					totalResults: total,
-					totalPages: totalPagesCount,
-					currentPageNo: updatedPageNo,
-                    loading: false,
-                    popularProducts: res.data
-				} )
-                console.log(total);
-			} )
-            .catch( error => {
-				if ( axios.isCancel(error) || error ) {
-					this.setState({
-						loading: false
-					})
-				}
-			} )
+	fetchResults = ( updatedPageNo ) => {
+		const pageNumber = updatedPageNo;
+        const { allProducts } = this.state;
+        let offset = ((pageNumber - 1) * 10); 
+        const total = allProducts.length;
+        
+        const totalPagesCount = this.getPageCount( total, 10 );
+        const displayProducts = allProducts.slice(offset, 10+offset);
+        this.setState({
+            allProducts: allProducts,
+            popularProducts: displayProducts,
+            currentPageNo: pageNumber,
+            totalResults: total,
+			totalPages: totalPagesCount,
+            loading: false
+        })
+        this.renderResults();    
 	};
 
     /**
@@ -142,8 +135,8 @@ class HomePage extends Component {
 	 *
 	 * @param {String} type 'prev' or 'next'
 	 */
-	handlePageClick = ( type, event ) => {
-        event.preventDefault();
+	handlePageClick = ( type ) => {
+        //event.preventDefault();
 		const updatePageNo = 'prev' === type
 			? this.state.currentPageNo - 1
 			: this.state.currentPageNo + 1;
@@ -151,12 +144,13 @@ class HomePage extends Component {
 		    this.setState( { loading: true }, () => {
 			    this.fetchResults( updatePageNo ); 
 		    } );
-        }	
+        }
+        console.log(this.state.currentPageNo)	
 	};
 
     render() {
         const { currentPageNo, loading, totalPages } = this.state;
-        console.log(currentPageNo);
+        //console.log(currentPageNo);
 		const showPrevLink = 1 < currentPageNo;
 		const showNextLink = totalPages > currentPageNo;
 
@@ -173,8 +167,8 @@ class HomePage extends Component {
                         loading={loading}
                         showPrevLink={showPrevLink}
                         showNextLink={showNextLink}
-                        handlePrevClick={ (event) => this.handlePageClick('prev', event )}
-                        handleNextClick={ (event) => this.handlePageClick('next', event )} 
+                        handlePrevClick={ () => this.handlePageClick('prev' )}
+                        handleNextClick={ () => this.handlePageClick('next' )} 
                     />
 
                     { this.renderResults() }
@@ -184,8 +178,8 @@ class HomePage extends Component {
                         loading={loading}
                         showPrevLink={showPrevLink}
                         showNextLink={showNextLink}
-                        handlePrevClick={ (event) => this.handlePageClick('prev', event )}
-                        handleNextClick={ (event) => this.handlePageClick('next', event )} 
+                        handlePrevClick={ () => this.handlePageClick('prev' )}
+                        handleNextClick={ () => this.handlePageClick('next' )} 
                     />
 
                     <br />
