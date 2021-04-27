@@ -20,7 +20,7 @@ export default ( props ) => {
 				}
 				onClick={ handlePrevClick }
 			>
-				Prev
+				Previous
 			</a>
 			<a
 				href="#"
