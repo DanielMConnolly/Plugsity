@@ -25,6 +25,32 @@ router.post("/business", async (req, res) => {
 
 })
 
+router.post("/businessImages", async (req, res) => {
+    console.log(req.body);
+    
+    if (Object.keys(req.body).includes("business_id")) {
+        console.log("Here");
+        let business_id = req.body["business_id"]
+        delete req.body["business_id"]
+        connection.updateBusinessImages(business_id, req.body).then(result => {
+            res.send({ 'business_id': result })
+        });
+
+    }
+    else {
+        console.log("There");
+        let keys = Object.keys(req.body);
+        let values = Object.values(req.body).map(item => `'${item}'`);
+        let insert_columns = keys.join(', ')
+        let insert_values = values.join(', ');
+        connection.createBusinessImages(insert_columns, insert_values)
+            .then(result => {
+                res.send({ 'business_id': result })
+            });
+    }
+
+})
+
 router.get("/business/:business_id", async (req, res) => {
     const business_id = req.params.business_id;
     const query = `SELECT * FROM Plugsity.BusinessPage WHERE business_id = '${business_id}'`;
