@@ -87,7 +87,7 @@ class UserProfile extends React.Component {
 
                             </div>
                         </div>
-                        
+                        {/*
                         <div className="row">
                             <div className="col-md-4">
                                 <div className="profile-work">
@@ -102,6 +102,7 @@ class UserProfile extends React.Component {
                             </div>
 
                         </div>
+                        */}
                         
                         
 

@@ -37,11 +37,9 @@ class AccountHeader extends Component {
     });
   }
   redirectToMyAccount(){
-    if(!this.state.isUserABusiness){
-      this.setState({
-        redirectToMyAccount: true
-      });
-    }
+    this.setState({
+      redirectToMyAccount: true
+    });
   }
   redirectToLogin(){
     this.setState({
@@ -70,7 +68,12 @@ class AccountHeader extends Component {
       localStorage.removeItem('business_id');
       this.setState({ logout: true });
     }, (error) => {
-      //do not logout
+      //if error, logout anyway
+      localStorage.removeItem('token');
+      localStorage.removeItem('user_id');
+      localStorage.removeItem('business_id');
+      this.setState({ logout: true });
+
     });
   }
   render() {
