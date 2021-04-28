@@ -10,8 +10,14 @@ import '../css/Business_Setup.css';
 import { createFile, uploadPDF } from '../Utils/Upload';
 
 export default function Bus_Identification_2(props) {
-    const handleNext = async () => {
-        props.setStep(3);
+    const handleNext = async (exit=false) => {
+        if(exit){
+            props.setStep("exit")
+        }
+        else{
+            props.setStep("next")
+        }
+  
         const uploadLicense =new Promise((resolve, reject)=>{
             if (licenseImage) {
                   uploadPDF(licenseImage, (key) => {
@@ -38,7 +44,7 @@ export default function Bus_Identification_2(props) {
         });
 
         Promise.all([uploadLicense, uploadPermit]).then(()=>{
-                console.log(props.userData)
+                console.log("hello")
                 createOrUpdateBusiness(props.userData)
         })
 
@@ -103,7 +109,7 @@ export default function Bus_Identification_2(props) {
                     <div id="bus_iden2_div_2" style={{ width: '90%', display: 'flex', marginLeft: '4%' }} >
                         <div style={{ width: '33%' }}>
                             <InputLabel id="label" style={{ marginTop: '4%', marginBottom: '4%', marginLeft: '6%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Country *</InputLabel>
-                            <Select id="drpdwn_cntry" style={{ width: '28%' }} value={props.userData['country']} onChange={(e) => props.setUserData({ ...props.userData, "country": e.target.value })} place holder="Country" variant="outlined" color="secondary" style={{
+                            <Select  key={props.userData["country"]} id="drpdwn_cntry" style={{ width: '28%' }} value={props.userData['country']} onChange={(e) => props.setUserData({ ...props.userData, "country": e.target.value })} place holder="Country" variant="outlined" color="secondary" style={{
                                 marginLeft: '6%'
                             }}>
                                 <MenuItem value="USA">USA </MenuItem>
@@ -174,8 +180,8 @@ export default function Bus_Identification_2(props) {
                 height: '10%', bottom: '0px',
                 position: 'absolute', display: 'flex', width: '100%'
             }}>
-                <Button id="btn_back" style={{ width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep(1)} color="primary">Back</Button>
-                <Button id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
+                <Button id="btn_back" style={{ width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep("back")} color="primary">Back</Button>
+                <Button id="btn_save_submit" onClick={()=>handleNext(true)}style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
                 <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '14%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => handleNext()} color="primary">Next</Button>
 
             </footer>

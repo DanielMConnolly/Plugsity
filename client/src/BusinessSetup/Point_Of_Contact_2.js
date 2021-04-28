@@ -21,10 +21,15 @@ export default function Point_Of_Contact_2(props) {
 
 
    
-    const handleNext =  ()=> {
+    const handleNext =  (exit=false)=> {
+        if(exit){
+            props.setStep("exit")
+        }
+        else{
+            props.setStep('next')
+        }  
         createOrUpdateBusiness(props.userData);
-        props.setStep(6);
-        
+       
     }
 
     const classes = useStyles();
@@ -56,7 +61,7 @@ export default function Point_Of_Contact_2(props) {
                     <div id="pt_cntct_2_div_2" style={{ width: '95%', display: 'flex', marginLeft: '4.5%' }} >
                         <div style={{ width: '29%' }}>
                             <InputLabel id="label" style={{ marginTop: '3%', width: '100%', marginBottom: '3%', marginLeft: '6%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Location Type</InputLabel>
-                            <Select id="drpdwn_loc" value={props.userData['country']} onChange={(e) => props.setUserData({ ...props.userData, "country": e.target.value })} place holder="Location Type" variant="outlined" color="secondary" style={{
+                            <Select key={props.userData["country"]} id="drpdwn_loc" value={props.userData['country']} onChange={(e) => props.setUserData({ ...props.userData, "country": e.target.value })} place holder="Location Type" variant="outlined" color="secondary" style={{
                                 marginLeft: '6%', width : '100%'
                             }}>
                                 <MenuItem value="1">USA </MenuItem>
@@ -93,7 +98,7 @@ export default function Point_Of_Contact_2(props) {
                 position: 'absolute', display: 'flex', width: '100%'
             }}>
                 <Button id="btn_back" style={{ width: '160px', height: '32px', marginLeft: '5.5%',borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep(4)} color="primary">Back</Button>
-                <Button id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3.5%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
+                <Button onClick={()=>handleNext(true)} id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3.5%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
                 <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '25%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => handleNext()} color="primary">Submit</Button>
 
             </footer>
