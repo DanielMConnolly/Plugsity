@@ -326,6 +326,36 @@ const updateBusiness = (business_id, insert_data) => {
     });
 };
 
+const updateBusinessImages = (business_id, insert_data) => {
+    let data = [];
+    for (const [key, value] of Object.entries(insert_data)) {
+        data.push(key + " = " + `'${value}'`);
+    }
+    data.join(", ");
+    console.log("print---------->updateBusinessImages");
+    console.log(insert_data);
+    const query = `UPDATE BusinessImages SET ${data} WHERE business_id = ${business_id}`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result.insertId);
+            })
+            .catch((err) => console.log(err));
+    });
+};
+
+const createBusinessImages = (insert_cols, insert_vals) => {
+    const query = `INSERT INTO BusinessImages (${insert_cols}) VALUES (${insert_vals})`;
+    console.log("print---------->updateBusinessImages");
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result.insertId);
+            })
+            .catch((err) => console.log(err));
+    });
+};
+
 const createBusiness = (insert_cols, insert_vals) => {
     const query = `INSERT INTO BusinessPage (${insert_cols}) VALUES (${insert_vals})`;
     return new Promise((resolve, reject) => {
