@@ -14,6 +14,20 @@ export default class BusinessDashboard extends Component {
                     list={[]}
                     handleClick={() => this.props.renderDashboard("products")}
                 />
+                <Dropdown
+                    title='Pending Orders'
+                    list={[]}
+                    handleClick={() =>
+                        this.props.renderDashboard("pending_orders")
+                    }
+                />
+                <Dropdown
+                    title='Completed Orders'
+                    list={[]}
+                    handleClick={() =>
+                        this.props.renderDashboard("completed_orders")
+                    }
+                />
             </div>
         );
     }
