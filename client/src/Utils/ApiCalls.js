@@ -69,6 +69,19 @@ let getProductsOfBusiness = async (business_id) => {
 
 }
 
+let createOrUpdateBusinessImages = async (business_data) => {
+    return axios({
+        method: 'post',
+        url: `/api/business_setup/businessImages`,
+        data: {
+            ...business_data
+        }
+    }).then((response) => {
+        console.log(response);
+        return response.data["business_id"];
+    })
+}
+
 let getReviewsOfProduct = async (product_id) => {
     return axios({
         method: 'get', 
