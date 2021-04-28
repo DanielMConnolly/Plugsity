@@ -46,6 +46,7 @@ let isUserABusiness = async (user_id) => {
 }
 
 let createOrUpdateBusiness = async (business_data) =>{
+    console.log(business_data)
     return axios({
         method: 'post', 
         url: `api/business_setup/business`,

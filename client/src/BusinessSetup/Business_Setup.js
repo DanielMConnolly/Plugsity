@@ -6,7 +6,7 @@ import Bus_Identification_2 from "./Bus_Identification_2";
 import Point_Of_Contact from "./Point_Of_Contact";
 import Point_Of_Contact_2 from "./Point_Of_Contact_2";
 import PaymentMethods from "./PaymentMethods";
-import Business_Policies from "./Business_Policies";
+import Business_Policies from "./ShippingPolicies";
 import Header from "../Header";
 import AltHeader from "../AltHeader";
 import { Stepper, StepLabel, Step } from "@material-ui/core";
@@ -14,6 +14,7 @@ import "../css/Stepper.css";
 import "../css/Business_Setup.css";
 import { Redirect } from "react-router-dom";
 import { getBusinessDataFromUser, isUserABusiness } from "../Utils/ApiCalls";
+import ShippingPolicies from "./ShippingPolicies";
 
 class Business_Setup extends Component {
     constructor(props) {
@@ -88,7 +89,7 @@ class Business_Setup extends Component {
                 );
             case 4:
                 return (
-                    <Business_Policies
+                    <ShippingPolicies
                         userData={this.state.userData}
                         setUserData={this.setUserData.bind(this)}
                         setStep={this.setStep.bind(this)}
@@ -103,6 +104,10 @@ class Business_Setup extends Component {
                         setStep={this.setStep.bind(this)}
                     />
                 );
+            case 6:
+                return (
+                    <Redirect to="/homepage"/>
+                )
         }
     }
 
