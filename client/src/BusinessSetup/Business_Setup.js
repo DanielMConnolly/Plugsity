@@ -15,6 +15,7 @@ import "../css/Business_Setup.css";
 import { Redirect } from "react-router-dom";
 import { getBusinessDataFromUser, isUserABusiness } from "../Utils/ApiCalls";
 import ShippingPolicies from "./ShippingPolicies";
+import Bus_Identification_Images from "./Bus_Identification_Images";
 
 class Business_Setup extends Component {
     constructor(props) {
@@ -23,6 +24,7 @@ class Business_Setup extends Component {
             userData: { user_id: localStorage.getItem("user_id") },
             currentStep: 1,
             redirectToLogin: false,
+             busImagesData: { business_id: localStorage.getItem("business_id") }
         };
     }
     setStep(step) {
@@ -33,6 +35,12 @@ class Business_Setup extends Component {
     setUserData(data) {
         this.setState({
             userData: data,
+        });
+    }
+    
+    setbusImagesData(data) {
+        this.setState({
+            busImagesData: data,
         });
     }
 
@@ -63,7 +71,7 @@ class Business_Setup extends Component {
 
     showStep(step) {
         switch (step) {
-            case 1:
+             case 1:
                 return (
                     <Bus_Identification_1
                         userData={this.state.userData}
@@ -81,22 +89,30 @@ class Business_Setup extends Component {
                 );
             case 3:
                 return (
+                    <Bus_Identification_Images
+                        busImagesData={this.state.busImagesData}
+                        setbusImagesData={this.setbusImagesData.bind(this)}
+                        setStep={this.setStep.bind(this)}
+                    />
+                );
+            case 4:
+                return (
                     <PaymentMethods
                         userData={this.state.userData}
                         setUserData={this.setUserData.bind(this)}
                         setStep={this.setStep.bind(this)}
                     />
                 );
-            case 4:
+            case 5:
                 return (
-                    <ShippingPolicies
+                    <Business_Policies
                         userData={this.state.userData}
                         setUserData={this.setUserData.bind(this)}
                         setStep={this.setStep.bind(this)}
                     />
                 );
 
-            case 5:
+            case 6:
                 return (
                     <Point_Of_Contact_2
                         userData={this.state.userData}
@@ -104,10 +120,7 @@ class Business_Setup extends Component {
                         setStep={this.setStep.bind(this)}
                     />
                 );
-            case 6:
-                return (
-                    <Redirect to="/homepage"/>
-                )
+          
         }
     }
 
