@@ -181,6 +181,9 @@ class Business_Setup extends Component {
                     <Step>
                         <StepLabel></StepLabel>
                     </Step>
+                     <Step>
+                        <StepLabel></StepLabel>
+                    </Step>
                 </Stepper>
                 {this.showStep(this.state.currentStep)}
             </div>
