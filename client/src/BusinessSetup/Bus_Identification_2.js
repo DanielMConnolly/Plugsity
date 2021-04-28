@@ -25,7 +25,6 @@ export default function Bus_Identification_2(props) {
         });
 
         const uploadPermit = new Promise((resolve, reject)=>{
-            console.log("upload permit");
             if (permitImage) {
                  uploadPDF(permitImage, (key) => {
                     props.setUserData({ ...props.userData, "business_permit_link": key })

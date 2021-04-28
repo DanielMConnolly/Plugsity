@@ -1,5 +1,5 @@
 const express = require("express");
-const { connection } = require("./db");
+const connection = require("./db");
 const router = express.Router();
 
 router.post("/business", async (req, res) => {

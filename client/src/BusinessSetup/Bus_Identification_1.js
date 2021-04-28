@@ -24,7 +24,7 @@ export default function Bus_Identification_1(props) {
 
         }
     }
-
+    let business_type = props.userData['business_type']
     return (
         <div>
         
@@ -62,7 +62,7 @@ export default function Bus_Identification_1(props) {
 
                     <div id="bus_iden1_div_3" style={{marginLeft: '6%' }}>
                     <InputLabel id="label_bus_form" style={{fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Form of Business *</InputLabel>
-                        <Select id="dropdown_busform" style={{ width: '94%', marginTop: '2%' }} value={props.userData['business_form']} onChange={(e) => props.setUserData({ ...props.userData, "business_form": e.target.value })} placeholder=" Sole Proprietorship; Partnership.." margin="normal" variant="outlined" color="secondary">
+                        <Select key={props.userData['business_form']} id="dropdown_busform" style={{ width: '94%', marginTop: '2%' }} value={props.userData['business_form']} onChange={(e) => props.setUserData({ ...props.userData, "business_form": e.target.value })} margin="normal" variant="outlined" color="secondary">
                             <MenuItem value="Sole Proprietorship">Sole Proprietorship</MenuItem>
                             <MenuItem value="Partnership">Partnership</MenuItem>
                     </Select>
@@ -70,7 +70,7 @@ export default function Bus_Identification_1(props) {
 
                     <div id="bus_iden1_div_4" style={{ marginLeft: '6%' }}>
                         <InputLabel id="label_bus_type" style={{ fontSize: '14px', marginTop: '2%', marginBottom: '2%',fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Business Type *</InputLabel>
-                        <Select id="dropdown_busType" style={{ width: '94%', marginBottom: '15px' }} value={props.userData['business_type']} onChange={(e) => props.setUserData({ ...props.userData, "business_type": e.target.value })} placeholder="Publicly-owned, Privately-owned.." margin="normal" variant="outlined" color="secondary">
+                        <Select key={props.userData['business_type']} id="dropdown_busType" style={{ width: '94%', marginBottom: '15px' }} value={props.userData['business_type']} onChange={(e) => props.setUserData({ ...props.userData, "business_type": e.target.value })} margin="normal" variant="outlined" color="secondary">
                             <MenuItem value="Public-owned">Public-owned</MenuItem>
                             <MenuItem value="Private-owned">Private-owned</MenuItem>
                     </Select>
