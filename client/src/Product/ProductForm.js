@@ -6,6 +6,7 @@ import "../css/Signup.css";
 import "../css/ProductForm.css";
 import PropTypes from "prop-types";
 import PlugsityLogo from "../assets/plugsity-logo.png";
+import AltHeader from "../AltHeader";
 export default class ProductForm extends Component {
 
     constructor(props) {
@@ -130,8 +131,9 @@ export default class ProductForm extends Component {
             return (<Redirect to="/dashboard" />);
         }
         return (
+            <>
+            <AltHeader/>
             <div className='Signup'>
-                <img src={PlugsityLogo} alt='' className='logo' />
                 <form onSubmit={this.onSubmit}>
                     <input
                         type='text'
@@ -267,6 +269,7 @@ export default class ProductForm extends Component {
                     <input type='submit' value='Submit Product' />
                 </form>
             </div>
+            </>
         );
     }
 }

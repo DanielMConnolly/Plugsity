@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import {createFile, uploadFile} from '../Utils/Upload'
 import ImageModal from '../ImageModal';
 import PlugsityLogo from "../assets/plugsity-logo.png";
+import AltHeader from "../AltHeader";
 
 export default class ProductEditForm extends Component {
     constructor(props) {
@@ -138,6 +139,7 @@ export default class ProductEditForm extends Component {
     render() {
         return (
             <>
+            <AltHeader/>
             <ImageModal open={this.state.modalOpen} handleClose={()=>{this.setState({modalOpen: false})}} image={this.getImage()} />
             <div className='Signup'>
                 <img src={PlugsityLogo} alt='' className='logo' />
