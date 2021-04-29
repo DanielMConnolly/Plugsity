@@ -10,47 +10,29 @@ import '../css/Business_Setup.css';
 import { createFile, uploadPDF } from '../Utils/Upload';
 
 export default function Bus_Identification_2(props) {
-    const handleNext = async (exit=false) => {
-        if(exit){
+    const handleNext = async (exit = false) => {
+        createOrUpdateBusiness(props.userData)
+        if (exit) {
             props.setStep("exit")
         }
-        else{
+        else {
             props.setStep("next")
         }
-  
-        const uploadLicense =new Promise((resolve, reject)=>{
-            if (licenseImage) {
-                  uploadPDF(licenseImage, (key) => {
-                    props.setUserData({ ...props.userData, "business_license_link": key })
-                    
-                });
-            }
-            else{
-                resolve()
-            }
-        });
 
-        const uploadPermit = new Promise((resolve, reject)=>{
-            if (permitImage) {
-                 uploadPDF(permitImage, (key) => {
-                    props.setUserData({ ...props.userData, "business_permit_link": key })
-                });
+        if (licenseImage) {
+            uploadPDF(licenseImage, (key) => {
+                props.setUserData({ ...props.userData, "business_license_link": key })
+                createOrUpdateBusiness({ "business_id": localStorage.getItem('business_id'), "business_license_link": key })
 
-            }
-            else{
-                resolve()
-            }
-            
-        });
+            });
+        }
+        if (permitImage) {
+            uploadPDF(permitImage, (key) => {
+                props.setUserData({ ...props.userData, "business_permit_link": key })
+                createOrUpdateBusiness({ "business_id": localStorage.getItem('business_id'), "business_permit_link": key })
+            });
 
-        Promise.all([uploadLicense, uploadPermit]).then(()=>{
-                console.log("hello")
-                createOrUpdateBusiness(props.userData)
-        })
-
-
-
-
+        }
     }
 
     const getPermitImage = () => {
@@ -73,9 +55,11 @@ export default function Bus_Identification_2(props) {
     const [permit_open, togglePermit] = useState(false);
     const [license_open, toggleLicense] = useState(false);
     const [licenseImage, setLicenseImage] = useState();
+    const [licenseKey, setLicenseKey] = useState();
+    const [permitKey, setPermitKey] = useState();
     const [permitImage, setPermitImage] = useState();
-    const showPermitModalButton = (!["null", null].includes(props.userData["business_permit_link"] )) || permitImage
-    const showLicenseModalButton = (!["null", null].includes(props.userData["business_license_link"] ))|| licenseImage
+    const showPermitModalButton = "business_permit_link" in props.userData || permitImage
+    const showLicenseModalButton = "business_license_link" in props.userData || licenseImage
     return (
         <div>
             <PDFModal open={license_open} handleClose={toggleLicense} image={getLicenseImage()} />
@@ -109,7 +93,7 @@ export default function Bus_Identification_2(props) {
                     <div id="bus_iden2_div_2" style={{ width: '90%', display: 'flex', marginLeft: '4%' }} >
                         <div style={{ width: '33%' }}>
                             <InputLabel id="label" style={{ marginTop: '4%', marginBottom: '4%', marginLeft: '6%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Country *</InputLabel>
-                            <Select  key={props.userData["country"]} id="drpdwn_cntry" style={{ width: '28%' }} value={props.userData['country']} onChange={(e) => props.setUserData({ ...props.userData, "country": e.target.value })} place holder="Country" variant="outlined" color="secondary" style={{
+                            <Select key={props.userData["country"]} id="drpdwn_cntry" style={{ width: '28%' }} value={props.userData['country']} onChange={(e) => props.setUserData({ ...props.userData, "country": e.target.value })} place holder="Country" variant="outlined" color="secondary" style={{
                                 marginLeft: '6%'
                             }}>
                                 <MenuItem value="USA">USA </MenuItem>
@@ -181,7 +165,7 @@ export default function Bus_Identification_2(props) {
                 position: 'absolute', display: 'flex', width: '100%'
             }}>
                 <Button id="btn_back" style={{ width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep("back")} color="primary">Back</Button>
-                <Button id="btn_save_submit" onClick={()=>handleNext(true)}style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
+                <Button id="btn_save_submit" onClick={() => handleNext(true)} style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
                 <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '14%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => handleNext()} color="primary">Next</Button>
 
             </footer>

@@ -18,7 +18,7 @@ class ProductFeed extends Component {
     filterResults(results) {
         let categories = this.state.facets;
         let sub_categories = this.state.sub_facets;
-        if(this.state.facets.length==0 && this.state.sub_facets.length==0){
+        if(this.state.facets.length===0 && this.state.sub_facets.length===0){
             return results.filter(item => parseInt(item.product_cost) <= this.state.range);
         }
        
@@ -35,7 +35,7 @@ class ProductFeed extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot){
-        if(prevProps.products!=this.props.products){
+        if(prevProps.products!==this.props.products){
             this.setState({
                 range: Math.max(... this.props.products.map(product => product.product_cost)),
             })

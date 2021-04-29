@@ -9,7 +9,11 @@ let getBusinessDataFromUser = async (user_id) => {
             "Accept": 'application/json'
         },
     })
-    return res.data;
+    let data = res.data;
+    data = Object.keys(data)
+    .filter( key => !["", null, "null"].includes(data[key]) )
+    .reduce( (res, key) => (res[key] = data[key], res), {} );
+    return data;
 }
 
 let getAllProducts = async ()=>{
