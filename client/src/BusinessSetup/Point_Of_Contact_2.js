@@ -18,11 +18,18 @@ export default function Point_Of_Contact_2(props) {
         },
     }));
 
+
+
    
-    const handleNext =  ()=> {
+    const handleNext =  (exit=false)=> {
+        if(exit){
+            props.setStep("exit")
+        }
+        else{
+            props.setStep('next')
+        }  
         createOrUpdateBusiness(props.userData);
-        props.setStep(4);
-        
+       
     }
 
     const classes = useStyles();
@@ -54,7 +61,7 @@ export default function Point_Of_Contact_2(props) {
                     <div id="pt_cntct_2_div_2" style={{ width: '95%', display: 'flex', marginLeft: '4.5%' }} >
                         <div style={{ width: '29%' }}>
                             <InputLabel id="label" style={{ marginTop: '3%', width: '100%', marginBottom: '3%', marginLeft: '6%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Location Type</InputLabel>
-                            <Select id="drpdwn_loc" value={props.userData['country']} onChange={(e) => props.setUserData({ ...props.userData, "country": e.target.value })} place holder="Location Type" variant="outlined" color="secondary" style={{
+                            <Select key={props.userData["country"]} id="drpdwn_loc" value={props.userData['country']} onChange={(e) => props.setUserData({ ...props.userData, "country": e.target.value })} place holder="Location Type" variant="outlined" color="secondary" style={{
                                 marginLeft: '6%', width : '100%'
                             }}>
                                 <MenuItem value="1">USA </MenuItem>
@@ -63,7 +70,7 @@ export default function Point_Of_Contact_2(props) {
                         </div>
                         <div style={{ width: '29%',marginLeft: '1%' }}>
                             <InputLabel id="label" style={{ marginLeft: '10%', marginTop: '3%', marginBottom: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>City</InputLabel>
-                            <Select id="drpdwn_city" value={props.userData['city']} onChange={(e) => props.setUserData({ ...props.userData, "city": e.target.value })}   style={{
+                            <Select key={props.userData['city']} id="drpdwn_city" value={props.userData['city']} onChange={(e) => props.setUserData({ ...props.userData, "city": e.target.value })}   style={{
                                 marginLeft: '13%',width : '100%'
                             }} place holder="City" variant="outlined" color="secondary">
                                 <MenuItem value="Buffalo">Buffalo</MenuItem>
@@ -72,28 +79,13 @@ export default function Point_Of_Contact_2(props) {
                         </div>
                         <div style={{ width: '29%', marginLeft: '3%' }}>
                             <InputLabel id="label" style={{ marginLeft: '10%', marginTop: '3%', marginBottom: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>State</InputLabel>
-                            <Select id="drpdwn_state" value={props.userData['state']} onChange={(e) => props.setUserData({ ...props.userData, "state": e.target.value })}  style={{
+                            <Select key={props.userData['city']}  id="drpdwn_state" value={props.userData['state']} onChange={(e) => props.setUserData({ ...props.userData, "state": e.target.value })}  style={{
                                 marginLeft: '13%', width: '100%'
                             }} place holder="State" variant="outlined" color="secondary">
                                 <MenuItem value="NY">NY</MenuItem>
                                 <MenuItem value="VA">VA</MenuItem>
                             </Select>
                         </div>
-                    </div>
-
-                    <div id="pt_cntct_2_div_3" style={{ marginLeft: '6%' }}>
-                        <InputLabel id="label" style={{ marginTop: '4%', marginBottom: '4%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Passport / Government ID</InputLabel>
-                        <input
-                            accept="image/*"
-                            className={classes.input}
-                            id="contained-button-file"
-                            multiple
-                            type="file"
-                        />
-                        <label htmlFor="contained-button-file">
-                            <Button variant="contained" color="primary" component="span" style={{ marginBottom: '5%' }}> Upload</Button>
-                        </label>
-
                     </div>
 
                 </div>
@@ -105,10 +97,9 @@ export default function Point_Of_Contact_2(props) {
                 height: '10%', bottom: '0px',
                 position: 'absolute', display: 'flex', width: '100%'
             }}>
-                <Button id="btn_back" style={{ width: '160px', height: '32px', marginLeft: '5.5%',borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep(4)} color="primary">Back</Button>
-                <Button id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3.5%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
-                <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '25%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => handleNext()} color="primary">Next</Button>
-
+                <Button id="btn_back" style={{ width: '160px', height: '32px', marginLeft: '5.5%',borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep("back")} color="primary">Back</Button>
+                <Button onClick={()=>handleNext(true)} id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3.5%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
+                <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '25%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => handleNext()} color="primary">Submit</Button>
             </footer>
         </div>
     );

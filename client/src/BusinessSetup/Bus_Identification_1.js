@@ -7,7 +7,7 @@ import '../css/Business_Setup.css';
 
 export default function Bus_Identification_1(props) {
 
-    const handleNext =  async ()=> {
+    const handleNext =  async (exit=false)=> {
 
         if(! ["legal_business_name", "tax_id", "business_type", "business_form"].every(item =>props.userData.hasOwnProperty(item))){
             alert("You are missing a required field");
@@ -18,13 +18,20 @@ export default function Bus_Identification_1(props) {
                     localStorage.setItem('business_id', business_id);
                     props.setUserData({...props.userData, "business_id": business_id})
                 }
-                props.setStep(2);
+                if(exit){
+                    props.setStep("exit");
+                }
+                else{
+                    props.setStep("next");
+                }
+ 
 
             })
 
         }
     }
 
+    let business_type = props.userData['business_type']
     return (
         <div>
         
@@ -62,7 +69,7 @@ export default function Bus_Identification_1(props) {
 
                     <div id="bus_iden1_div_3" style={{marginLeft: '6%' }}>
                     <InputLabel id="label_bus_form" style={{fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Form of Business *</InputLabel>
-                        <Select id="dropdown_busform" style={{ width: '94%', marginTop: '2%' }} value={props.userData['business_form']} onChange={(e) => props.setUserData({ ...props.userData, "business_form": e.target.value })} placeholder=" Sole Proprietorship; Partnership.." margin="normal" variant="outlined" color="secondary">
+                        <Select key={props.userData['business_form']} id="dropdown_busform" style={{ width: '94%', marginTop: '2%' }} value={props.userData['business_form']} onChange={(e) => props.setUserData({ ...props.userData, "business_form": e.target.value })} margin="normal" variant="outlined" color="secondary">
                             <MenuItem value="Sole Proprietorship">Sole Proprietorship</MenuItem>
                             <MenuItem value="Partnership">Partnership</MenuItem>
                     </Select>
@@ -70,7 +77,7 @@ export default function Bus_Identification_1(props) {
 
                     <div id="bus_iden1_div_4" style={{ marginLeft: '6%' }}>
                         <InputLabel id="label_bus_type" style={{ fontSize: '14px', marginTop: '2%', marginBottom: '2%',fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 700 }}>Business Type *</InputLabel>
-                        <Select id="dropdown_busType" style={{ width: '94%', marginBottom: '15px' }} value={props.userData['business_type']} onChange={(e) => props.setUserData({ ...props.userData, "business_type": e.target.value })} placeholder="Publicly-owned, Privately-owned.." margin="normal" variant="outlined" color="secondary">
+                        <Select key={props.userData['business_type']} id="dropdown_busType" style={{ width: '94%', marginBottom: '15px' }} value={props.userData['business_type']} onChange={(e) => props.setUserData({ ...props.userData, "business_type": e.target.value })} margin="normal" variant="outlined" color="secondary">
                             <MenuItem value="Public-owned">Public-owned</MenuItem>
                             <MenuItem value="Private-owned">Private-owned</MenuItem>
                     </Select>
@@ -85,7 +92,7 @@ export default function Bus_Identification_1(props) {
                 height: '10%', bottom: '0px',
                 position: 'absolute', display: 'flex', width:'100%'}}>
 
-                <Button id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500}} variant="contained" color="primary">Save & continue later</Button>
+                <Button id="btn_save_submit" onClick={()=>handleNext(true)} style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500}} variant="contained" color="primary">Save & continue later</Button>
                 <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '23%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500}} variant="contained" onClick={() =>handleNext()} color="primary">Next</Button>
 
         </footer>

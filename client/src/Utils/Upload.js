@@ -10,7 +10,7 @@ let createFile = (e, setState, allowedExtensions=/(\.jpg|\.jpeg|\.png|\.pdf)$/i,
         let file = files[0]
         console.log(file);
         let file_extension = file.name.split(".").pop()
-        if(file_extension=="pdf"){
+        if(file_extension==="pdf"){
             setState(file);
             return true;
         }
@@ -45,7 +45,7 @@ let createFile = (e, setState, allowedExtensions=/(\.jpg|\.jpeg|\.png|\.pdf)$/i,
 }
 
 let  uploadFile= async (image, callback=()=>{},  filetype="image") => {
-    const API_ENDPOINT = filetype=="image"?'https://kx1fso77o5.execute-api.us-east-1.amazonaws.com/handle-image-upload':'https://hizg8qqb08.execute-api.us-east-1.amazonaws.com/uploads';
+    const API_ENDPOINT = filetype==="image"?'https://kx1fso77o5.execute-api.us-east-1.amazonaws.com/handle-image-upload':'https://hizg8qqb08.execute-api.us-east-1.amazonaws.com/uploads';
     console.log(API_ENDPOINT)
     const response = await axios({
         method: 'GET',
