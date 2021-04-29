@@ -13,6 +13,8 @@ class PendingOrdersDashboard extends Component {
             orderUserProductData: [],
             loading: false,
         };
+
+        this.changeParentState = this.changeParentState.bind(this);
     }
 
     async fetchOrdersData() {
@@ -64,9 +66,22 @@ class PendingOrdersDashboard extends Component {
         console.log(this.state);
     }
 
-    buttonClick(e) {
-        e.preventDefault();
-        console.log(e.target);
+    changeParentState(idx, toStatus) {
+        console.log(
+            "change parent state from child in parent: ",
+            idx,
+            toStatus
+        );
+        var list = this.state.orderUserProductData;
+
+        var myObject = list[idx];
+        console.log("Before: ", myObject);
+        myObject.order_status = toStatus;
+        console.log("After: ", myObject);
+        list[idx] = myObject;
+        this.setState({
+            orderUserProductData: list,
+        });
     }
 
     renderSwitch(order_status, order_id, idx) {
@@ -76,24 +91,30 @@ class PendingOrdersDashboard extends Component {
                 return (
                     <OrderStatusButton
                         order_id={order_id}
+                        idx={idx}
                         toStatus='Acknowledged'
                         text='Acknowledge Order'
+                        handler={this.changeParentState}
                     ></OrderStatusButton>
                 );
             case "Acknowledged":
                 return (
                     <OrderStatusButton
                         order_id={order_id}
+                        idx={idx}
                         toStatus='Shipped'
                         text='Ship Order / Ready for Pickup'
+                        handler={this.changeParentState}
                     ></OrderStatusButton>
                 );
             case "Shipped":
                 return (
                     <OrderStatusButton
                         order_id={order_id}
+                        idx={idx}
                         toStatus='Completed'
                         text='Complete Order'
+                        handler={this.changeParentState}
                     ></OrderStatusButton>
                 );
             default:
