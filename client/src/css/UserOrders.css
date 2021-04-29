@@ -4,4 +4,14 @@
     margin: 50px;
     padding: 5px;
     border-bottom: 2px solid black;
+    max-width: 600px;
+}
+
+.order-container div {
+    padding: 2px;
+}
+
+.order-img {
+    width: 300px;
+    height: 300px;
 }

@@ -45,6 +45,7 @@ class UserOrders extends Component {
             //         .format("YYYY-MM-DD HH:mm:ss")
             // );
             var order_status = order.order_status;
+            var order_id = order.order_id;
             const prodObject = {
                 product_name,
                 legal_business_name,
@@ -55,6 +56,7 @@ class UserOrders extends Component {
                 product_description,
                 order_date,
                 order_status,
+                order_id,
             };
             list.push(prodObject);
         }
@@ -96,6 +98,7 @@ class UserOrders extends Component {
                             return (
                                 <div className='order-container'>
                                     <img
+                                        className='order-img'
                                         src={
                                             product.product_image_link
                                                 ? `https://plugsity-images.s3.amazonaws.com/${product.product_image_link}`
@@ -103,6 +106,7 @@ class UserOrders extends Component {
                                         }
                                         alt='...'
                                     ></img>
+                                    <div>Order ID:- {product.order_id}</div>
                                     <div>
                                         Product Name:- {product.product_name}
                                     </div>

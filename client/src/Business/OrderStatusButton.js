@@ -5,28 +5,23 @@ class OrderStatusButton extends Component {
     constructor(props) {
         super(props);
         console.log(props);
-
-        this.state = {
-            order_id: this.props.order_id,
-            toStatus: this.props.toStatus,
-            text: this.props.text,
-        };
     }
 
     handleClick = () => {
-        console.log(this.state);
+        console.log(this.props);
+        this.props.handler(this.props.idx, this.props.toStatus);
         axios({
             method: "POST",
-            url: `/api/orders/changeStatus/${this.state.order_id}/${this.state.toStatus}`,
+            url: `/api/orders/changeStatus/${this.props.order_id}/${this.props.toStatus}`,
         }).then((res) => {
-            alert(`Order ID:- ${this.state.order_id} has been updated!`);
+            alert(`Order ID:- ${this.props.order_id} has been updated!`);
         });
     };
 
     render() {
         return (
             <button onClick={() => this.handleClick()}>
-                {this.state.text}
+                {this.props.text}
             </button>
         );
     }
