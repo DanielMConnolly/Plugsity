@@ -5,11 +5,7 @@ import load from 'little-loader';
 import {createFile, uploadFile} from '../Utils/Upload.js'
 import { Redirect } from 'react-router-dom'
 import '../css/Review.css';
-import plugsity_logo from '../Plugsity_logo.png';
-
-load('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap', function (err) {
-    console.log('Unable to load the loader');
-})
+import AltHeader from '../AltHeader'
 
 
 export default class Review extends Component {
@@ -29,13 +25,15 @@ export default class Review extends Component {
             reviewData: reviewData
         });
     }
+
     handleInputChange = (event) => {
         event.preventDefault();
         let  { value, name } = event.target;
         let reviewData = {... this.state.reviewData, [name]: value}
+        let selectedButton = event.target.name==="review_tag"?event.target.innerHTML:this.state.selectedButton;
         this.setState({
             reviewData: reviewData,
-            selectedButton: event.target.innerHTML
+            selectedButton: selectedButton
         });
 
     }
@@ -45,8 +43,8 @@ export default class Review extends Component {
         let retval = options.map(option => {
             return (
                 <div className="my-column1" key={option}>
-                    <button className={this.state.selectedButton==option?"review-suboptions review-suboptions-highlighted": "review-suboptions"} name="review_tag" value={option} 
-                        onClick={e => this.handleInputChange(e)} style={{ backgroundColor: this.state.button_color }}>{option}</button>
+                    <button className={this.state.selectedButton===option?"review-suboptions review-suboptions-highlighted": "review-suboptions"} name="review_tag" value={option} 
+                        onClick={e => this.handleInputChange(e)} >{option}</button>
                 </div>
             )
         })
@@ -80,8 +78,8 @@ export default class Review extends Component {
         }
         return (
             <div>
+                <AltHeader/>
                 <form onSubmit={this.onSubmit}>
-                    <img src={plugsity_logo} alt="Plugsity Logo" width="200px" height="50px" className="logo-style" />
                     <h1 className="review-header">Tell us what you think!</h1>
                     <div className="center1">
                         <p className="review-options"> How would you overall describe this product? </p>

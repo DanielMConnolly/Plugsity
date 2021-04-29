@@ -1,10 +1,10 @@
 import { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom'
+import {Redirect } from 'react-router-dom'
 import axios from 'axios';
 import './css/header.css';
-import FontAwesome from 'react-fontawesome'
 import {isUserABusiness} from './Utils/ApiCalls';
 import Dropdown from './Dropdown';
+
 class AccountHeader extends Component {
   constructor(props) {
     super(props);
@@ -99,11 +99,11 @@ class AccountHeader extends Component {
       return(<Redirect to="/business_setup"></Redirect>)
     }else if(this.state.redirectToMyAccount){
       return(<Redirect to="/myprofile"></Redirect>)
-    }
+    }  
     return (
       <div className="header-row">
         <Dropdown title="My Account" list={dropdown_list} 
-            borderstyle style="account-dropdown" /> 
+            borderstyle /> 
       </div>
     )
   }

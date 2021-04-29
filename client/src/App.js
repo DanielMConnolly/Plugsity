@@ -1,12 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import SignupLogin from "./SignupLogin";
 import Review from "./Review/Review";
 import ProductReviews from './Review/ProductReviews';
 import ReviewDetails from "./Review/ReviewDetails";
-import ReviewList from "./Review/ReviewList";
 import SignupLogin_Bus from "./SignupLogin_Bus";
 import Search from "./Search";
 import HomePage from "./Homepage";
