@@ -13,7 +13,7 @@ import { Stepper, StepLabel, Step } from "@material-ui/core";
 import "../css/Stepper.css";
 import "../css/Business_Setup.css";
 import { Redirect } from "react-router-dom";
-import { getBusinessDataFromUser, isUserABusiness } from "../Utils/ApiCalls";
+import { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness } from "../Utils/ApiCalls";
 import ShippingPolicies from "./ShippingPolicies";
 
 class Business_Setup extends Component {
@@ -94,6 +94,7 @@ class Business_Setup extends Component {
                         userData={this.state.userData}
                         setUserData={this.setUserData.bind(this)}
                         setStep={this.setStep.bind(this)}
+                        updateBusiness={()=>{console.log(this.state.userData);createOrUpdateBusiness(this.state.userData)}}
                     />
                 );
             case 3:
