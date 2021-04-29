@@ -19,6 +19,16 @@ router.get("/", async (req, res) => {
 });
 
 
+// get request
+// @route = /api/products/
+// @desc lists all products with top reviews
+router.get("/topitems", async (req, res) => {
+    con.getAllProductsWithReviews().then(products=>{
+        res.send(products);
+    })
+});
+
+
 // post request
 // @route = /api/products/createProduct
 // @desc query for creating a product

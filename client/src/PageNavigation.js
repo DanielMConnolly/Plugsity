@@ -7,14 +7,17 @@ export default ( props ) => {
 		      showNextLink,
 		      handlePrevClick,
 		      handleNextClick,
+			  currentPageNo,
+			  totalPages
 	      } = props;
 	return (
 		<div className="nav-link-container">
+			<p style={{marginRight: "20px", marginTop: "10px", marginBottom: "10px"}}> Showing Page {currentPageNo} out of {totalPages}</p>
 			<a
 				href="#"
 				className={
 					`nav-link 
-					${ showPrevLink ? 'show' : 'hide'}
+					${ showPrevLink ? 'show' : 'greyed-out'}
 					${ loading ? 'greyed-out' : ''
 					}`
 				}
@@ -26,7 +29,7 @@ export default ( props ) => {
 				href="#"
 				className={
 					`nav-link 
-					${ showNextLink ? 'show' : 'hide'}
+					${ showNextLink ? 'show' : 'greyed-out'}
 					${ loading ? 'greyed-out' : '' }
 					`}
 				onClick={ handleNextClick }

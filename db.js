@@ -309,6 +309,25 @@ const getAllProducts = () => {
 
 }
 
+const getAllProductsWithReviews = () => {
+    const query = `SELECT ProductUpload.*, AVG(ProductMediaReview.review_rating) as rating, BusinessPage.*
+    FROM ProductMediaReview
+    RIGHT JOIN ProductUpload
+    ON ProductUpload.product_id = ProductMediaReview.product_id
+    JOIN BusinessPage
+    ON ProductUpload.business_id = BusinessPage.business_id
+    GROUP BY ProductUpload.product_id, BusinessPage.business_id
+    ORDER BY rating desc` ;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((err) => console.log(err));
+    });
+
+}
+
 const updateBusiness = (business_id, insert_data) => {
     let data = [];
     for (const [key, value] of Object.entries(insert_data)) {
@@ -456,7 +475,8 @@ exports.getTopReviews = getTopReviews;
 exports.getReviewsOfBusiness = getReviewsOfBusiness;
 exports.getProductReviewAverage = getProductReviewAverage;
 exports.updateBusiness = updateBusiness;
-exports.getAllProducts = getAllProducts
+exports.getAllProducts = getAllProducts;
+exports.getAllProductsWithReviews = getAllProductsWithReviews;
 exports.getProductsOfBusiness = getProductsOfBusiness;
 exports.createProduct = createProduct;
 exports.queryDatabase = queryDatabase;
