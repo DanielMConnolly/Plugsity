@@ -7,8 +7,8 @@ import AltHeader from "./AltHeader";
 import SeeMoreCard from "./SeeMoreCard";
 import Footer from "./Footer";
 import ReviewCard from "./Review/ReviewCard";
-import {getAllProducts, getTopReviews} from "./Utils/ApiCalls";
-
+import {getAllProducts, getTopReviews, getAllProductsWithReviews} from "./Utils/ApiCalls";
+import ProductFeed from './Product/ProductFeed';
 import {
     CarouselProvider,
     Slider,
@@ -24,26 +24,15 @@ class HomePage extends Component {
             active: "Products",
             popularProducts: [],
             allProducts: [],
-            totalResults: 0,
-			totalPages: 0,
-			currentPageNo: 1,
-            loading: false
+            loading: false,
+            rating: 0,
+            filter_subcategories: [],
+            filter_categories: [],
+			range: 500
         };
         this.cancel = '';
     }
 
-    /**
-	 * Get the Total Pages count.
-	 *
-	 * @param total
-	 * @param denominator Count of results per page
-	 * @return {number}
-	 */
-	getPageCount = ( total, denominator ) => {
-		const divisible	= 0 === total % denominator;
-		const valueToBeAdded = divisible ? 0 : 1;
-		return Math.floor( total/denominator ) + valueToBeAdded;
-	};
 
     getReviewCards() {
         let review_cards = [];
@@ -54,17 +43,18 @@ class HomePage extends Component {
     }
 
     componentDidMount() {
-        getAllProducts().then((products) => {
-            console.log(products);
-            const total = products.length; 
-            console.log(total);
-            const totalPagesCount = this.getPageCount( total, 10 ); 
-            console.log(totalPagesCount);
+        getAllProductsWithReviews().then((products) => {
+            const results = products;
+            console.log(results);
+            const filter_categories = [...new Set(results.map(products=>products.product_category).filter(item=>item!=''))]
+			const filter_subcategories = [...new Set(results.map(products=>products.product_subcategory).filter(item=>item!=''))]
+
             this.setState({
                 allProducts: products,
-                popularProducts: products.slice(0, 10),
-                totalResults: total,
-				totalPages: totalPagesCount,
+                rating: products.rating,
+                popularProducts: products.slice(0, 9),
+                filter_categories: filter_categories,
+                filter_subcategories: filter_subcategories
             });
         });
         
@@ -82,19 +72,14 @@ class HomePage extends Component {
     }
 
     renderResults = () => {
+        let products= this.state.popularProducts;
         return(
             <div className='popular-products'>
                 <h2 className="popular-products-heading"> Popular Products</h2>
                     <div className='products-list'>
-                        {this.state.popularProducts.map(
-                            (result) => {
-                                return (
-                                    <ProductCard
-                                        productData={result}
-                                    />
-                                );
-                            }
-                        )}
+                        <ProductFeed products={products} filters={this.state.filter_categories} subFilters={this.state.filter_subcategories}/>    
+                    </div>
+                    <div className='products-list'>
                         <SeeMoreCard />
                     </div>
                 <div>   
@@ -104,56 +89,7 @@ class HomePage extends Component {
         );
     }
 
-    /**
-	 * 
-	 *
-	 * @param {int} updatedPageNo Updated Page No.
-	 * 
-	 *
-	 */
-	fetchResults = ( updatedPageNo ) => {
-		const pageNumber = updatedPageNo;
-        const { allProducts } = this.state;
-        let offset = ((pageNumber - 1) * 10); 
-        const total = allProducts.length;
-        
-        const totalPagesCount = this.getPageCount( total, 10 );
-        const displayProducts = allProducts.slice(offset, 10+offset);
-        this.setState({
-            allProducts: allProducts,
-            popularProducts: displayProducts,
-            currentPageNo: pageNumber,
-            totalResults: total,
-			totalPages: totalPagesCount,
-            loading: false
-        })
-        this.renderResults();    
-	};
-
-    /**
-	 * Fetch results according to the prev or next page requests.
-	 *
-	 * @param {String} type 'prev' or 'next'
-	 */
-	handlePageClick = ( type ) => {
-        //event.preventDefault();
-		const updatePageNo = 'prev' === type
-			? this.state.currentPageNo - 1
-			: this.state.currentPageNo + 1;
-        if( ! this.state.loading  ) {
-		    this.setState( { loading: true }, () => {
-			    this.fetchResults( updatePageNo ); 
-		    } );
-        }
-        console.log(this.state.currentPageNo)	
-	};
-
     render() {
-        const { currentPageNo, loading, totalPages } = this.state;
-        //console.log(currentPageNo);
-		const showPrevLink = 1 < currentPageNo;
-		const showNextLink = totalPages > currentPageNo;
-
         return (
             <div>
                 <AltHeader />
@@ -162,26 +98,7 @@ class HomePage extends Component {
                         Proudly Supporting <br />
                         small local businesses
                     </div>
-                    {/*Navigation*/}
-			        <PageNavigation
-                        loading={loading}
-                        showPrevLink={showPrevLink}
-                        showNextLink={showNextLink}
-                        handlePrevClick={ () => this.handlePageClick('prev' )}
-                        handleNextClick={ () => this.handlePageClick('next' )} 
-                    />
-
-                    { this.renderResults() }
-
-                    {/*Navigation*/}
-			        <PageNavigation
-                        loading={loading}
-                        showPrevLink={showPrevLink}
-                        showNextLink={showNextLink}
-                        handlePrevClick={ () => this.handlePageClick('prev' )}
-                        handleNextClick={ () => this.handlePageClick('next' )} 
-                    />
-
+                    { this.renderResults() } 
                     <br />
                     <div className='popular-reviews-container'>
                         <div className='popular-reviews-label'>

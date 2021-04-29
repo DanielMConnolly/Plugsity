@@ -23,6 +23,13 @@ let getAllProducts = async ()=>{
     }).then(response => response.data);
 }
 
+let getAllProductsWithReviews = async ()=>{
+    return axios({
+        method: "get",
+        url: "/api/products/topitems",
+    }).then(response => response.data);
+}
+
 let getAllReviews = async ()=>{
     return axios({
         method: 'get',
@@ -93,4 +100,4 @@ let getReviewsOfBusiness = async (business_id) => {
 }
 
 export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews, 
-        getReviewsOfProduct, getReviewsOfBusiness, getAllProducts, getTopReviews};
+        getReviewsOfProduct, getReviewsOfBusiness, getAllProducts, getTopReviews, getAllProductsWithReviews};
