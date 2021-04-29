@@ -25,10 +25,27 @@ class Business_Setup extends Component {
             redirectToLogin: false,
         };
     }
-    setStep(step) {
-        this.setState({
-            currentStep: step,
-        });
+    setStep(mode) {
+        let currentStep = this.state.currentStep
+        switch(mode){
+            case "next": 
+                console.log(currentStep+1)
+                this.setState({
+                    currentStep: currentStep+1,
+                });
+                break;
+            case "back":
+                this.setState({
+                    currentStep: this.state.currentStep-1,
+                })
+                break;
+            case "exit":
+                this.setState({
+                    currentStep: 6
+                })
+                break;
+        }
+       
     }
     setUserData(data) {
         this.setState({

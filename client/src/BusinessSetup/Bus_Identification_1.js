@@ -7,7 +7,7 @@ import '../css/Business_Setup.css';
 
 export default function Bus_Identification_1(props) {
 
-    const handleNext =  async ()=> {
+    const handleNext =  async (exit=false)=> {
 
         if(! ["legal_business_name", "tax_id", "business_type", "business_form"].every(item =>props.userData.hasOwnProperty(item))){
             alert("You are missing a required field");
@@ -18,12 +18,19 @@ export default function Bus_Identification_1(props) {
                     localStorage.setItem('business_id', business_id);
                     props.setUserData({...props.userData, "business_id": business_id})
                 }
-                props.setStep(2);
+                if(exit){
+                    props.setStep("exit");
+                }
+                else{
+                    props.setStep("next");
+                }
+ 
 
             })
 
         }
     }
+
     let business_type = props.userData['business_type']
     return (
         <div>
@@ -85,7 +92,7 @@ export default function Bus_Identification_1(props) {
                 height: '10%', bottom: '0px',
                 position: 'absolute', display: 'flex', width:'100%'}}>
 
-                <Button id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500}} variant="contained" color="primary">Save & continue later</Button>
+                <Button id="btn_save_submit" onClick={()=>handleNext(true)} style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500}} variant="contained" color="primary">Save & continue later</Button>
                 <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '23%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500}} variant="contained" onClick={() =>handleNext()} color="primary">Next</Button>
 
         </footer>

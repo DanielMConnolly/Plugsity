@@ -11,28 +11,23 @@ import {
     FormControlLabel,
     Radio,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+
 import Shape from "../assets/Shape.png";
 import "../css/Business_Setup.css";
 import ConnectWithStripe from "../ConnectWithStripe";
 
 export default function PaymentMethods(props) {
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            "& > *": {
-                margin: theme.spacing(1),
-            },
-        },
-        input: {
-            display: "none",
-        },
-    }));
 
-    const handleNext = () => {
-        props.setStep(4);
+    const handleNext = (exit=false) => {
+        if(exit){
+            props.setStep("exit")
+        }
+        else{
+            props.setStep("next")
+        }
+        
     };
 
-    const classes = useStyles();
     return (
         <div style={{ width: "60%" }}>
             <div
@@ -151,7 +146,7 @@ export default function PaymentMethods(props) {
                         fontWeight: 500,
                     }}
                     variant='contained'
-                    onClick={() => props.setStep(2)}
+                    onClick={() => props.setStep("back")}
                     color='primary'
                 >
                     Back
@@ -169,6 +164,7 @@ export default function PaymentMethods(props) {
                         lineHeight: "16px",
                         fontWeight: 500,
                     }}
+                    onClick={()=> handleNext(true)}
                     variant='contained'
                     color='primary'
                 >

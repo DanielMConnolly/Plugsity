@@ -28,8 +28,13 @@ export default function ShippingPolicies(props) {
     }));
 
 
-    const handleNext = ()=> {
-     props.setStep(5)
+    const handleNext = (exit=false)=> {
+     if(exit){
+         props.setStep("exit")
+     }
+     else{
+         props.setStep("next")
+     }
      const uploadReturnPolicy =new Promise((resolve, reject)=>{
         if (returnPolicy) {
               uploadPDF(returnPolicy, (key) => {
@@ -127,7 +132,7 @@ export default function ShippingPolicies(props) {
                 height: '10%', bottom: '0px',
                 position: 'absolute', display: 'flex', width: '100%'
             }}>
-                <Button id="btn_back" style={{ marginLeft: '5.5%', width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep(4)} color="primary">Back</Button>
+                <Button id="btn_back" style={{ marginLeft: '5.5%', width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep("back")} color="primary">Back</Button>
                 <Button id="btn_save_submit" style={{ marginLeft: '3.5%', width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
                 <Button id="btn_bus_setup_submit" style={{ marginLeft: '25%', width: '160px', height: '32px', borderRadius: '15px', marginLeft: '23%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained"
                     color="primary" onClick={()=> handleNext()}>Next</Button>
