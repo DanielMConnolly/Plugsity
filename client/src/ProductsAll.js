@@ -51,13 +51,13 @@ class AllProducts extends Component {
             console.log("Populating from DB: ", result.data);
             const total = result.data.length; 
             const results = result.data;
-            const totalPagesCount = this.getPageCount( total, 9 ); 
+            const totalPagesCount = this.getPageCount( total, 10 ); 
             
             const filter_categories = [...new Set(results.map(result=>result.product_category).filter(item=>item!=''))]
 			const filter_subcategories = [...new Set(results.map(result=>result.product_subcategory).filter(item=>item!=''))]
 
             this.setState({
-                results: result.data.slice(0, 9),
+                results: result.data.slice(0, 10),
                 allProducts: result.data,
                 totalResults: total,
 				totalPages: totalPagesCount,
@@ -96,12 +96,12 @@ class AllProducts extends Component {
 	fetchResults = ( updatedPageNo ) => {
 		const pageNumber = updatedPageNo;
         const { allProducts } = this.state;
-        let offset = ((pageNumber - 1) * 9); 
+        let offset = ((pageNumber - 1) * 10); 
         const total = allProducts.length;
         const { filter_categories } = this.state;
         const { filter_subcategories } = this.state;
-        const totalPagesCount = this.getPageCount( total, 9 );
-        const displayProducts = allProducts.slice(offset, 9+offset);
+        const totalPagesCount = this.getPageCount( total, 10 );
+        const displayProducts = allProducts.slice(offset, 10+offset);
         this.setState({
             allProducts: allProducts,
             results: displayProducts,

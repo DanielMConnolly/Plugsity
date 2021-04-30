@@ -52,7 +52,7 @@ class HomePage extends Component {
             this.setState({
                 allProducts: products,
                 rating: products.rating,
-                popularProducts: products.slice(0, 9),
+                popularProducts: products.slice(0, 10),
                 filter_categories: filter_categories,
                 filter_subcategories: filter_subcategories
             });
