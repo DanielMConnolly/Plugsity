@@ -77,10 +77,10 @@ class UserProfile extends React.Component {
                                 <AccountSettings fname={this.state.firstname} lname={this.state.lastname} func={this.updateMe}/>
                             </div>
                             <div label="My Review" className="tab" >
-                                <MyReviews/>
+                                <MyReviews user_id={this.state.user_id}/>
                             </div>
                             <div label="My Orders" className="tab" >
-                                <MyOrders />
+                                <MyOrders user_id={this.state.user_id}/>
                             </div>
                         </Tabs>
                     </div>

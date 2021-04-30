@@ -37,6 +37,7 @@ class AccountHeader extends Component {
     });
   }
   redirectToMyAccount(){
+    console.log("trying to access my account again");
     this.setState({
       redirectToMyAccount: true
     });
@@ -52,6 +53,7 @@ class AccountHeader extends Component {
     })
   }
   logoutUser = (event) => {
+    console.log("trying to log out")
     axios({
       method: 'post',
       url: '/auth/logout',
@@ -77,6 +79,18 @@ class AccountHeader extends Component {
     });
   }
   render() {
+    if (this.state.logout) {
+      return (<Redirect to="/"></Redirect>)
+    }
+    if(this.state.redirectToDashboard){
+      return (<Redirect to ="/dashboard"></Redirect>)
+    }
+    else if(this.state.redirectToBusinessSignup){
+      return(<Redirect to="/business_setup"></Redirect>)
+    }
+    if(this.state.redirectToMyAccount){
+      return(<Redirect to="/myprofile"></Redirect>)
+    }  
     let dropdown_list = [{title: "Log In", "id": 1, onClick: ()=>this.redirectToLogin()}];
     if(this.state.logged_in){
       dropdown_list = [
@@ -92,17 +106,6 @@ class AccountHeader extends Component {
           dropdown_list.push({title: "Edit Business Details", id: 4, "selected": false, onClick: ()=>this.redirectToBusinessSignup()})
         }
     }
-    if (this.state.logout) {
-      return (<Redirect to="/"></Redirect>)
-    }
-    if(this.state.redirectToDashboard){
-      return (<Redirect to ="/dashboard"></Redirect>)
-    }
-    else if(this.state.redirectToBusinessSignup){
-      return(<Redirect to="/business_setup"></Redirect>)
-    }else if(this.state.redirectToMyAccount){
-      return(<Redirect to="/myprofile"></Redirect>)
-    }  
     return (
       <div className="header-row">
         <Dropdown title="My Account" list={dropdown_list} 

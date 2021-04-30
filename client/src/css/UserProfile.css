@@ -98,21 +98,7 @@
     color: #0062cc;
 }
 
-.h5-style{
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-size: 26px;
-    color: #32313D;
-    
-}
 
-.sub-title{
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-size: 14px;
-    color: #32313D; 
-    mix-blend-mode: normal;
-}
 
 .followers{
     font-family: 'DM Sans';
@@ -527,6 +513,7 @@
     font-size: 12px;
 }
 
+
 .body{
     grid-template-columns: 33% 33% 34%;
     grid-template-rows: auto auto;
@@ -549,5 +536,20 @@
     grid-column-start: 1;
     grid-column-end: span 3;
     text-align:center;
+    min-height: 400px;
 }
 
+.sub-title{
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-size: 14px;
+    color: #32313D; 
+    mix-blend-mode: normal;
+}
+
+.h5-style{
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-size: 26px;
+    color: #32313D;    
+}

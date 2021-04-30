@@ -64,14 +64,18 @@ class UserOrders extends Component {
     }
 
     async fetchData() {
+        console.log("starting to fetch");
         const response = await axios.get(`/api/orders/${this.state.user_id}`);
         // response.data is an array
         // store in state
+
+        console.log("fetched successfully");
         this.setState({
             orderData: response.data,
         });
+        console.log("starting to get productdata");
         const productList = await this.setProductData();
-
+        console.log("finsihed product data");
         this.setState({
             productData: productList,
             loading: true,
@@ -93,7 +97,7 @@ class UserOrders extends Component {
                 });
                 return (
                     <Fragment>
-                        <AltHeader />
+                        {this.state.productData.length == 0 && <div className="No Items">There are no products ordered</div>}
                         {this.state.productData.map((product) => {
                             return (
                                 <div className='order-container'>
@@ -138,7 +142,6 @@ class UserOrders extends Component {
             } else {
                 return (
                     <Fragment>
-                        <AltHeader />
                         <div>Fetching your orders</div>
                     </Fragment>
                 );
