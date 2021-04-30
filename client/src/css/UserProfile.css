@@ -548,7 +548,7 @@
     text-align: center;
 
 }
-input[type=text]{
+.AccountSettingsMain input[type=text]{
     margin-bottom: 10px;
     font-family: 'DM Sans';
     height: 30px;
@@ -557,7 +557,7 @@ input[type=text]{
 
 }
 
-input[type=submit]{
+.AccountSettingsMain input[type=submit]{
     width: 68px;
     height: 40px;
     color: #FFFFFF;

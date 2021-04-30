@@ -12,12 +12,17 @@ import { createFile, uploadFile } from '../Utils/Upload';
 
 export default function Bus_Identification_Images(props) {
     //     const [key, setKey] = useState()
-    const handleNext = async () => {
-        props.setStep(4);
+    const handleNext = async (exit=false) => {
+        if(exit){
+            props.setStep("exit")
+        }
+        else{
+            props.setStep("next");
+        }
         const uploadBusinessImage = new Promise((resolve, reject) => {
             if (BusinessImage) {
                 uploadFile(BusinessImage, (key) => {
-
+                        
                     props.setbusImagesData({ ...props.busImagesData, "business_image_link": key })
 
                     if (props.busImagesData.business_id == null) {
@@ -109,8 +114,8 @@ export default function Bus_Identification_Images(props) {
                 height: '10%', bottom: '0px',
                 position: 'absolute', display: 'flex', width: '100%'
             }}>
-                <Button id="btn_back" style={{ width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep(2)} color="primary">Back</Button>
-                <Button id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
+                <Button id="btn_back" style={{ width: '160px', height: '32px', borderRadius: '15px', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => props.setStep("back")} color="primary">Back</Button>
+                <Button onClick={()=>handleNext(true)} id="btn_save_submit" style={{ width: '220px', height: '32px', borderRadius: '15px', marginLeft: '3%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" color="primary">Save & continue later</Button>
                 <Button id="btn_next" style={{ width: '160px', height: '32px', borderRadius: '15px', marginLeft: '14%', fontSize: '14px', fontFamily: 'DM Sans', lineHeight: '16px', fontWeight: 500 }} variant="contained" onClick={() => handleNext()} color="primary">Next</Button>
 
             </footer>

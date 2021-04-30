@@ -6,38 +6,63 @@ import Bus_Identification_2 from "./Bus_Identification_2";
 import Point_Of_Contact from "./Point_Of_Contact";
 import Point_Of_Contact_2 from "./Point_Of_Contact_2";
 import PaymentMethods from "./PaymentMethods";
-import Business_Policies from "./Business_Policies";
+import Business_Policies from "./ShippingPolicies";
 import Header from "../Header";
-import Bus_Identification_Images from "./Bus_Identification_Images";
+import Bus_Identification_Images from './Bus_Identification_Images'
 import AltHeader from "../AltHeader";
 import { Stepper, StepLabel, Step } from "@material-ui/core";
 import "../css/Stepper.css";
 import "../css/Business_Setup.css";
 import { Redirect } from "react-router-dom";
-import { getBusinessDataFromUser, isUserABusiness } from "../Utils/ApiCalls";
+import {
+    getBusinessDataFromUser,
+    isUserABusiness,
+    createOrUpdateBusiness,
+} from "../Utils/ApiCalls";
+import ShippingPolicies from "./ShippingPolicies";
 
 class Business_Setup extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userData: { user_id: localStorage.getItem("user_id") },
+            busImagesData: { business_id: localStorage.getItem("business_id") },
             currentStep: 1,
             redirectToLogin: false,
-            busImagesData: { business_id: localStorage.getItem("business_id") }
-
         };
     }
-    setStep(step) {
-        this.setState({
-            currentStep: step,
-        });
+    setStep(mode) {
+        let currentStep = this.state.currentStep;
+        if (Number.isInteger(mode)) {
+            this.setState({
+                currentStep: mode,
+            });
+        } else {
+            switch (mode) {
+                case "next":
+                    console.log(currentStep + 1);
+                    this.setState({
+                        currentStep: currentStep + 1,
+                    });
+                    break;
+                case "back":
+                    this.setState({
+                        currentStep: this.state.currentStep - 1,
+                    });
+                    break;
+                case "exit":
+                    this.setState({
+                        currentStep: 6,
+                    });
+                    break;
+            }
+        }
     }
     setUserData(data) {
         this.setState({
             userData: data,
         });
     }
-
 
     setbusImagesData(data) {
         console.log(data)
@@ -51,20 +76,9 @@ class Business_Setup extends Component {
 
     }
 
-    queryParams() {
-        const query = new URLSearchParams(window.location.search);
-        if (query.get("step")) {
-            let redirectStep = query.get("step");
-            if (redirectStep <= 6 && redirectStep > 0) {
-                this.setStep(parseInt(redirectStep));
-            } else {
-                this.setStep(1);
-            }
-        }
-    }
+   
 
     componentDidMount() {
-        this.queryParams();
         const user_id = localStorage.getItem("user_id");
         isUserABusiness(user_id).then((is_user_a_business) => {
             if (is_user_a_business) {
@@ -92,19 +106,13 @@ class Business_Setup extends Component {
                         userData={this.state.userData}
                         setUserData={this.setUserData.bind(this)}
                         setStep={this.setStep.bind(this)}
+                        updateBusiness={() => {
+                            console.log(this.state.userData);
+                            createOrUpdateBusiness(this.state.userData);
+                        }}
                     />
                 );
             case 3:
-                return (
-                    <Bus_Identification_Images
-                        busImagesData={this.state.busImagesData}
-                        setbusImagesData={this.setbusImagesData.bind(this)}
-                        userData={this.state.userData}
-                        setUserData={this.setUserData.bind(this)}
-                        setStep={this.setStep.bind(this)}
-                    />
-                );
-            case 4:
                 return (
                     <PaymentMethods
                         userData={this.state.userData}
@@ -112,14 +120,24 @@ class Business_Setup extends Component {
                         setStep={this.setStep.bind(this)}
                     />
                 );
-            case 5:
+            case 4:
                 return (
-                    <Business_Policies
+                    <ShippingPolicies
                         userData={this.state.userData}
                         setUserData={this.setUserData.bind(this)}
                         setStep={this.setStep.bind(this)}
                     />
                 );
+            case 5:
+                    return (
+                        <Bus_Identification_Images
+                            busImagesData={this.state.busImagesData}
+                            setbusImagesData={this.setbusImagesData.bind(this)}
+                            userData={this.state.userData}
+                            setUserData={this.setUserData.bind(this)}
+                            setStep={this.setStep.bind(this)}
+                        />
+                    );
 
             case 6:
                 return (
@@ -129,6 +147,8 @@ class Business_Setup extends Component {
                         setStep={this.setStep.bind(this)}
                     />
                 );
+            case 7:
+                return <Redirect to='/homepage' />;
         }
     }
 

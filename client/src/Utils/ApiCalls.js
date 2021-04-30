@@ -68,7 +68,8 @@ let createOrUpdateBusiness = async (business_data) =>{
     })
 }
 
-let createOrUpdateBusinessImages = async(image_data) =>{
+let createOrUpdateBusinessImages = async(business_data) =>{
+    console.log(business_data)
     return axios({
         method: 'post', 
         url: `api/business_setup/businessImages`,

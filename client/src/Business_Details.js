@@ -100,7 +100,9 @@ class Business_Details extends Component {
                 "Accept": 'application/json'
             },
         }).then(res => {
+            console.log(res.data)
             if (res.data[0]) {
+
                 this.setState({
                     business_image_link: res.data[0]["business_image_link"]
                 })
