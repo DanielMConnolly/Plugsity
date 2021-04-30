@@ -121,10 +121,5 @@ let getMyReviews = async (user_id) => {
     });
 }
 
-<<<<<<< HEAD
 export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews, 
         getReviewsOfProduct, getReviewsOfBusiness, getAllProducts, getTopReviews, getAllProductsWithReviews, getMyReviews, createOrUpdateBusinessImages};
-=======
-export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, createOrUpdateBusinessImages, getProductsOfBusiness , getAllReviews, 
-        getReviewsOfProduct, getReviewsOfBusiness, getAllProducts, getTopReviews, getAllProductsWithReviews, getMyReviews};
->>>>>>> origin
