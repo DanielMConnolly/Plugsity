@@ -226,6 +226,22 @@ const getUserProfile = (id) => {
     });
 };
 
+const getTopProducts = ()=>{
+    const query = `SELECT ProductUpload.*, (SELECT COUNT(*) as likes FROM ProductReviewLikes GROUP BY product_id) FROM ProductUpload p , ProductReviewLikes r  WHERE r.product_id = p.product_id`
+}
+
+const getTopReviews = ()=>{
+    const query =  `SELECT *, COUNT(likes) as like_ranking FROM (SELECT reviews.*, likes.id as likes FROM (SELECT  review.* FROM BusinessPage business, ProductUpload product, ProductMediaReview review WHERE  product.business_id = business.business_id AND review.product_id = product.product_id  AND review.processing_status="ready") reviews LEFT JOIN ProductReviewLikes likes ON likes.review_id = reviews.review_id)as output GROUP BY review_id ORDER BY like_ranking DESC;`
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((err) => console.log(err));
+    });
+
+}
+
 const getProduct = (id) => {
     const query = `SELECT * FROM BusinessPage JOIN (SELECT ProductUpload.* FROM ProductUpload  WHERE product_id="${id}") as products ON products.business_id = BusinessPage.business_id` ;
     return new Promise((resolve, reject) => {
@@ -280,6 +296,37 @@ const getAllBusinesses = () => {
             .catch((err) => console.log(err));
     });
 };
+
+const getAllProducts = () => {
+    const query = `SELECT * FROM BusinessPage JOIN (SELECT ProductUpload.* FROM ProductUpload) as products ON products.business_id = BusinessPage.business_id` ;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((err) => console.log(err));
+    });
+
+}
+
+const getAllProductsWithReviews = () => {
+    const query = `SELECT ProductUpload.*, AVG(ProductMediaReview.review_rating) as rating, BusinessPage.*
+    FROM ProductMediaReview
+    RIGHT JOIN ProductUpload
+    ON ProductUpload.product_id = ProductMediaReview.product_id
+    JOIN BusinessPage
+    ON ProductUpload.business_id = BusinessPage.business_id
+    GROUP BY ProductUpload.product_id, BusinessPage.business_id
+    ORDER BY rating desc` ;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((err) => console.log(err));
+    });
+
+}
 
 const updateBusiness = (business_id, insert_data) => {
     let data = [];
@@ -353,6 +400,28 @@ const getProductReviewAverage = (product_id) => {
     });
 };
 
+const getReviewsOfProduct = (product_id) => {
+    const query =  `SELECT * FROM ProductMediaReview where product_id=${product_id} AND ProductMediaReview.processing_status = "ready"`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((err) => console.log(err));
+    });
+}
+
+const getReviewsOfBusiness = (business_id) => {
+    const query = `SELECT review.* FROM ProductMediaReview review, ProductUpload product, BusinessPage business WHERE review.product_id = product.product_id AND business.business_id = product.business_id AND review.processing_status="ready" AND business.business_id =${business_id}` ;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((err) => console.log(err));
+    });
+}
+
 const searchForProducts = (searchTerm) => {
     const query =
         `SELECT ProductUpload.*, BusinessPage.legal_business_name FROM ProductUpload, BusinessPage ` +
@@ -394,6 +463,7 @@ exports.getReview = getReview;
 exports.setVideoComplete = setVideoComplete;
 exports.likeReview = likeReview;
 exports.getAllLikes = getAllLikes;
+exports.getReviewsOfProduct = getReviewsOfProduct;
 exports.addReviewView = addReviewView;
 exports.didUserLike = didUserLike;
 exports.getAllBusinesses = getAllBusinesses;
@@ -401,8 +471,12 @@ exports.searchForProducts = searchForProducts;
 exports.isUserABusiness = isUserABusiness;
 exports.checkIfEmailExists = checkIfEmailExists;
 exports.createBusiness = createBusiness;
+exports.getTopReviews = getTopReviews;
+exports.getReviewsOfBusiness = getReviewsOfBusiness;
 exports.getProductReviewAverage = getProductReviewAverage;
 exports.updateBusiness = updateBusiness;
+exports.getAllProducts = getAllProducts;
+exports.getAllProductsWithReviews = getAllProductsWithReviews;
 exports.getProductsOfBusiness = getProductsOfBusiness;
 exports.createProduct = createProduct;
 exports.queryDatabase = queryDatabase;

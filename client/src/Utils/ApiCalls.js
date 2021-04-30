@@ -9,7 +9,25 @@ let getBusinessDataFromUser = async (user_id) => {
             "Accept": 'application/json'
         },
     })
-    return res.data;
+    let data = res.data;
+    data = Object.keys(data)
+    .filter( key => !["", null, "null"].includes(data[key]) )
+    .reduce( (res, key) => (res[key] = data[key], res), {} );
+    return data;
+}
+
+let getAllProducts = async ()=>{
+    return axios({
+        method: "get",
+        url: "/api/products",
+    }).then(response => response.data);
+}
+
+let getAllProductsWithReviews = async ()=>{
+    return axios({
+        method: "get",
+        url: "/api/products/topitems",
+    }).then(response => response.data);
 }
 
 let getAllReviews = async ()=>{
@@ -22,6 +40,13 @@ let getAllReviews = async ()=>{
     }).then(response => response.data);
 }
 
+let getTopReviews = async ()=>{
+    return axios({
+        method: "get",
+        url: "/review/get_top_reviews",
+    }).then(response=>response.data);
+}
+
 let isUserABusiness = async (user_id) => {
     return axios({
         method: 'get',
@@ -32,12 +57,13 @@ let isUserABusiness = async (user_id) => {
 }
 
 let createOrUpdateBusiness = async (business_data) =>{
+    console.log(business_data)
     return axios({
         method: 'post', 
-        url: `/business_setup/business`,
+        url: `api/business_setup/business`,
         data: {
             ...business_data
-        }
+        }   
     }).then((response)=>{
         console.log(response);
         return response.data["business_id"];
@@ -54,4 +80,24 @@ let getProductsOfBusiness = async (business_id) => {
 
 }
 
-export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews};
+let getReviewsOfProduct = async (product_id) => {
+    return axios({
+        method: 'get', 
+        url: `/review/reviews_by_product/${product_id}`
+    }).then(response=> {
+        console.log(response);
+        return response.data;
+    });
+}
+
+let getReviewsOfBusiness = async (business_id) => {
+    return axios({
+        method: 'get', 
+        url: `/review/reviews_by_business/${business_id}`
+    }).then(response=> {
+        return response.data;
+    });
+}
+
+export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews, 
+        getReviewsOfProduct, getReviewsOfBusiness, getAllProducts, getTopReviews, getAllProductsWithReviews};

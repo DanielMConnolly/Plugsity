@@ -2,11 +2,13 @@ import { Component } from "react";
 import "./css/Homepage.css";
 import axios from "axios";
 import ProductCard from "./Product/ProductCard";
+import PageNavigation from "./PageNavigation";
 import AltHeader from "./AltHeader";
 import SeeMoreCard from "./SeeMoreCard";
 import Footer from "./Footer";
 import ReviewCard from "./Review/ReviewCard";
-import Tabs from "./Tabs";
+import {getAllProducts, getTopReviews, getAllProductsWithReviews} from "./Utils/ApiCalls";
+import ProductFeed from './Product/ProductFeed';
 import {
     CarouselProvider,
     Slider,
@@ -21,45 +23,72 @@ class HomePage extends Component {
         this.state = {
             active: "Products",
             popularProducts: [],
+            allProducts: [],
+            loading: false,
+            rating: 0,
+            filter_subcategories: [],
+            filter_categories: [],
+			range: 500
         };
+        this.cancel = '';
     }
+
 
     getReviewCards() {
         let review_cards = [];
         this.state.reviews.forEach((review) => {
-            review_cards.push(<ReviewCard review={review} />);
+            review_cards.push(<ReviewCard review={review} key={review.review_id} />);
         });
         return review_cards;
     }
 
     componentDidMount() {
-        axios({
-            method: "get",
-            url: "/api/products",
-            headers: {
-                Accept: "application/json",
-            },
-        }).then((res) => {
+        getAllProductsWithReviews().then((products) => {
+            const results = products;
+            console.log(results);
+            const filter_categories = [...new Set(results.map(products=>products.product_category).filter(item=>item!=''))]
+			const filter_subcategories = [...new Set(results.map(products=>products.product_subcategory).filter(item=>item!=''))]
+
             this.setState({
-                popularProducts: res.data.slice(0, 7),
+                allProducts: products,
+                rating: products.rating,
+                popularProducts: products.slice(0, 10),
+                filter_categories: filter_categories,
+                filter_subcategories: filter_subcategories
             });
         });
-
-        axios({
-            method: "get",
-            url: "/review/list",
-        }).then((res) => {
-            if (res.data.length < 5) {
+        
+        getTopReviews().then((reviews) => {
+            if (reviews.length < 5) {
                 this.setState({
-                    reviews: [],
+                    reviews: reviews,
                 });
             } else {
                 this.setState({
-                    reviews: [],
+                    reviews: reviews.splice(0, 5),
                 });
             }
         });
     }
+
+    renderResults = () => {
+        let products= this.state.popularProducts;
+        return(
+            <div className='popular-products'>
+                <h2 className="popular-products-heading"> Popular Products</h2>
+                    <div className='products-list'>
+                        <ProductFeed products={products} filters={this.state.filter_categories} subFilters={this.state.filter_subcategories}/>    
+                    </div>
+                    <div className='products-list'>
+                        <SeeMoreCard />
+                    </div>
+                <div>   
+                </div>
+                <div></div>
+            </div>
+        );
+    }
+
     render() {
         return (
             <div>
@@ -69,36 +98,7 @@ class HomePage extends Component {
                         Proudly Supporting <br />
                         small local businesses
                     </div>
-                    <div className='popular-products'>
-                        <h2> Popular</h2>
-                        <Tabs
-                            activeTab={this.state.active}
-                            onClick={(label) => {
-                                this.setState({
-                                    active: label,
-                                });
-                            }}
-                        >
-                            <div label='Products' className='tab'>
-                                <div className='products-list'>
-                                    {this.state.popularProducts.map(
-                                        (result) => {
-                                            return (
-                                                <ProductCard
-                                                    productData={result}
-                                                />
-                                            );
-                                        }
-                                    )}
-                                    <SeeMoreCard />
-                                </div>
-                            </div>
-                            <div label='Services' style='{width 100%}'>
-                                Services
-                            </div>
-                            <div label='Events'>Events</div>
-                        </Tabs>
-                    </div>
+                    { this.renderResults() } 
                     <br />
                     <div className='popular-reviews-container'>
                         <div className='popular-reviews-label'>

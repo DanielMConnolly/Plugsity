@@ -4,11 +4,15 @@ import axios from "axios";
 import placeholder from '../assets/placeholder.jpg';
 import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
+import ReviewStars from "../Review/ReviewStars";
 
 export default function ProductCard(props) {
-
-    let product = props.productData;
     let history = useHistory();
+    let product = props.productData;
+
+    if(!product){
+        return <></>
+    }
     return (
         <div className="result-item">
             <div className="image-wrapper" >
@@ -22,7 +26,7 @@ export default function ProductCard(props) {
                 <span className="product-data-name">{product.product_name}</span>
                 <span className="product-data-price">By {product.legal_business_name}</span>
                 <span className="product-data-price">${product.product_cost}</span>
-
+                <ReviewStars stars={product.rating}/>
             </div>
         </div>
 

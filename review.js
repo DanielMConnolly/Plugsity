@@ -19,38 +19,33 @@ router.post('/process_video', (req, res, next) => {
 })
 
 router.get('/list', async (req, res, next) => {
-    let reviews = await con.getAllReviews().then((reviews) => {
-       Promise.all(reviews.map(async (review)=>{
-            review = JSON.parse(JSON.stringify(review));
-            let likes = JSON.parse(JSON.stringify( await con.getAllLikes(review["review_id"])))[0]["likes"];
-            let user = JSON.parse(JSON.stringify(await con.getUserProfile(review["user_id"])))[0]
-            console.log(user);
-            let product = JSON.parse(JSON.stringify(await con.getProduct(review["product_id"])))[0]
-            review["user"] = user;
-            review["likes"] = likes;
-            review["product"] = product;
-            return review
-        })).then((reviews)=>{
-            res.send(reviews)})
+    await con.getAllReviews().then((reviews) => {
+        Promise.all(reviews.map(async (review) => {
+            return get_review_data(review);
+        })).then((reviews) => {
+            res.send(reviews)
+        })
     });
+})
 
+router.get('/get_top_reviews', async (req, res, next) => {
+    await con.getTopReviews().then((reviews) => {
+        Promise.all(reviews.map(async (review) => {
+            return get_review_data(review);
+        })).then((reviews) => {
+            res.send(reviews)
+        })
+    });
 })
 
 router.get('/:id', async (req, res) => {
     let review = {}
     const id = req.params.id;
-    await con.getReview(id).then(async (result) => {
-        review = JSON.parse(JSON.stringify(result[0]));
-        let likes = JSON.parse(JSON.stringify(await con.getAllLikes(id)))[0]["likes"];
-        let user = JSON.parse(JSON.stringify(await con.getUserProfile(review["user_id"])))[0]
-        let product = JSON.parse(JSON.stringify(await con.getProduct(review["product_id"])))[0]
-        review["user"] = user;
-        review["likes"] = likes;
-        review["product"] = product;
+    con.getReview(id).then(async (result) => {
+        review = await get_review_data(result[0]);
+        return res.send({ "review": review });
     });
     con.addReviewView(id);
-
-    return res.send({ "review": review });
 })
 
 router.get('/did_user_like/:data', async (req, res) => {
@@ -69,5 +64,41 @@ router.post('/like_review', (req, res, next) => {
     return res.status(200).send();
 
 });
+
+router.get('/reviews_by_product/:product_id', (req, res) => {
+    const product_id = req.params.product_id;
+    con.getReviewsOfProduct(product_id).then(reviews => {
+        Promise.all(reviews.map(async (review) => {
+            return get_review_data(review);
+        })).then((reviews) => {
+            res.send(reviews)
+        })
+    });
+})
+
+router.get('/reviews_by_business/:business_id', (req, res)=>{
+    const business_id = req.params.business_id;
+    con.getReviewsOfBusiness(business_id).then(reviews => {
+        Promise.all(reviews.map(async (review) => {
+            return get_review_data(review);
+        })).then((reviews) => {
+            res.send(reviews)
+        })
+    });
+
+
+})
+
+const get_review_data = async (review) => {
+    review = JSON.parse(JSON.stringify(review));
+    let likes = JSON.parse(JSON.stringify(await con.getAllLikes(review["review_id"])))[0]["likes"];
+    let user = JSON.parse(JSON.stringify(await con.getUserProfile(review["user_id"])))[0]
+    let product = JSON.parse(JSON.stringify(await con.getProduct(review["product_id"])))[0]
+    review["user"] = user;
+    review["likes"] = likes;
+    review["product"] = product;
+    return review
+
+}
 
 module.exports = router;
