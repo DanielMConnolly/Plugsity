@@ -77,7 +77,7 @@ router.post("/businessImages", async (req, res) => {
 })
 
 router.get("/business/getBusinessImages/:business_id", async (req, res) => {
-    console.log("YAYYYYYYY")
+    
     const business_id = req.params.business_id;
     console.log(business_id)
     const query = `SELECT business_image_link FROM Plugsity.BusinessImages WHERE business_id = '${business_id}'`;
