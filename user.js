@@ -19,7 +19,7 @@ router.get('/check_if_business/:user_id', async (req, res, next) => {
 
 router.post('/myprofile', async (req,res,next) => {
     const user_id = req.body.user_id;
-    const query = `SELECT first_name,last_name,created_at FROM Users WHERE user_id = '${user_id}'`;
+    const query = `SELECT first_name,last_name,created_at,email_address FROM Users WHERE user_id = '${user_id}'`;
     con.queryDatabase(query).then((result) => {
         res.send(result[0]);
         

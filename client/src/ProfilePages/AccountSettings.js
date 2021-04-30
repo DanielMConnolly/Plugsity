@@ -6,8 +6,8 @@ class AccountSettings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            newfname: this.props.fname,
-            newlname:this.props.lname
+            newfname: "",
+            newlname: ""
         };
 
     }
@@ -21,21 +21,29 @@ class AccountSettings extends React.Component {
       }
 
     onSubmit = (event) => {
-        event.preventDefault();
+        let newfirstname = "";
+        let newlastname = "";
+        if (this.state.newfname == ""){
+            newfirstname = this.props.fname;
+        }else{
+            newfirstname = this.state.newfname;
+        }
+        if (this.state.newlname == ""){
+            newlastname = this.props.lname;
+        }else{
+            newlastname = this.state.newlname;
+        }
         axios({
           method: 'post',
           url: '/user/update',
-          headers: {
-            "Accept": 'application/json'
-          },
           data: {
-            user_id: localStorage.getItem("user_id"),
-            newfname: this.state.newfname,
-            newlname: this.state.newlname
+            user_id: this.props.user_id,
+            newfname: newfirstname,
+            newlname: newlastname
           }
     
         }).then((response) => {
-            this.props.func();
+
         }, (error) => {
           
         });
@@ -44,18 +52,18 @@ class AccountSettings extends React.Component {
         return (
             <div className="AccountSettingsMain">
                 <form onSubmit={this.onSubmit}>
+                    <label>First Name:</label>
                     <input
                         type="text"
-                        name="First Name"
+                        name="newfname"
                         placeholder= {this.props.fname}
-                        value={this.props.fname}
                         onChange={this.handleInputChange}
                     />
+                    <label>Last Name:</label>
                     <input
                         type="text"
-                        name="Last Name"
+                        name="newlname"
                         placeholder= {this.props.lname}
-                        value={this.props.lname}
                         onChange={this.handleInputChange}
                     />
                     <input 
