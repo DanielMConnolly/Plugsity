@@ -76,13 +76,34 @@ router.get('/reviews_by_product/:product_id', (req, res) => {
     });
 })
 
-router.get('/reviews_by_business/:business_id', (req, res)=>{
+router.get('/reviews_by_business/:business_id', (req, res) => {
     const business_id = req.params.business_id;
     con.getReviewsOfBusiness(business_id).then(reviews => {
         Promise.all(reviews.map(async (review) => {
             return get_review_data(review);
         })).then((reviews) => {
             res.send(reviews)
+        })
+    });
+})
+
+router.get('/reviews_by_user/:user_id', (req, res) => {
+    const user_id = req.params.user_id;
+    con.getAllReviews().then((reviews) => {
+        Promise.all(reviews.map(async (review) => {
+            if (review.user_id == user_id) {
+                return get_review_data(review);
+            }else{
+                return '';
+            }
+        })).then((reviews) => {
+            let retList = [];
+            reviews.forEach(element => {
+                if (element != ''){
+                    retList.push(element);
+                }
+            });
+            res.send(retList);
         })
     });
 
