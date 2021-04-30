@@ -24,7 +24,9 @@ class UserProfile extends React.Component {
         };
 
     }
-
+    updateMe(){
+        this.getAccountInfo();
+    }
     getAccountInfo() {
         axios({
             method: 'post',
@@ -58,7 +60,7 @@ class UserProfile extends React.Component {
                 <AltHeader />
                 <div className="body" >
                     <div className="profile-picture">
-                        <p> testing ... </p>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
                     </div>
                     <div className="main-text">
                         < h5 className="h5-style" >
@@ -68,16 +70,17 @@ class UserProfile extends React.Component {
                             Joined {new Date(this.state.joined).toDateString()}
                         </h5>
                     </div>
+
                     <div className="bottom">
                         <Tabs activeTab={this.state.label} onClick={(label) => this.setState({label:label})} center>
                             <div label="Account Settings">
-                                <AccountSettings className="tab" />
+                                <AccountSettings fname={this.state.firstname} lname={this.state.lastname} func={this.updateMe}/>
                             </div>
                             <div label="My Review" className="tab" >
-                                <MyReviews className="tab" />
+                                <MyReviews/>
                             </div>
                             <div label="My Orders" className="tab" >
-                                <MyOrders className="tab" />
+                                <MyOrders />
                             </div>
                         </Tabs>
                     </div>

@@ -1,39 +1,60 @@
 import React from 'react';
 import '../css/UserProfile.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import AltHeader from "../AltHeader";
-import AddressPage from "./AddressPage";
-import Contact from "./Contact";
+import axios from 'axios';
 
 class AccountSettings extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            newfname: this.props.fname,
+            newlname:this.props.lname
+        };
+
+    }
+
+    onSubmit = (event) => {
+        event.preventDefault();
+        axios({
+          method: 'post',
+          url: '/user/update',
+          headers: {
+            "Accept": 'application/json'
+          },
+          data: {
+            user_id: localStorage.getItem("user_id"),
+            newfname: this.state.newfname,
+            newlname: this.state.newlname
+          }
+    
+        }).then((response) => {
+            this.props.func();
+        }, (error) => {
+          
+        });
+    }
     render() {
         return (
-            <div className="container3 emp-profile">
-                <form method="post">
-                    <div className="row">
-                        <div className="col-md-8">
-                            <div className="sub-page">
-                                <div className="contact-box1">
-                                    <div className="my-column">
-                                        <h6 className="name-style">First Name</h6>
-                                        <input type="text" id="fname" name="firstname" placeholder="Your first name.." className="input-name"></input>
-                                    </div>
-                                    <div className="my-column" >
-                                        <h6 className="name-style">Last Name</h6>
-                                        <input type="text" id="lname" name="lastname" placeholder="Your last name.." className="input-name"></input>
-                                    </div>
-                                    <div className="my-column">
-                                        <h6 className="name-style">Bio</h6>
-                                        <textarea id="bio" name="bio" rows="6" cols="120" placeholder="Tell us a little bit about yourself" className="textarea" />
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <button className="preferences1"> Update</button>
-                    </div>
-
+            <div className="AccountSettingsMain">
+                <form onSubmit={this.onSubmit}>
+                    <input
+                        type="text"
+                        name="First Name"
+                        placeholder= {this.props.fname}
+                        value={this.props.fname}
+                        onChange={this.handleInputChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="Last Name"
+                        placeholder= {this.props.lname}
+                        value={this.props.lname}
+                        onChange={this.handleInputChange}
+                        required
+                    />
+                    <input 
+                        type="submit" 
+                        value="Update" />
                 </form>
             </div>
         )
