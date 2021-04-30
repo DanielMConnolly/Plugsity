@@ -12,6 +12,14 @@ class AccountSettings extends React.Component {
 
     }
 
+    handleInputChange = (event) => {
+        const { value, name } = event.target;
+        this.setState({
+          [name]: value
+        });
+    
+      }
+
     onSubmit = (event) => {
         event.preventDefault();
         axios({
@@ -42,7 +50,6 @@ class AccountSettings extends React.Component {
                         placeholder= {this.props.fname}
                         value={this.props.fname}
                         onChange={this.handleInputChange}
-                        required
                     />
                     <input
                         type="text"
@@ -50,7 +57,6 @@ class AccountSettings extends React.Component {
                         placeholder= {this.props.lname}
                         value={this.props.lname}
                         onChange={this.handleInputChange}
-                        required
                     />
                     <input 
                         type="submit" 

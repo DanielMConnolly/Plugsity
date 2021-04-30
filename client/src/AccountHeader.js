@@ -52,6 +52,13 @@ class AccountHeader extends Component {
       redirectToDashboard: true
     })
   }
+  clearRedirect(){
+    this.setState({
+      redirectToDashboard: false,
+      redirectToMyAccount: false,
+      redirectToBusinessSignup: false
+    });
+  }
   logoutUser = (event) => {
     console.log("trying to log out")
     axios({
@@ -80,15 +87,19 @@ class AccountHeader extends Component {
   }
   render() {
     if (this.state.logout) {
+      this.clearRedirect();
       return (<Redirect to="/"></Redirect>)
     }
     if(this.state.redirectToDashboard){
+      this.clearRedirect();
       return (<Redirect to ="/dashboard"></Redirect>)
     }
     else if(this.state.redirectToBusinessSignup){
+      this.clearRedirect();
       return(<Redirect to="/business_setup"></Redirect>)
     }
     if(this.state.redirectToMyAccount){
+      this.clearRedirect();
       return(<Redirect to="/myprofile"></Redirect>)
     }  
     let dropdown_list = [{title: "Log In", "id": 1, onClick: ()=>this.redirectToLogin()}];
