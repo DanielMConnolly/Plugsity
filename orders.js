@@ -7,9 +7,7 @@ const { connection } = require("./db");
 // @desc - this route gives all orders of the user
 router.get("/:user_id", async (req, res) => {
     const user_id = req.params.user_id;
-
     connection.query("USE Plugsity");
-
     const query = `SELECT * FROM OrderHistory WHERE user_id=${user_id} ORDER BY order_id DESC`;
     connection.query(query, (error, results) => {
         if (error) console.log;

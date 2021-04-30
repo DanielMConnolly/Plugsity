@@ -57,7 +57,6 @@ let isUserABusiness = async (user_id) => {
 }
 
 let createOrUpdateBusiness = async (business_data) =>{
-    console.log(business_data)
     return axios({
         method: 'post', 
         url: `api/business_setup/business`,
@@ -65,7 +64,6 @@ let createOrUpdateBusiness = async (business_data) =>{
             ...business_data
         }   
     }).then((response)=>{
-        console.log(response);
         return response.data["business_id"];
     })
 }
@@ -99,7 +97,6 @@ let getReviewsOfProduct = async (product_id) => {
         method: 'get', 
         url: `/review/reviews_by_product/${product_id}`
     }).then(response=> {
-        console.log(response);
         return response.data;
     });
 }
@@ -113,5 +110,15 @@ let getReviewsOfBusiness = async (business_id) => {
     });
 }
 
+// this returns All of the reviews associated with the user_id
+let getMyReviews = async (user_id) => {
+    return axios({
+        method: 'get', 
+        url: `/review/reviews_by_user/${user_id}`
+    }).then(response=> {
+        return response.data;
+    });
+}
+
 export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews, 
-        getReviewsOfProduct, getReviewsOfBusiness, getAllProducts, getTopReviews, getAllProductsWithReviews, createOrUpdateBusinessImages};
+        getReviewsOfProduct, getReviewsOfBusiness, getAllProducts, getTopReviews, getAllProductsWithReviews, getMyReviews, createOrUpdateBusinessImages};
