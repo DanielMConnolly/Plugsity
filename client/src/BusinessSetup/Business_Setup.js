@@ -52,7 +52,7 @@ class Business_Setup extends Component {
                     break;
                 case "exit":
                     this.setState({
-                        currentStep: 6,
+                        currentStep: 7,
                     });
                     break;
             }
