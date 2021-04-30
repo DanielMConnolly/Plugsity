@@ -356,6 +356,39 @@ const createBusiness = (insert_cols, insert_vals) => {
     });
 };
 
+const updateBusinessImages = (business_id, insert_data) => {
+    let data = [];
+    for (const [key, value] of Object.entries(insert_data)) {
+        data.push(key + " = " + `'${value}'`);
+    }
+    data.join(", ");
+    console.log("print---------->updateBusinessImages");
+    console.log("insert data------------>", insert_data);
+    console.log("idata------------>", data);
+    const query = `UPDATE BusinessImages SET ${data} WHERE business_id = ${business_id}`;
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result.insertId);
+            })
+            .catch((err) => console.log(err));
+    });
+};
+
+const createBusinessImages = (insert_cols, insert_vals) => {
+    const query = `INSERT INTO BusinessImages (${insert_cols}) VALUES (${insert_vals})`;
+    console.log("print---------->createBusinessImages");
+    console.log("insert_cols---------->", insert_cols);
+    console.log("insert_vals---------->", insert_vals);
+    return new Promise((resolve, reject) => {
+        queryDatabase(query)
+            .then((result) => {
+                resolve(result.insertId);
+            })
+            .catch((err) => console.log(err));
+    });
+};
+
 const addReview = (insert_cols, insert_vals) => {
     const query = `INSERT INTO ProductMediaReview (${insert_cols}) VALUES (${insert_vals})`;
     return new Promise((resolve, reject) => {
@@ -479,5 +512,7 @@ exports.getAllProducts = getAllProducts;
 exports.getAllProductsWithReviews = getAllProductsWithReviews;
 exports.getProductsOfBusiness = getProductsOfBusiness;
 exports.createProduct = createProduct;
+exports.createBusinessImages = createBusinessImages;
+exports.updateBusinessImages = updateBusinessImages;
 exports.queryDatabase = queryDatabase;
 exports.connection = con;
