@@ -122,8 +122,6 @@ export default class ProductEditForm extends Component {
             });
 
         })
-        
-
 
     };
 
