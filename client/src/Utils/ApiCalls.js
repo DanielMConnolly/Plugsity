@@ -68,6 +68,19 @@ let createOrUpdateBusiness = async (business_data) =>{
     })
 }
 
+let createOrUpdateBusinessImages = async (business_data) => {
+    return axios({
+        method: 'post',
+        url: `/api/business_setup/businessImages`,
+        data: {
+            ...business_data
+        }
+    }).then((response) => {
+        console.log(response);
+        return response.data["business_id"];
+    })
+}
+
 let getProductsOfBusiness = async (business_id) => {
     return axios({
         method: 'get', 
@@ -106,5 +119,5 @@ let getMyReviews = async (user_id) => {
     });
 }
 
-export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, getProductsOfBusiness , getAllReviews, 
+export { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness, createOrUpdateBusinessImages, getProductsOfBusiness , getAllReviews, 
         getReviewsOfProduct, getReviewsOfBusiness, getAllProducts, getTopReviews, getAllProductsWithReviews, getMyReviews};
