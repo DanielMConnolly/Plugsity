@@ -13,7 +13,11 @@ import { Stepper, StepLabel, Step } from "@material-ui/core";
 import "../css/Stepper.css";
 import "../css/Business_Setup.css";
 import { Redirect } from "react-router-dom";
-import { getBusinessDataFromUser, isUserABusiness, createOrUpdateBusiness } from "../Utils/ApiCalls";
+import {
+    getBusinessDataFromUser,
+    isUserABusiness,
+    createOrUpdateBusiness,
+} from "../Utils/ApiCalls";
 import ShippingPolicies from "./ShippingPolicies";
 
 class Business_Setup extends Component {
@@ -26,26 +30,31 @@ class Business_Setup extends Component {
         };
     }
     setStep(mode) {
-        let currentStep = this.state.currentStep
-        switch(mode){
-            case "next": 
-                console.log(currentStep+1)
-                this.setState({
-                    currentStep: currentStep+1,
-                });
-                break;
-            case "back":
-                this.setState({
-                    currentStep: this.state.currentStep-1,
-                })
-                break;
-            case "exit":
-                this.setState({
-                    currentStep: 6
-                })
-                break;
+        let currentStep = this.state.currentStep;
+        if (Number.isInteger(mode)) {
+            this.setState({
+                currentStep: mode,
+            });
+        } else {
+            switch (mode) {
+                case "next":
+                    console.log(currentStep + 1);
+                    this.setState({
+                        currentStep: currentStep + 1,
+                    });
+                    break;
+                case "back":
+                    this.setState({
+                        currentStep: this.state.currentStep - 1,
+                    });
+                    break;
+                case "exit":
+                    this.setState({
+                        currentStep: 6,
+                    });
+                    break;
+            }
         }
-       
     }
     setUserData(data) {
         this.setState({
@@ -56,9 +65,9 @@ class Business_Setup extends Component {
     queryParams() {
         const query = new URLSearchParams(window.location.search);
         if (query.get("step")) {
-            let redirectStep = query.get("step");
+            let redirectStep = parseInt(query.get("step"));
             if (redirectStep <= 5 && redirectStep > 0) {
-                this.setStep(parseInt(redirectStep));
+                this.setStep(redirectStep);
             } else {
                 this.setStep(1);
             }
@@ -94,7 +103,10 @@ class Business_Setup extends Component {
                         userData={this.state.userData}
                         setUserData={this.setUserData.bind(this)}
                         setStep={this.setStep.bind(this)}
-                        updateBusiness={()=>{console.log(this.state.userData);createOrUpdateBusiness(this.state.userData)}}
+                        updateBusiness={() => {
+                            console.log(this.state.userData);
+                            createOrUpdateBusiness(this.state.userData);
+                        }}
                     />
                 );
             case 3:
@@ -123,9 +135,7 @@ class Business_Setup extends Component {
                     />
                 );
             case 6:
-                return (
-                    <Redirect to="/homepage"/>
-                )
+                return <Redirect to='/homepage' />;
         }
     }
 
