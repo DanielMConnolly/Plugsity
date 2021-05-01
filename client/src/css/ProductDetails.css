@@ -108,7 +108,8 @@
     bottom: 0%;
     top: 0%;
     top: 150px;
-    left: 100px;
+    left: 50px;
+    z-index : 100000;
 }
 
 .menu-wrapper{
@@ -142,3 +143,4 @@
     clear: both;
     content: "";
 }
+
