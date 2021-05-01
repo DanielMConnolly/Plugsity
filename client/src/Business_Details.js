@@ -12,13 +12,13 @@ import AboutBusiness from './AboutBusiness';
 import ReviewCard from './Review/ReviewCard';
 import Searchbar from './Searchbar';
 import Footer from './Footer';
-import {getReviewsOfBusiness} from './Utils/ApiCalls'
+import { getReviewsOfBusiness } from './Utils/ApiCalls'
 import ReviewStars from "./Review/ReviewStars";
 import locimg from './assets/Location_shape.png';
 import shareimg from './assets/Share_shape.png';
 import combimg from './assets/CombinedShape.png';
 import vertLine from './assets/vertLine.png';
-
+import placeholder from './assets/placeholder.jpg';
 
 class Business_Details extends Component {
 
@@ -29,7 +29,9 @@ class Business_Details extends Component {
             popularProducts: [],
             business_details: [],
             seen: false,
-            user_id: null
+            user_id: this.props.location.state.user_id,
+
+            business_image_link: {}
 
         }
     }
@@ -53,7 +55,7 @@ class Business_Details extends Component {
 
     componentDidMount() {
         let business_id = this.props.location.state.business_id
-        getReviewsOfBusiness(business_id).then((reviews)=>{
+        getReviewsOfBusiness(business_id).then((reviews) => {
             console.log(reviews);
             this.setState({
                 reviews: reviews
@@ -93,7 +95,26 @@ class Business_Details extends Component {
 
         axios({
             method: 'get',
-            url: `api/business_setup/93`,
+            url: `api/business_setup/business/getBusinessImages/${this.props.location.state.business_id}`,
+            headers: {
+                "Accept": 'application/json'
+            },
+        }).then(res => {
+            console.log(res.data)
+            if (res.data[0]) {
+
+                this.setState({
+                    business_image_link: res.data[0]["business_image_link"]
+                })
+
+            }
+
+
+        })
+
+        axios({
+            method: 'get',
+            url: `api/business_setup/${parseInt(this.props.location.state.user_id)}`,
         }).then(res => {
             this.setState({
                 review: res.data
@@ -131,15 +152,21 @@ class Business_Details extends Component {
                         {/*<img src={vertLine} style={{ margin: '11px', marginTop: "1%" }} alt="logo" />
                         {/*<div style={{ marginTop: "1%" }}><img src={shareimg} alt="logo" onClick={this.togglePop} />Share Business</div>*/}
 
-                        
 
-                        <img src={vertLine} style={{ margin: '11px', marginTop: "1%" }} alt="logo" /> 
+
+                        <img src={vertLine} style={{ margin: '11px', marginTop: "1%" }} alt="logo" />
                         <div style={{ marginTop: "1%" }}><img src={combimg} alt="logo" />Contact Business</div>
                         <div style={{ marginTop: "1%", marginLeft: "10px" }}>{this.state.business_details["legal_business_phone"]}</div>
                     </div>
                 </div>
+                <div>
+                    {  /* <ImgSlider slides={ImgCarouselData} /> */}
 
-               
+                    <img src={this.state.business_image_link ? `https://plugsity-images.s3.amazonaws.com/${this.state.business_image_link}` : placeholder} alt='Welcome'></img>
+                    {  /*  <img src={placeholder} alt='Welcome'></img> */}
+
+                </div>
+
                 <div className="popular-products">
 
                     <Tabs activeTab={this.state.active} onClick={(label) => {
@@ -147,7 +174,7 @@ class Business_Details extends Component {
                             active: label
                         })
                     }}>
-                        <div label="Popular Products" className="tab" >
+                        <div label=" Products" className="tab" >
                             {   /* <ProductFeed products={this.state.popularProducts} filters={this.state.filter_categories} subFilters={this.state.filter_subcategories} />  */}
 
                             <div class="products-list" >
@@ -160,7 +187,7 @@ class Business_Details extends Component {
                         </div>
                         <div label="Recent Reviews" className="popular-reviews">
                             <div style={{ fontSize: '20px', fontWeight: '700', lineHeight: '24px', fontFamily: 'DM Sans' }}>Video Reviews</div>
-                           <ReviewList reviews={this.state.reviews}/>
+                            <ReviewList reviews={this.state.reviews} />
                         </div>
                         <div style={{ fontSize: '20px', fontWeight: '700', lineHeight: '24px', fontFamily: 'DM Sans' }}>Feedback from verified purchases</div>
 
@@ -171,7 +198,7 @@ class Business_Details extends Component {
                     </Tabs>
                 </div>
                 <footer>
-                    <Footer />
+                    { /*  <Footer />    */} 
                 </footer>
             </div>
 

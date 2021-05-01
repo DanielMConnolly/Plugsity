@@ -91,7 +91,8 @@ export default class ProductDetailsRight extends Component {
                             <Link to={{
                                 pathname: '/business_details',
                                 state: {
-                                    business_id: this.state.business_id
+                                    business_id: this.state.business_id,
+                                    user_id: this.state.user_id
                                 }
 
                             }}>
