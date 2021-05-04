@@ -38,8 +38,13 @@ router.post("/create-checkout-session", async (req, res) => {
     }
     console.log(origin);
     console.log(new_image_link);
+    let product_cost_in_cents = product_cost * 100;
     var plugsityAppFeeAmt =
-        (config.plugsityCharge / 100) * (product_cost * 100);
+        (config.plugsityCharge / 100) * product_cost_in_cents;
+    if (!Number.isInteger(plugsityAppFeeAmt)) {
+        plugsityAppFeeAmt = Math.floor(plugsityAppFeeAmt);
+    }
+    console.log(plugsityAppFeeAmt, product_cost_in_cents);
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
@@ -50,7 +55,7 @@ router.post("/create-checkout-session", async (req, res) => {
                         name: product_name,
                         images: [new_image_link],
                     },
-                    unit_amount: product_cost * 100,
+                    unit_amount: product_cost_in_cents,
                     // unit_amount: 10000,
                 },
                 quantity: quantity,
