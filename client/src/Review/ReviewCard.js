@@ -16,8 +16,9 @@ export default class ReviewCard extends Component {
 
                 <div className="review-card-video">
                     <div className="review-card-video-player" >
-                        <ReactPlayer
-                            url={"https://s3-output-bucket-plugsity.s3.amazonaws.com/" + review.product_video_link} />
+                        <video
+                            style={{width: "100%", height: "auto"}}
+                            src={"https://s3-output-bucket-plugsity.s3.amazonaws.com/" + review.product_video_link} />
                     </div>
                     <div className="review-card-user">{review.user.first_name} {review.user.last_name} <br />
                         {review.review_views}  views/ {review.likes} likes
