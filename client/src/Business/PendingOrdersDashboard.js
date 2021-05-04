@@ -82,6 +82,14 @@ class PendingOrdersDashboard extends Component {
         this.setState({
             orderUserProductData: list,
         });
+        // send email to user about order status update
+        axios.post("/api/send-email/create-email", {
+            user_name: myObject.name,
+            user_email_address: myObject.email_address,
+            product_name: myObject.product_name,
+            product_cost: myObject.product_cost,
+            user_order_id: myObject.order_id,
+        });
     }
 
     renderSwitch(order_status, order_id, idx) {
