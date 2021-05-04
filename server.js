@@ -116,12 +116,12 @@ app.post("/reviews/upload", function (req, res) {
             review_rating: req.body.review_rating,
             review_tag: req.body.review_tag,
             product_image_link: "",
-            product_video_link: "",           
+            product_video_link: "",
             processing_status: "",
             product_id: 5009,
             business_id: 1,
             user_id: 10,
-            review_views:""
+            review_views: "",
         });
     });
 });
@@ -134,6 +134,9 @@ app.use("/api/stripe", require("./stripe"));
 
 //orders route
 app.use("/api/orders", require("./orders"));
+
+//email route
+app.use("/api/send-email", require("./emailer"));
 
 // // Redirect back to index.html if urls do not match
 app.get("*", (req, res) => {

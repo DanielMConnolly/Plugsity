@@ -42,7 +42,7 @@ router.post("/create-checkout-session", async (req, res) => {
     var plugsityAppFeeAmt =
         (config.plugsityCharge / 100) * product_cost_in_cents;
     if (!Number.isInteger(plugsityAppFeeAmt)) {
-        plugsityAppFeeAmt = Math.floor(plugsityAppFeeAmt);
+        plugsityAppFeeAmt = Math.ceil(plugsityAppFeeAmt);
     }
     console.log(plugsityAppFeeAmt, product_cost_in_cents);
     const session = await stripe.checkout.sessions.create({
