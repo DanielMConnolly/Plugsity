@@ -21,6 +21,7 @@ router.post("/create-email", async (req, res) => {
         user_order_id,
         product_name,
         product_cost,
+        user_order_status,
     } = req.body;
     console.log("sending email");
     // setup e-mail data with unicode symbols
@@ -31,7 +32,7 @@ router.post("/create-email", async (req, res) => {
         subject: "Plugsity Order Status Update", // Subject line
         html: `<h3> Order ID:- ${user_order_id}</h3> 
         Hi ${user_name},
-        Your order ${product_name} order status has been updated on Plugsity!`, // html body
+        Your order ${product_name} order status has been updated to ${user_order_status} on Plugsity!`, // html body
     };
 
     smtpTransport.sendMail(mailOptions, function (error, info) {
