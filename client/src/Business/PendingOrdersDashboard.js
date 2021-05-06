@@ -89,6 +89,7 @@ class PendingOrdersDashboard extends Component {
             product_name: myObject.product_name,
             product_cost: myObject.product_cost,
             user_order_id: myObject.order_id,
+            user_order_status: myObject.order_status,
         });
     }
 
