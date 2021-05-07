@@ -8,7 +8,7 @@ import Point_Of_Contact_2 from "./Point_Of_Contact_2";
 import PaymentMethods from "./PaymentMethods";
 import Business_Policies from "./ShippingPolicies";
 import Header from "../Header";
-import Bus_Identification_Images from './Bus_Identification_Images'
+import Bus_Identification_Images from "./Bus_Identification_Images";
 import AltHeader from "../AltHeader";
 import { Stepper, StepLabel, Step } from "@material-ui/core";
 import "../css/Stepper.css";
@@ -34,6 +34,7 @@ class Business_Setup extends Component {
     setStep(mode) {
         let currentStep = this.state.currentStep;
         if (Number.isInteger(mode)) {
+            // used by this.queryParams()
             this.setState({
                 currentStep: mode,
             });
@@ -65,20 +66,36 @@ class Business_Setup extends Component {
     }
 
     setbusImagesData(data) {
-        console.log(data)
-        this.setState({
-            busImagesData: data,
-        }, () => {
-            console.log("Inside setBusImagesData")
-
-        });
+        console.log(data);
+        this.setState(
+            {
+                busImagesData: data,
+            },
+            () => {
+                console.log("Inside setBusImagesData");
+            }
+        );
         console.log(this.state.busImagesData);
-
     }
 
-   
+    queryParams() {
+        // stripe return URL consists of a query that helps to redirect to step 4, step after connect with stripe.
+        const query = new URLSearchParams(window.location.search);
+        if (query.get("step")) {
+            let redirectStep = parseInt(query.get("step"));
+            if (redirectStep <= 6 && redirectStep > 0) {
+                // if exceeds redirected to homepage
+                this.setStep(redirectStep);
+            } else {
+                this.setStep("exit");
+            }
+        }
+    }
 
     componentDidMount() {
+        // this next line handles returning from Connect With Stripe. If removed Stripe redirects to First step.
+        // we need to arrive at step 4. DO NOT REMOVE.
+        this.queryParams();
         const user_id = localStorage.getItem("user_id");
         isUserABusiness(user_id).then((is_user_a_business) => {
             if (is_user_a_business) {
@@ -129,15 +146,15 @@ class Business_Setup extends Component {
                     />
                 );
             case 5:
-                    return (
-                        <Bus_Identification_Images
-                            busImagesData={this.state.busImagesData}
-                            setbusImagesData={this.setbusImagesData.bind(this)}
-                            userData={this.state.userData}
-                            setUserData={this.setUserData.bind(this)}
-                            setStep={this.setStep.bind(this)}
-                        />
-                    );
+                return (
+                    <Bus_Identification_Images
+                        busImagesData={this.state.busImagesData}
+                        setbusImagesData={this.setbusImagesData.bind(this)}
+                        userData={this.state.userData}
+                        setUserData={this.setUserData.bind(this)}
+                        setStep={this.setStep.bind(this)}
+                    />
+                );
 
             case 6:
                 return (
