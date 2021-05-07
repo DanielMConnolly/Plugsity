@@ -357,7 +357,7 @@ const createBusiness = (insert_cols, insert_vals) => {
 };
 
 const updateBusinessImages = (business_id, insert_data) => {
-    let data = [];
+     let data = [];
     let busimages_data = [];
     let query;
     for (const [key, value] of Object.entries(insert_data)) {
@@ -366,32 +366,44 @@ const updateBusinessImages = (business_id, insert_data) => {
     data.join(", ");
     const checkifBusIdExists_query = `SELECT * FROM BusinessImages WHERE business_id = ${business_id}`;
 
-    con.query(checkifBusIdExists_query, (error, results) => {
+     con.query(checkifBusIdExists_query, (error, results) => {
         if (error) res.send(error)
         if (results) {
             busimages_data = results;
-            console.log("RESULTS---->", busimages_data);
+            console.log("RESULTS---->", results);
+            
+            if (results.length == 0) {
+
+                query = `INSERT INTO BusinessImages (business_id,business_image_link) VALUES (${business_id},'${insert_data["business_image_link"]}')`;
+                return new Promise((resolve, reject) => {
+                    queryDatabase(query)
+                        .then((result) => {
+                            console.log("inside then-->", query)
+                            resolve(result.insertId);
+                        })
+                        .catch((err) => console.log(err));
+                });
+               
+
+            }
+            else {
+                query = `UPDATE BusinessImages SET ${data} WHERE business_id = ${business_id}`;
+                return new Promise((resolve, reject) => {
+                    queryDatabase(query)
+                        .then((result) => {
+                            console.log("inside then-->", query)
+                            resolve(result.insertId);
+                        })
+                        .catch((err) => console.log(err));
+                });
+            }
+
+            
         }
-           
-    })
+
+        
     
-    console.log("busimages_data---->", busimages_data);
-    if (busimages_data == [] || busimages_data == null) {
-        console.log("inside busimages_data---->", busimages_data);
-        query = `INSERT INTO BusinessImages (business_id,business_image_link) VALUES (${business_id},'${insert_data["business_image_link"]}')`;
-       
-    }
-    else {
-        console.log("in else busimages_data---->", busimages_data);
-         query = `UPDATE BusinessImages SET ${data} WHERE business_id = ${business_id}`;
-    }
-    return new Promise((resolve, reject) => {
-        queryDatabase(query)
-            .then((result) => {
-                resolve(result.insertId);
-            })
-            .catch((err) => console.log(err));
-    });
+    })
     
 };
 
